@@ -1,5 +1,5 @@
-package Customer;
-import cs414.groupH.a4.Address.Address;
+package cs414.groupH.a4.customer;
+import cs414.groupH.a4.address.Address;
 
 
 public class Customer {

@@ -1,5 +1,6 @@
-package Order;
-import Customer;
+package cs414.groupH.a4.order;
+import cs414.groupH.a4.customer.Customer;
+import cs414.groupH.a4.menu.MenuItem;
 
 import java.util.ArrayList;
 
