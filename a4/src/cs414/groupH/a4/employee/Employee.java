@@ -4,11 +4,19 @@ package cs414.groupH.a4.employee;
 public class Employee {
 	private String employeeId;
 	private String name;
+	private String password;
 	private EmployeeType empType;
 	
-	public Employee(String employeeId, String name, EmployeeType empType) {
+	public Employee(String employeeId) {
+		this.employeeId = employeeId;
+		this.name = "";
+		this.password = "";
+		this.empType = null;
+	}
+	public Employee(String employeeId, String name, String password, EmployeeType empType) {
 		this.employeeId = employeeId;
 		this.name = name;
+		this.password = password;
 		this.empType = empType;
 	}
 
@@ -24,6 +32,15 @@ public class Employee {
 		return empType;
 	}
 	
+	public boolean verifyCreds(String givenPwd) {
+		if (givenPwd.equals(password)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -37,12 +54,6 @@ public class Employee {
 		Employee emp = (Employee) obj;
 		
 		if (!this.employeeId.equals(emp.getEmployeeId())) {
-			return false;
-		}
-		else if (!this.name.equals(emp.getName())) {
-			return false;
-		}
-		else if (this.empType != emp.getEmpType()) {
 			return false;
 		}
 		else {

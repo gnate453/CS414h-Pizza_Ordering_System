@@ -10,18 +10,23 @@ import cs414.groupH.a4.menu.MenuItem;
 public class SystemManager {
 	private Menu menu = new Menu();
 
-	public static void addEmployee(String employeeId, String name, EmployeeType empType) {
-		Employee emp = new Employee(employeeId, name, empType);
+	public static void addEmployee(String employeeId, String name, String pwd, EmployeeType empType) {
+		Employee emp = new Employee(employeeId, name, pwd, empType);
 		EmployeeManager.addEmployee(emp);
 	}
 	
-	public static void removeEmployee(String employeeId, String name, EmployeeType empType) {
-		Employee emp = new Employee(employeeId, name, empType);
+	public static void removeEmployee(String employeeId, String name, String pwd, EmployeeType empType) {
+		Employee emp = new Employee(employeeId, name, pwd, empType);
 		EmployeeManager.removeEmployee(emp);
 	}
 	
 	public void addMenuItem(MenuItem item) {
 		menu.addMenuItem(item);
+	}
+	
+	public boolean containsMenuItem(String itemName, double price) {
+		MenuItem item = new MenuItem(itemName, price);
+		return menu.containsMenuItem(item);
 	}
 	
 	public void removeMenuItem(MenuItem item) {

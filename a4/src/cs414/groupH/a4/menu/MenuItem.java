@@ -6,6 +6,11 @@ public class MenuItem {
 	private double price;
 	private boolean isDailySpecial;
 	
+	public MenuItem(String name) {
+		this.name = name;
+		this.price = 0.0;
+		this.isDailySpecial = false;
+	}
 	public MenuItem(String name, double price) {
 		this.name = name;
 		this.price = price;
@@ -52,12 +57,6 @@ public class MenuItem {
 		MenuItem item = (MenuItem) obj;
 		
 		if (!this.name.equals(item.getName())) {
-			return false;
-		}
-		else if (this.price != item.getPrice()) {
-			return false;
-		}
-		else if (this.isDailySpecial != item.isDailySpecial()) {
 			return false;
 		}
 		else {
