@@ -1,32 +1,24 @@
 package cs414.groupH.a4.order;
-import cs414.groupH.a4.customer.Customer;
-import cs414.groupH.a4.menu.MenuItem;
-
-import java.util.ArrayList;
-
 
 public class Order {
 
 	private String orderId;
-	private double amount;
-	private boolean isCompleted;
-	private Customer customer;
-	private ArrayList<MenuItem> items;
+	private boolean isComplete;
+	private boolean isDelivered;
 	
 	public String getId(){
 		return orderId;
 	}
 	
-	public double getAmount(){
-		return amount;
+	
+	public Order(String orderId){
+		this.orderId = orderId;
+		isComplete = false;
+		isDelivered = false;
 	}
 	
-	public Order(Customer customer, String orderId, double amount){
-		this.orderId = orderId;
-		this.amount = amount;
-		isCompleted = false;
-		this.customer = customer;
-		items = new ArrayList<MenuItem>();
+	public void markComplete(){
+		isComplete = true;
 	}
 	
 }

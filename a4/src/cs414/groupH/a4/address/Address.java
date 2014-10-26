@@ -6,6 +6,7 @@ public class Address {
 	private String city;
 	private String state;
 	private String zip;
+	private String phone;
 	
 	public String getStreet(){
 		return street;
@@ -23,11 +24,16 @@ public class Address {
 		return zip;
 	}
 	
-	public Address(String street, String city, String state, String zip){
+	public String getPhone(){
+		return phone;
+	}
+	
+	public Address(String street, String city, String state, String zip, String phone){
 		this.street = street;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
+		this.phone = phone;
 	}
 	
 	public String toString(){

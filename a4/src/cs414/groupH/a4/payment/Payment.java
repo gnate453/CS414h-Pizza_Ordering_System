@@ -1,8 +1,10 @@
 package cs414.groupH.a4.payment;
 
 public class Payment {
-	double amount;
-	boolean verified;
+	
+	protected double amount;
+	protected boolean verified;
+	
 	public Payment(){
 		verified = false;
 		amount = 0;
@@ -13,5 +15,15 @@ public class Payment {
 	public Payment(double a, boolean v){
 		amount = a;
 		verified = v;
+	}
+	public boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 }
