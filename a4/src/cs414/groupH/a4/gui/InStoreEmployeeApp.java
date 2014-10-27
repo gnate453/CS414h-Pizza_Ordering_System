@@ -1,4 +1,4 @@
-package cs414.groupH.a4.menu
+package cs414.groupH.a4.gui;
 
 
 import javax.swing.*;
@@ -26,7 +26,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
     //ArrayList<Employee> employees
     Menu menu;
 
-	InStoreEmployeeApp() {
+	public InStoreEmployeeApp() {
 		super();
 
         //Initialize gui objects
