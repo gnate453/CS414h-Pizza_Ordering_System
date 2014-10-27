@@ -5,8 +5,11 @@ import javax.swing.*;
 
 import cs414.groupH.a4.employee.Employee;
 import cs414.groupH.a4.employee.EmployeeType;
+import cs414.groupH.a4.menu.Menu;
+import cs414.groupH.a4.menu.MenuItemDialog;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -79,14 +82,15 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         }
         this.add(placeOrder_btn);
         this.add(editOrder_btn);
-        if (empLoggedIn != null) {
-	        if (empLoggedIn.getEmpType() == EmployeeType.manager) {
+       // if (empLoggedIn != null) {
+	       // if (empLoggedIn.getEmpType() == EmployeeType.manager) {
+        		addMenuItem_btn.addMouseListener(this);
 		        this.add(addMenuItem_btn);
 		        this.add(editMenuItem_btn);
 		        this.add(addSpecial_btn);
 		        this.add(editSpecial_btn);
-	        }
-        }
+	       // }
+        //}
 	}
 	
 	public void loginEmployee(Employee e) {
@@ -109,7 +113,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
             }
 	        if (me.getSource() == addMenuItem_btn)
             {
-	        	
+	        	new MenuItemDialog(menu);
             }
             if (me.getSource() == editMenuItem_btn)
             {
