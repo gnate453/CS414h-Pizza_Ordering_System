@@ -29,6 +29,15 @@ public class EmployeeManager {
 		return employees.contains(emp);
 	}
 	
+	public static Employee findEmployee(String empId) {
+		for (Employee e : employees) {
+			if (e.getEmployeeId().equals(empId)) {
+				return e;
+			}
+		}
+		return null;
+	}
+	
 	public static boolean verifyCreds(String empId, String pwd) {
 		Employee emp = new Employee(empId);
 		if (employees.contains(emp)) {

@@ -36,7 +36,8 @@ public class LoginDialog extends JDialog implements MouseListener {
 		pwd_txt = new JTextField();
 		
 		this.setLayout(new GridLayout(3,2));
-		this.setSize(new Dimension(800, 600));
+		this.setSize(new Dimension(800, 500));
+		this.setModal(true);
 		
 		this.add(empId_lbl);
 		this.add(empId_txt);
@@ -56,8 +57,11 @@ public class LoginDialog extends JDialog implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == accept_btn)
 		{
-			this.setVisible(false);
-			EmployeeManager.verifyCreds(empId_txt.getText(), pwd_txt.getText());
+			this.dispose();
+			boolean res = EmployeeManager.verifyCreds(empId_txt.getText(), pwd_txt.getText());
+			InStoreEmployeeApp.loginEmployee(EmployeeManager.findEmployee(empId_txt.getText()));
+			System.out.println("Login successful: "+res);
+			InStoreEmployeeApp.setDialogOpen(false);
 		}
 		else if (e.getSource()== cancel_btn)
 		{
