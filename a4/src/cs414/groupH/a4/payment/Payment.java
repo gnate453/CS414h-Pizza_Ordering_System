@@ -4,10 +4,12 @@ public class Payment {
 	
 	protected double amount;
 	protected boolean verified;
-	
+	public static void main(String args[]){
+		Payment p = new Payment();
+	}
 	public Payment(){
-		verified = false;
-		amount = 0;
+		//Removed because this is a super class
+		//new PaymentDialog(this);
 	}
 	public Payment(double a){
 		amount = a;
