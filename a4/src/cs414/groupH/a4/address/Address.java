@@ -10,7 +10,7 @@ public class Address {
 	
 	public static void main(String [ ] args)
 	{
-		new Address();
+		Address a = new Address();
 	}
 	
 	public String getStreet(){
@@ -54,7 +54,7 @@ public class Address {
 	}
 	
 	public String toString(){
-		return "Street: " + street +
+		return "\nStreet: " + street +
 				"\nCity: " + city +
 				"\nState: " + state +
 				"\nZip Code: " + zip;

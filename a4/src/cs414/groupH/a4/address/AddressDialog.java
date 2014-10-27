@@ -33,7 +33,7 @@ public class AddressDialog extends JDialog implements MouseListener {
 	
 	
 	AddressDialog(Address a) {
-		
+		this.setSize(new Dimension(500, 1000));
 		dialogFor = a;
 		
 		accept_btn = new JButton("accept");
@@ -50,7 +50,7 @@ public class AddressDialog extends JDialog implements MouseListener {
 		phone_txt = new JTextField();
 		
 		this.setLayout(new GridLayout(5,2));
-		this.setPreferredSize(new Dimension(50, 100) );
+		this.setPreferredSize(new Dimension(50, 100));
 		
 		this.add(street_lbl);
 		this.add(street_txt);
@@ -60,6 +60,8 @@ public class AddressDialog extends JDialog implements MouseListener {
 		this.add(state_txt);
 		this.add(zip_lbl);
 		this.add(zip_txt);
+		accept_btn.addMouseListener(this);
+		cancel_btn.addMouseListener(this);
 		this.add(accept_btn);
 		this.add(cancel_btn);
 		
@@ -74,7 +76,6 @@ public class AddressDialog extends JDialog implements MouseListener {
 		{
 			this.setVisible(false);
 			dialogFor.setFields(street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(), phone_txt.getText());
-			
 		}
 		else if (e.getSource()== cancel_btn)
 		{
