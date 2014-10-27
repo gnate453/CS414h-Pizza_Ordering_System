@@ -100,22 +100,22 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         this.add(viewMenu_btn,3);
         this.add(placeOrder_btn,4);
         this.add(editOrder_btn,5);
-        if (empLoggedIn != null) {
-	        if (empLoggedIn.getEmpType() == EmployeeType.manager) {
+        //if (empLoggedIn != null) {
+	        //if (empLoggedIn.getEmpType() == EmployeeType.manager) {
 		        this.add(addMenuItem_btn);
 		        this.add(editMenuItem_btn);
 		        this.add(addSpecial_btn);
 		        this.add(editSpecial_btn);
-	        }
-        }
-        else {
-        	this.remove(addMenuItem_btn);
-	        this.remove(editMenuItem_btn);
-	        this.remove(addSpecial_btn);
-	        this.remove(editSpecial_btn);
-        }
+	        //}
+        //}
+//        else {
+//        	this.remove(addMenuItem_btn);
+//	        this.remove(editMenuItem_btn);
+//	        this.remove(addSpecial_btn);
+//	        this.remove(editSpecial_btn);
+//        }
         this.repaint();
-        this.revalidate();
+        //this.revalidate();
 	}
 	
 	public static void loginEmployee(Employee e) {
@@ -147,7 +147,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
             }
 	        if (me.getSource() == addMenuItem_btn)
             {
-	        	new MenuItemDialog(menu);
+	        	new MenuItemDialog(menu, false);
             }
             if (me.getSource() == editMenuItem_btn)
             {
@@ -155,7 +155,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
             }
 	        if (me.getSource() == addSpecial_btn)
             {
-
+	        	new MenuItemDialog(menu, true);
             }
             if (me.getSource() == editSpecial_btn)
             {

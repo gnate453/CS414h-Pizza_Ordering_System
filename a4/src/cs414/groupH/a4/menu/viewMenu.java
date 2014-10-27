@@ -21,15 +21,19 @@ public class viewMenu extends JFrame implements MouseListener {
 	
 	public viewMenu(Menu menu) {		
         
-		back_btn = new JButton("Back");
-		
+		back_btn = new JButton("Back");		
 		
         this.setSize(new Dimension(800, 500));
 		this.setLayout(new GridLayout(menu.getMenuItems().size(), 2));       
         
 		String dataValues[][] = new String[menu.getMenuItems().size()][2];
         for(int i=0; i<menu.getMenuItems().size(); i++){
-        	dataValues[i][0] = menu.getMenuItems().get(i).getName();
+        	if(menu.getMenuItems().get(i).isDailySpecial()){
+        		dataValues[i][0] = "Special: " + menu.getMenuItems().get(i).getName();
+        	}
+        	else{
+        		dataValues[i][0] = menu.getMenuItems().get(i).getName();
+        	}
         	dataValues[i][1] = String.valueOf(menu.getMenuItems().get(i).getPrice());
         }        
         

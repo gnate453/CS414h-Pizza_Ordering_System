@@ -23,14 +23,14 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 	JLabel name_lbl;
 	JLabel price_lbl;
 	JTextField name_txt;
-	JTextField price_txt;
-	JCheckBox special_check;
-	
+	JTextField price_txt;	
 	Menu dialogFor;
+	boolean isSpecial;
 
-	public MenuItemDialog(Menu m) {
+	public MenuItemDialog(Menu m, boolean isSpecial) {
 		this.setSize(new Dimension(500, 1000));
 		dialogFor = m;
+		this.isSpecial = isSpecial;
 		
 		accept_btn = new JButton("accept");
 		cancel_btn = new JButton("cancel");
@@ -38,8 +38,6 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 		price_lbl = new JLabel("Price:");
 		name_txt = new JTextField();
 		price_txt = new JTextField();
-		special_check = new JCheckBox("Daily Special");
-		special_check.setSelected(false);
 		
 		this.setLayout(new GridLayout(5,2));
 		this.setPreferredSize(new Dimension(50, 100));
@@ -48,10 +46,8 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 		this.add(name_txt);
 		this.add(price_lbl);
 		this.add(price_txt);
-		special_check.addMouseListener(this);
 		accept_btn.addMouseListener(this);
 		cancel_btn.addMouseListener(this);
-		this.add(special_check);
 		this.add(accept_btn);
 		this.add(cancel_btn);
 		
@@ -65,10 +61,19 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 		if (e.getSource() == accept_btn)
 		{
 			this.setVisible(false);
-			MenuItem item = new MenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()));		
-			dialogFor.addMenuItem(item);
+			MenuItem item;
 			
+			if(isSpecial){
+				item = new MenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), true);	
+				dialogFor.addMenuItem(item);
+			}
+			
+			else{
+				item = new MenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), false);	
+				dialogFor.addMenuItem(item);
+			}			
 		}
+		
 		else if (e.getSource()== cancel_btn)
 		{
 			this.setVisible(false);
