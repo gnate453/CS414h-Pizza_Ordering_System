@@ -2,6 +2,7 @@ package cs414.groupH.a4.gui;
 
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,7 +10,9 @@ import java.awt.event.MouseListener;
 
 public class InStoreEmployeeApp extends JApplet implements MouseListener {
 
-    //Gui Members
+	private static final long serialVersionUID = 482548685808198776L;
+	
+	//Gui Members
 	JButton placeOrder_btn;
 	JButton editOrder_btn;
 	JButton addMenuItem_btn;
@@ -31,8 +34,8 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 
         //Initialize gui objects
 
-        this.setSize(340,400);
-		this.setLayout(new GridLayout(5, 2));
+        this.setSize(new Dimension(800, 500));
+		this.setLayout(new GridLayout(4, 2));
         this.addMouseListener(this);
 
         placeOrder_btn = new JButton("Place Order");
@@ -54,6 +57,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         this.add(editSpecial_btn);
 
         login_btn = new JButton("Login Employee");
+        login_btn.addMouseListener(this);
         this.add(login_btn);
 
         logout_btn = new JButton("Logout Employee");
@@ -92,7 +96,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
             }
             if (me.getSource() == login_btn)
             {
-
+            	new LoginDialog();
             }
             if (me.getSource() == logout_btn)
             {

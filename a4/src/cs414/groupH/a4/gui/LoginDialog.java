@@ -36,13 +36,15 @@ public class LoginDialog extends JDialog implements MouseListener {
 		pwd_txt = new JTextField();
 		
 		this.setLayout(new GridLayout(3,2));
-		this.setPreferredSize(new Dimension(50, 100) );
+		this.setSize(new Dimension(800, 600));
 		
 		this.add(empId_lbl);
 		this.add(empId_txt);
 		this.add(pwd_lbl);
 		this.add(pwd_txt);
+		accept_btn.addMouseListener(this);
 		this.add(accept_btn);
+		cancel_btn.addMouseListener(this);
 		this.add(cancel_btn);
 		
 		this.addMouseListener(this);
