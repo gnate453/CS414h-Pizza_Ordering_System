@@ -33,7 +33,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
     //ArrayList<Order> orders
     //ArrayList<Customer> customers
     Employee empLoggedIn;
-    Menu menu;
+    Menu menu = new Menu();
 
 	public InStoreEmployeeApp() {
 		super();
@@ -42,7 +42,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         this.setSize(new Dimension(800, 500));
 		this.setLayout(new GridLayout(2, 3));
         this.addMouseListener(this);
-        
+
         login_btn = new JButton("Login Employee");
         login_btn.addMouseListener(this);
         
@@ -109,7 +109,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
             }
 	        if (me.getSource() == addMenuItem_btn)
             {
-
+	        	
             }
             if (me.getSource() == editMenuItem_btn)
             {
