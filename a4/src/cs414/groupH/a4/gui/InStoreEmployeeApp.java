@@ -1,6 +1,5 @@
 package cs414.groupH.a4.gui;
 
-
 import javax.swing.*;
 
 import cs414.groupH.a4.employee.Employee;
@@ -12,7 +11,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 
 public class InStoreEmployeeApp extends JApplet implements MouseListener {
 
