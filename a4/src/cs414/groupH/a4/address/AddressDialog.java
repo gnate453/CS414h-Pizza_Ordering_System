@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -33,7 +34,8 @@ public class AddressDialog extends JDialog implements MouseListener {
 	
 	
 	AddressDialog(Address a) {
-		this.setSize(new Dimension(500, 1000));
+		super();
+		this.setSize(new Dimension(1000, 500));
 		dialogFor = a;
 		
 		accept_btn = new JButton("accept");
@@ -49,7 +51,7 @@ public class AddressDialog extends JDialog implements MouseListener {
 		zip_txt = new JTextField();
 		phone_txt = new JTextField();
 		
-		this.setLayout(new GridLayout(5,2));
+		this.setLayout(new GridLayout(6,2));
 		this.setPreferredSize(new Dimension(50, 100));
 		
 		this.add(street_lbl);
@@ -60,12 +62,16 @@ public class AddressDialog extends JDialog implements MouseListener {
 		this.add(state_txt);
 		this.add(zip_lbl);
 		this.add(zip_txt);
+		this.add(phone_lbl);
+		this.add(phone_txt);
 		accept_btn.addMouseListener(this);
 		cancel_btn.addMouseListener(this);
 		this.add(accept_btn);
 		this.add(cancel_btn);
 		
 		this.addMouseListener(this);
+		this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+		this.setModal(true);
 		this.setVisible(true);
 	}
 
@@ -74,9 +80,9 @@ public class AddressDialog extends JDialog implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == accept_btn)
 		{
-			this.setVisible(false);
 			dialogFor.setFields(street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(), phone_txt.getText());
-			
+			this.setVisible(false);
+			this.dispose();
 		}
 		else if (e.getSource()== cancel_btn)
 		{

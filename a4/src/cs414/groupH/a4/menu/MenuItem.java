@@ -20,8 +20,7 @@ public class MenuItem {
 		this.name = name;
 		this.price = price;
 		this.isDailySpecial = isDailySpecial;
-	}
-	
+	}	
 	
 	public String getName() {
 		return name;

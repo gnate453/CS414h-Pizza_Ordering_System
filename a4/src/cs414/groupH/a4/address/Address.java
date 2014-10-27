@@ -1,5 +1,7 @@
 package cs414.groupH.a4.address;
 
+import javax.swing.JFrame;
+
 public class Address {
 
 	private String street;
@@ -34,7 +36,9 @@ public class Address {
 	}
 	
 	public Address(){
-		new AddressDialog(this);
+		AddressDialog dialog = new AddressDialog(this);
+
+		//System.out.println(this);
 	}
 	
 	public Address(String street, String city, String state, String zip, String phone){
@@ -51,13 +55,14 @@ public class Address {
 		this.state = state;
 		this.zip = zip;
 		this.phone = phone;
-		System.out.println(this);
+		//System.out.println(this);
 	}
 	
 	public String toString(){
 		return "\nStreet: " + street +
 				"\nCity: " + city +
 				"\nState: " + state +
-				"\nZip Code: " + zip;
+				"\nZip Code: " + zip +
+				"\nPhone: "+ phone;
 	}
 }

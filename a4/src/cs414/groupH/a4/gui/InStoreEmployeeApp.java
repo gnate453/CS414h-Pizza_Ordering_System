@@ -1,18 +1,16 @@
 package cs414.groupH.a4.gui;
 
-
 import javax.swing.*;
 
 import cs414.groupH.a4.employee.Employee;
-import cs414.groupH.a4.employee.EmployeeType;
 import cs414.groupH.a4.menu.Menu;
 import cs414.groupH.a4.menu.MenuItemDialog;
+import cs414.groupH.a4.menu.viewMenu;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 
 public class InStoreEmployeeApp extends JApplet implements MouseListener {
 
@@ -27,6 +25,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	JButton editSpecial_btn;
 	JButton login_btn;
 	JButton logout_btn;
+	JButton viewMenu_btn;
 	
 	JLabel loggedIn_lbl = new JLabel("Logged in as: ");
 	JLabel emp_lbl = new JLabel("NOT LOGGED IN");
@@ -56,12 +55,16 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         editOrder_btn = new JButton("Edit Order");
 
         addMenuItem_btn = new JButton("Add Menu Item");
+        addMenuItem_btn.addMouseListener(this);
 
         editMenuItem_btn = new JButton("Edit Menu Item");
 
         addSpecial_btn = new JButton("Add Daily Special");
 
         editSpecial_btn = new JButton("Edit Daily Special");
+        
+        viewMenu_btn = new JButton("View Menu");
+        viewMenu_btn.addMouseListener(this);
         
         renderView();
 
@@ -80,11 +83,11 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         	this.remove(login_btn);
     		this.add(logout_btn,2);
         }
+        this.add(viewMenu_btn);
         this.add(placeOrder_btn);
         this.add(editOrder_btn);
        // if (empLoggedIn != null) {
 	       // if (empLoggedIn.getEmpType() == EmployeeType.manager) {
-        		addMenuItem_btn.addMouseListener(this);
 		        this.add(addMenuItem_btn);
 		        this.add(editMenuItem_btn);
 		        this.add(addSpecial_btn);
@@ -102,7 +105,11 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent me) {
-
+    	
+    		if (me.getSource() == viewMenu_btn)
+    		{
+    			new viewMenu(menu);
+    		}
             if (me.getSource() == placeOrder_btn)
             {
 
