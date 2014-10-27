@@ -97,8 +97,9 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         	this.remove(login_btn);
     		this.add(logout_btn,2);
         }
-        this.add(placeOrder_btn,3);
-        this.add(editOrder_btn,4);
+        this.add(viewMenu_btn,3);
+        this.add(placeOrder_btn,4);
+        this.add(editOrder_btn,5);
         if (empLoggedIn != null) {
 	        if (empLoggedIn.getEmpType() == EmployeeType.manager) {
 		        this.add(addMenuItem_btn);
