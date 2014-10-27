@@ -4,9 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs414.groupH.a4.employee.Employee;
+import cs414.groupH.a4.gui.LoginDialog;
 
 public class EmployeeManager {
 	private static List<Employee> employees = new ArrayList<Employee>();
+	
+	public static void main(String [ ] args)
+	{
+		new LoginDialog();
+	}
 	
 	public static boolean addEmployee(Employee emp) {
 		if (!doesEmpExist(emp)) {
