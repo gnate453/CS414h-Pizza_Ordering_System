@@ -76,10 +76,12 @@ public class AddressDialog extends JDialog implements MouseListener {
 		{
 			this.setVisible(false);
 			dialogFor.setFields(street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(), phone_txt.getText());
+			
 		}
 		else if (e.getSource()== cancel_btn)
 		{
 			this.setVisible(false);
+			this.dispose();
 		}
 	}
 

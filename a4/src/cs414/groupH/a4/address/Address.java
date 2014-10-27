@@ -51,6 +51,7 @@ public class Address {
 		this.state = state;
 		this.zip = zip;
 		this.phone = phone;
+		System.out.println(this);
 	}
 	
 	public String toString(){
