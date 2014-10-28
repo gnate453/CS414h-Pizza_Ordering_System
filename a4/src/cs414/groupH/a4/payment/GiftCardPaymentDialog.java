@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class GiftCardPaymentDialog extends JDialog implements MouseListener  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4490709870451719039L;
 	JButton Accept;
 	JButton Cancel;
 	JLabel Balance;
@@ -27,8 +31,11 @@ public class GiftCardPaymentDialog extends JDialog implements MouseListener  {
 		cardNumberTXT = new JTextField();
 		Balance = new JLabel("Balance:");
 		BalanceTXT = new JTextField();
+		
+		this.setModal(true);
 		this.setLayout(new GridLayout(3,2));
 		this.setPreferredSize(new Dimension(50, 100) );
+		
 		Accept.addMouseListener(this);
 		Cancel.addMouseListener(this);
 		this.add(cardNumber);

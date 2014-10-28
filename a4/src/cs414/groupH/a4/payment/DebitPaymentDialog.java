@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class DebitPaymentDialog extends JDialog implements MouseListener  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5581859536284808691L;
 	JButton Accept;
 	JButton Cancel;
 	JLabel cardHolder;
@@ -40,8 +44,11 @@ public class DebitPaymentDialog extends JDialog implements MouseListener  {
 		cardExpTXT = new JTextField();
 		cardPin = new JLabel("Card Pin Number:");
 		cardPinTXT = new JTextField();
+		
 		this.setLayout(new GridLayout(6,2));
 		this.setPreferredSize(new Dimension(50, 100) );
+		this.setModal(true);
+		
 		Accept.addMouseListener(this);
 		Cancel.addMouseListener(this);
 		this.add(cardHolder);

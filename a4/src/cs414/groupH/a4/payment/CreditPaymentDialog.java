@@ -10,12 +10,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import java.awt.GridLayout;
-
-import javax.swing.JButton;
-
 public class CreditPaymentDialog extends JDialog implements MouseListener {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7381338780788035436L;
 	JButton Accept;
 	JButton Cancel;
 	JLabel cardHolder;
@@ -40,8 +40,11 @@ public class CreditPaymentDialog extends JDialog implements MouseListener {
 		cardSecureTXT = new JTextField();
 		cardExp = new JLabel("Card Experation Date:");
 		cardExpTXT = new JTextField();
+		
+		this.setModal(true);
 		this.setLayout(new GridLayout(5,2));
 		this.setPreferredSize(new Dimension(50, 100) );
+		
 		Accept.addMouseListener(this);
 		Cancel.addMouseListener(this);
 		this.add(cardHolder);

@@ -7,7 +7,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -51,6 +50,7 @@ public class AddressDialog extends JDialog implements MouseListener {
 		zip_txt = new JTextField();
 		phone_txt = new JTextField();
 		
+		this.setModal(true);
 		this.setLayout(new GridLayout(6,2));
 		this.setPreferredSize(new Dimension(50, 100));
 		

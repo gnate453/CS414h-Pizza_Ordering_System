@@ -10,58 +10,48 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class PaymentDialog extends JDialog implements MouseListener{
-	JButton Debit;
-	JButton Credit;
-	JButton Cash;
-	JButton Gift;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5317400034609838961L;
+	JButton Accept;
+	JButton Cancel;
+	JLabel AmountLBL;
+	JTextField AmountTXT;
 	Payment DialogFor;
-	CashPayment DialogForCa;
-	CreditPayment DialogForCr;
-	DebitPayment DialogForDb;
-	GiftCardPayment DialogForGf;
 	public PaymentDialog(Payment p){
 		DialogFor = p;
-		this.setSize(new Dimension(500, 500));
-		Debit = new JButton("Debit");
-		Credit = new JButton("Credit");
-		Cash = new JButton("Cash");
-		Gift = new JButton("Gift Card");
+		this.setSize(new Dimension(255, 255));
+		Accept = new JButton("Accept");
+		Cancel = new JButton("Cancel");
+		AmountLBL = new JLabel("Amount:");
+		AmountTXT = new JTextField();
+		
+		this.setModal(true);
 		this.setLayout(new GridLayout(2,2));
 		this.setPreferredSize(new Dimension(50, 100) );
-		Debit.addMouseListener(this);
-		Cash.addMouseListener(this);
-		Credit.addMouseListener(this);
-		Gift.addMouseListener(this);
-		this.add(Debit);
-		this.add(Credit);
-		this.add(Cash);
-		this.add(Gift);
 		
+		Accept.addMouseListener(this);
+		Cancel.addMouseListener(this);
+		this.add(AmountLBL);
+		this.add(AmountTXT);
+		this.add(Accept);
+		this.add(Cancel);
 		this.addMouseListener(this);
 		this.setVisible(true);
 		
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == Debit)
-		{
-			this.setVisible(false);	
-			DialogForDb = new DebitPayment();
-		}
-		else if (e.getSource()== Credit)
+		if (e.getSource() == Accept)
 		{
 			this.setVisible(false);
-			DialogForCr = new CreditPayment();
+			DialogFor.setAmount(Double.parseDouble(AmountTXT.getText()));
 		}
-		else if (e.getSource()== Cash)
+		else if (e.getSource()== Cancel)
 		{
 			this.setVisible(false);
-			DialogForCa = new CashPayment();
-		}
-		else if (e.getSource()== Gift)
-		{
-			this.setVisible(false);
-			DialogForGf = new GiftCardPayment();
+			this.dispose();
 		}
 	}
 

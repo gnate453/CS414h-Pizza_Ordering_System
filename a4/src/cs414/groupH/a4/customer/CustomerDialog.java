@@ -13,6 +13,10 @@ import javax.swing.JTextField;
 import cs414.groupH.a4.address.Address;
 
 public class CustomerDialog extends JDialog implements MouseListener  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6922442609951102439L;
 	JButton Accept;
 	JButton Cancel;
 	JLabel name;
@@ -27,8 +31,11 @@ public class CustomerDialog extends JDialog implements MouseListener  {
 		Cancel = new JButton("Cancel");
 		name = new JLabel("Customer Name:");
 		nameTXT = new JTextField();
+		
+		this.setModal(true);
 		this.setLayout(new GridLayout(2,2));
 		this.setPreferredSize(new Dimension(50, 100) );
+		
 		Accept.addMouseListener(this);
 		Cancel.addMouseListener(this);
 		this.add(name);

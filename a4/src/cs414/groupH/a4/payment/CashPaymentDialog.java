@@ -1,7 +1,5 @@
 package cs414.groupH.a4.payment;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -11,12 +9,17 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class CashPaymentDialog extends JDialog implements MouseListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5946482163428836538L;
 	JButton Accept;
 	JButton Cancel;
 	JLabel AmountLBL;
 	JTextField AmountTXT;
 	CashPayment DialogFor;
 	public CashPaymentDialog(CashPayment p){
+		/*
 		DialogFor = p;
 		this.setSize(new Dimension(255, 255));
 		Accept = new JButton("Accept");
@@ -33,6 +36,7 @@ public class CashPaymentDialog extends JDialog implements MouseListener{
 		this.add(Cancel);
 		this.addMouseListener(this);
 		this.setVisible(true);
+		*/
 		
 	}
 	@Override
@@ -40,7 +44,7 @@ public class CashPaymentDialog extends JDialog implements MouseListener{
 		if (e.getSource() == Accept)
 		{
 			this.setVisible(false);
-			DialogFor.setFields(Double.parseDouble(AmountTXT.getText()));
+			//DialogFor.setFields(Double.parseDouble(AmountTXT.getText()));
 		}
 		else if (e.getSource()== Cancel)
 		{
