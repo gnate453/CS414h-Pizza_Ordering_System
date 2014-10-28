@@ -146,7 +146,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 		
 		}
 		else if (me.getSource() == addSpecial_btn) {
-		
+			new MenuItemDialog(true);
 		}
 		else if (me.getSource() == editSpecial_btn) {
 		

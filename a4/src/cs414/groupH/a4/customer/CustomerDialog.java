@@ -18,8 +18,9 @@ public class CustomerDialog extends JDialog implements MouseListener  {
 	JLabel name;
 	JTextField nameTXT;
 	Customer DialogFor;
-	Address a = new Address();
+	Address a;
 	CustomerDialog(Customer c){
+		a = new Address();
 		DialogFor = c;
 		this.setSize(new Dimension(500, 255));
 		Accept = new JButton("Accept");

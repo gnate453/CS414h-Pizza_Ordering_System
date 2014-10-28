@@ -13,7 +13,7 @@ public class OrderManager {
 			return orders.add(o);
 		}
 		else {
-			System.out.println("ERROR: Order with ID '"+o.getId()+"' already exists.");
+			System.out.println("ERROR: Order with ID '" + o.getId() + "' already exists.");
 			return false;
 		}
 	}
