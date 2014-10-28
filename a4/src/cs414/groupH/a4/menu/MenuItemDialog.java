@@ -10,6 +10,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import cs414.groupH.a4.manager.SystemManager;
+
 public class MenuItemDialog extends JDialog implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
@@ -19,13 +21,11 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 	JLabel name_lbl;
 	JLabel price_lbl;
 	JTextField name_txt;
-	JTextField price_txt;	
-	Menu dialogFor;
+	JTextField price_txt;
 	boolean isSpecial;
 
-	public MenuItemDialog(Menu m, boolean isSpecial) {
+	public MenuItemDialog(boolean isSpecial) {
 		this.setSize(new Dimension(500, 1000));
-		dialogFor = m;
 		this.isSpecial = isSpecial;
 		
 		accept_btn = new JButton("accept");
@@ -56,10 +56,10 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == accept_btn) {
 			if(isSpecial) {
-				dialogFor.addMenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), true);
+				SystemManager.addMenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), true);
 			}			
 			else {	
-				dialogFor.addMenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), false);
+				SystemManager.addMenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), false);
 			}
 			
 			this.dispose();
@@ -68,8 +68,6 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 			this.dispose();
 		}
 	}
-
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 

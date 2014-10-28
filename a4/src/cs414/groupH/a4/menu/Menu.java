@@ -4,14 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-	private List<MenuItem> menuItems;
-	
-	public Menu() {
-		menuItems = new ArrayList<MenuItem>();
-	}
-	
-	public boolean addMenuItem(String name, double price, boolean isDailySpecial) {
-		MenuItem item = new MenuItem(name, price, isDailySpecial);
+	private static List<MenuItem> menuItems = new ArrayList<MenuItem>();
+
+	public static boolean addMenuItem(MenuItem item) {
 		if (!containsMenuItem(item)) {
 			menuItems.add(item);
 			return true;
@@ -22,15 +17,29 @@ public class Menu {
 		}
 	}
 	
-	public boolean containsMenuItem(MenuItem item) {
+	public static boolean containsMenuItem(MenuItem item) {
 		return menuItems.contains(item);
 	}
 	
-	public boolean removeMenuItem(MenuItem item) {
+	public static MenuItem findMenuItem(String itemName) {
+		for (MenuItem i : menuItems) {
+			if (i.getName().equals(itemName)) {
+				return i;
+			}
+		}
+		
+		return null;
+	}
+	
+	public static boolean removeMenuItem(MenuItem item) {
 		return menuItems.remove(item);
 	}
+	
+	public static void clearMenu() {
+		menuItems.clear();
+	}
 
-	public List<MenuItem> getMenuItems() {
+	public static List<MenuItem> getMenuItems() {
 		return menuItems;
 	}
 	

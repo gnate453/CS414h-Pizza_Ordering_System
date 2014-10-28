@@ -11,8 +11,7 @@ import javax.swing.JLabel;
 
 import cs414.groupH.a4.employee.Employee;
 import cs414.groupH.a4.employee.EmployeeType;
-import cs414.groupH.a4.manager.EmployeeManager;
-import cs414.groupH.a4.menu.Menu;
+import cs414.groupH.a4.manager.SystemManager;
 import cs414.groupH.a4.menu.MenuItemDialog;
 import cs414.groupH.a4.menu.viewMenu;
 
@@ -22,7 +21,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	
 	//Gui Members
 	JButton placeOrder_btn;
-	JButton editOrder_btn;
+	JButton markComplete_btn;
 	JButton addMenuItem_btn;
 	JButton editMenuItem_btn;
 	JButton addSpecial_btn;
@@ -30,15 +29,13 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	JButton login_btn;
 	JButton logout_btn;
 	JButton viewMenu_btn;
+	JButton viewOrders_btn;
 	
 	JLabel loggedIn_lbl = new JLabel("Logged in as: ");
 	JLabel emp_lbl = new JLabel("NOT LOGGED IN");
 
     //Application logic members
-    //ArrayList<Order> orders
-    //ArrayList<Customer> customers
 	static Employee empLoggedIn;
-    Menu menu = new Menu();
 
 	public InStoreEmployeeApp() {
 		super();
@@ -51,34 +48,35 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         login_btn = new JButton("Login Employee");
         logout_btn = new JButton("Logout Employee");
         placeOrder_btn = new JButton("Place Order");
-        editOrder_btn = new JButton("Edit Order");
         addMenuItem_btn = new JButton("Add Menu Item");
         editMenuItem_btn = new JButton("Edit Menu Item");
         addSpecial_btn = new JButton("Add Daily Special");
         editSpecial_btn = new JButton("Edit Daily Special");
         viewMenu_btn = new JButton("View Menu");
+        viewOrders_btn = new JButton("View Orders");
+        markComplete_btn = new JButton("Mark Complete");
         
         login_btn.addMouseListener(this);
         logout_btn.addMouseListener(this);
         placeOrder_btn.addMouseListener(this);
-        editOrder_btn.addMouseListener(this);
+        markComplete_btn.addMouseListener(this);
         addMenuItem_btn.addMouseListener(this);
         editMenuItem_btn.addMouseListener(this);
         addSpecial_btn.addMouseListener(this);
         editSpecial_btn.addMouseListener(this);
         viewMenu_btn.addMouseListener(this);
+        viewOrders_btn.addMouseListener(this);
         
         renderView();
 
         initialData();
-
 	}
 	
 	public void initialData() {
-		EmployeeManager.addEmployee(new Employee("001", "John Smith", "password", EmployeeType.cashier));
-		EmployeeManager.addEmployee(new Employee("002", "Joh Smith", "password", EmployeeType.chef));
-		EmployeeManager.addEmployee(new Employee("003", "Jo Smith", "password", EmployeeType.manager));
-		EmployeeManager.addEmployee(new Employee("004", "J Smith", "password", EmployeeType.cashier));
+		SystemManager.addEmployee("001", "John Smith", "password", EmployeeType.cashier);
+		SystemManager.addEmployee("002", "Joh Smith", "password", EmployeeType.chef);
+		SystemManager.addEmployee("003", "Jo Smith", "password", EmployeeType.manager);
+		SystemManager.addEmployee("004", "J Smith", "password", EmployeeType.cashier);
 	}
 	
 	public void renderView() {
@@ -95,7 +93,6 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         }
         this.add(viewMenu_btn,3);
         this.add(placeOrder_btn,4);
-        this.add(editOrder_btn,5);
 
         if (empLoggedIn != null) {
 	        if (empLoggedIn.getEmpType() == EmployeeType.manager) {
@@ -104,6 +101,13 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 		        this.add(editMenuItem_btn);
 		        this.add(addSpecial_btn);
 		        this.add(editSpecial_btn);
+		        this.add(viewOrders_btn);
+		        this.add(markComplete_btn);
+	        }
+	        if (empLoggedIn.getEmpType() == EmployeeType.chef) {
+	        	this.setLayout(new GridLayout(3,3));
+	        	this.add(viewOrders_btn);
+		        this.add(markComplete_btn);
 	        }
         }
         else {
@@ -112,9 +116,10 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	        this.remove(editMenuItem_btn);
 	        this.remove(addSpecial_btn);
 	        this.remove(editSpecial_btn);
+	        this.remove(markComplete_btn);
+	        this.remove(viewOrders_btn);
         }
         this.repaint();
-        //this.revalidate();
 	}
 	
 	public static void loginEmployee(Employee e) {
@@ -129,16 +134,13 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent me) {
 		if (me.getSource() == viewMenu_btn) {
-			new viewMenu(menu);
+			new viewMenu();
 		}
 		else if (me.getSource() == placeOrder_btn) {
 		
 		}
-		else if (me.getSource() == editOrder_btn) {
-		
-		}
 		else if (me.getSource() == addMenuItem_btn) {
-			new MenuItemDialog(menu, false);
+			new MenuItemDialog(false);
 		}
 		else if (me.getSource() == editMenuItem_btn) {
 		
@@ -147,6 +149,9 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 		
 		}
 		else if (me.getSource() == editSpecial_btn) {
+		
+		}
+		else if (me.getSource() == markComplete_btn) {
 		
 		}
 		else if (me.getSource() == login_btn) {
