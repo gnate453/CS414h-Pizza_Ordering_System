@@ -6,35 +6,48 @@ import cs414.groupH.a4.employee.Employee;
 import cs414.groupH.a4.employee.EmployeeType;
 import cs414.groupH.a4.menu.Menu;
 import cs414.groupH.a4.menu.MenuItem;
+import cs414.groupH.a4.order.Order;
+import cs414.groupH.a4.order.OrderIdIncrementer;
+import cs414.groupH.a4.payment.Payment;
 
 public class SystemManager {
-	private Menu menu = new Menu();
 
-	public static void addEmployee(String employeeId, String name, String pwd, EmployeeType empType) {
+	public static boolean addEmployee(String employeeId, String name, String pwd, EmployeeType empType) {
 		Employee emp = new Employee(employeeId, name, pwd, empType);
-		EmployeeManager.addEmployee(emp);
+		return EmployeeManager.addEmployee(emp);
 	}
 	
-	public static void removeEmployee(String employeeId, String name, String pwd, EmployeeType empType) {
+	public static boolean removeEmployee(String employeeId, String name, String pwd, EmployeeType empType) {
 		Employee emp = new Employee(employeeId, name, pwd, empType);
-		EmployeeManager.removeEmployee(emp);
+		return EmployeeManager.removeEmployee(emp);
 	}
 	
-	public void addMenuItem(String name, double price, boolean isDailySpecial) {
-		menu.addMenuItem(name, price, isDailySpecial);
+	public static boolean addMenuItem(String name, double price, boolean isDailySpecial) {
+		return Menu.addMenuItem(new MenuItem(name, price, isDailySpecial));
 	}
 	
-	public boolean containsMenuItem(String itemName, double price) {
-		MenuItem item = new MenuItem(itemName, price);
-		return menu.containsMenuItem(item);
+	public static void removeMenuItem(MenuItem item) {
+		Menu.removeMenuItem(item);
 	}
 	
-	public void removeMenuItem(MenuItem item) {
-		menu.removeMenuItem(item);
+	public static List<MenuItem> getMenuItems() {
+		return Menu.getMenuItems();
 	}
 	
-	public List<MenuItem> getMenuItems() {
-		return menu.getMenuItems();
+	
+	public static String createOrder(List<String> itemNames) {
+		Order newOrder = new Order(OrderIdIncrementer.getNewOrderId());
+		OrderManager.addOrder(newOrder);
+		for (String i : itemNames) {
+			MenuItem item = Menu.findMenuItem(i);
+			newOrder.addItem(item);
+		}
+		
+		return newOrder.getId();
+	}
+	
+	public static boolean addPayment(String orderId, Payment payment) {
+		return OrderManager.findOrder(orderId).addPayment(payment);
 	}
 	
 }

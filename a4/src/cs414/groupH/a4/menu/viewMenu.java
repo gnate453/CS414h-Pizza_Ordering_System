@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,22 +18,22 @@ public class viewMenu extends JFrame implements MouseListener {
 	JButton back_btn;
 	JTable table;
 	
-	public viewMenu(Menu menu) {		
+	public viewMenu() {		
         
 		back_btn = new JButton("Back");		
 		
         this.setSize(new Dimension(800, 500));
-		this.setLayout(new GridLayout(menu.getMenuItems().size(), 2));       
+		this.setLayout(new GridLayout(Menu.getMenuItems().size(), 2));       
         
-		String dataValues[][] = new String[menu.getMenuItems().size()][2];
-        for(int i=0; i<menu.getMenuItems().size(); i++){
-        	if(menu.getMenuItems().get(i).isDailySpecial()){
-        		dataValues[i][0] = "Special: " + menu.getMenuItems().get(i).getName();
+		String dataValues[][] = new String[Menu.getMenuItems().size()][2];
+        for(int i=0; i<Menu.getMenuItems().size(); i++){
+        	if(Menu.getMenuItems().get(i).isDailySpecial()){
+        		dataValues[i][0] = "Special: " + Menu.getMenuItems().get(i).getName();
         	}
         	else{
-        		dataValues[i][0] = menu.getMenuItems().get(i).getName();
+        		dataValues[i][0] = Menu.getMenuItems().get(i).getName();
         	}
-        	dataValues[i][1] = String.valueOf(menu.getMenuItems().get(i).getPrice());
+        	dataValues[i][1] = String.valueOf(Menu.getMenuItems().get(i).getPrice());
         }        
         
         String columnNames[] = {"Item","Price"};
@@ -57,26 +56,21 @@ public class viewMenu extends JFrame implements MouseListener {
     			this.setVisible(false);
     		}
     }
-
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
 
     }
-
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
 
     }
-
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
     }
-
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
-
 }
 
