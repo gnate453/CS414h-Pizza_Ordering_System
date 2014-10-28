@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -55,28 +54,19 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == accept_btn)
-		{
-			this.setVisible(false);
-			MenuItem item;
-			
-			if(isSpecial){
-				item = new MenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), true);	
-				dialogFor.addMenuItem(item);
+		if (e.getSource() == accept_btn) {
+			if(isSpecial) {
+				dialogFor.addMenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), true);
+			}			
+			else {	
+				dialogFor.addMenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), false);
 			}
 			
-			else{
-				item = new MenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), false);	
-				dialogFor.addMenuItem(item);
-			}			
-		}
-		
-		else if (e.getSource()== cancel_btn)
-		{
-			this.setVisible(false);
+			this.dispose();
+		}		
+		else if (e.getSource()== cancel_btn) {
 			this.dispose();
 		}
-
 	}
 
 

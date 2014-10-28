@@ -10,7 +10,8 @@ public class Menu {
 		menuItems = new ArrayList<MenuItem>();
 	}
 	
-	public boolean addMenuItem(MenuItem item) {
+	public boolean addMenuItem(String name, double price, boolean isDailySpecial) {
+		MenuItem item = new MenuItem(name, price, isDailySpecial);
 		if (!containsMenuItem(item)) {
 			menuItems.add(item);
 			return true;
@@ -25,8 +26,8 @@ public class Menu {
 		return menuItems.contains(item);
 	}
 	
-	public void removeMenuItem(MenuItem item) {
-		menuItems.remove(item);
+	public boolean removeMenuItem(MenuItem item) {
+		return menuItems.remove(item);
 	}
 
 	public List<MenuItem> getMenuItems() {

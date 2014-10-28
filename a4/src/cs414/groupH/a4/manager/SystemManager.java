@@ -20,8 +20,8 @@ public class SystemManager {
 		EmployeeManager.removeEmployee(emp);
 	}
 	
-	public void addMenuItem(MenuItem item) {
-		menu.addMenuItem(item);
+	public void addMenuItem(String name, double price, boolean isDailySpecial) {
+		menu.addMenuItem(name, price, isDailySpecial);
 	}
 	
 	public boolean containsMenuItem(String itemName, double price) {
