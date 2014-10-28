@@ -1,7 +1,13 @@
 package cs414.groupH.a4.gui;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import javax.swing.*;
+import javax.swing.JApplet;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import cs414.groupH.a4.employee.Employee;
 import cs414.groupH.a4.employee.EmployeeType;
@@ -9,12 +15,6 @@ import cs414.groupH.a4.manager.EmployeeManager;
 import cs414.groupH.a4.menu.Menu;
 import cs414.groupH.a4.menu.MenuItemDialog;
 import cs414.groupH.a4.menu.viewMenu;
-
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 
 public class InStoreEmployeeApp extends JApplet implements MouseListener {
 
@@ -35,10 +35,8 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	JLabel emp_lbl = new JLabel("NOT LOGGED IN");
 
     //Application logic members
-
     //ArrayList<Order> orders
     //ArrayList<Customer> customers
-	static boolean dialogOpen = false;
 	static Employee empLoggedIn;
     Menu menu = new Menu();
 
@@ -86,14 +84,12 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	public void renderView() {
 		System.out.println("Rendering view...");
 		this.add(loggedIn_lbl,0);
-		this.remove(emp_lbl);
         this.add(emp_lbl,1);
         if (empLoggedIn == null) {
         	this.remove(logout_btn);
     		this.add(login_btn,2);       	
         }
         else {
-        	System.out.println("Employee '"+empLoggedIn.getEmployeeId()+"'");
         	this.remove(login_btn);
     		this.add(logout_btn,2);
         }
@@ -102,6 +98,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         this.add(editOrder_btn,5);
         if (empLoggedIn != null) {
 	        if (empLoggedIn.getEmpType() == EmployeeType.manager) {
+	        	this.setLayout(new GridLayout(4,3));
 		        this.add(addMenuItem_btn);
 		        this.add(editMenuItem_btn);
 		        this.add(addSpecial_btn);
@@ -109,6 +106,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	        }
         }
         else {
+        	this.setLayout(new GridLayout(2,3));
         	this.remove(addMenuItem_btn);
 	        this.remove(editMenuItem_btn);
 	        this.remove(addSpecial_btn);
@@ -123,79 +121,60 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 		System.out.println("Logged in employee with ID '"+empLoggedIn.getEmployeeId()+"'");
 	}
 	public void logoutEmployee() {
+		System.out.println("Logged out employee '"+empLoggedIn.getEmployeeId()+"'");
 		empLoggedIn = null;
-	}
-
-	public static void setDialogOpen(boolean b) {
-		dialogOpen = b;
 	}
 	
     @Override
     public void mouseClicked(MouseEvent me) {
-
-    		if (me.getSource() == viewMenu_btn)
-    		{
-    			new viewMenu(menu);
-    		}
-            if (me.getSource() == placeOrder_btn)
-            {
-
-            }
-	        if (me.getSource() == editOrder_btn)
-            {
-
-            }
-	        if (me.getSource() == addMenuItem_btn)
-            {
-	        	new MenuItemDialog(menu);
-            }
-            if (me.getSource() == editMenuItem_btn)
-            {
-
-            }
-	        if (me.getSource() == addSpecial_btn)
-            {
-
-            }
-            if (me.getSource() == editSpecial_btn)
-            {
-
-            }
-            if (me.getSource() == login_btn)
-            {
-            	new LoginDialog();
-            	if (empLoggedIn != null) {
-            		emp_lbl.setText(empLoggedIn.getName());
-            	}
-            	renderView();
-            }
-            if (me.getSource() == logout_btn)
-            {
-            	System.out.println("Logging out employee '"+empLoggedIn+"'");
-            	logoutEmployee();
-            	emp_lbl.setText("NOT LOGGED IN");
-            	renderView();
-            }
+		if (me.getSource() == viewMenu_btn) {
+			new viewMenu(menu);
+		}
+		else if (me.getSource() == placeOrder_btn) {
+		
+		}
+		else if (me.getSource() == editOrder_btn) {
+		
+		}
+		else if (me.getSource() == addMenuItem_btn) {
+			new MenuItemDialog(menu);
+		}
+		else if (me.getSource() == editMenuItem_btn) {
+		
+		}
+		else if (me.getSource() == addSpecial_btn) {
+		
+		}
+		else if (me.getSource() == editSpecial_btn) {
+		
+		}
+		else if (me.getSource() == login_btn) {
+			new LoginDialog();
+			if (empLoggedIn != null) {
+				emp_lbl.setText(empLoggedIn.getName());
+			}
+			renderView();
+		}
+		else if (me.getSource() == logout_btn) {
+			logoutEmployee();
+			emp_lbl.setText("NOT LOGGED IN");
+			renderView();
+		}
     }
-
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
 
     }
-
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
 
     }
-
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
     }
-
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
-
 }

@@ -14,9 +14,6 @@ import cs414.groupH.a4.manager.EmployeeManager;
 
 public class LoginDialog extends JDialog implements MouseListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6618108255319022180L;
 	
 	JButton accept_btn;
@@ -55,46 +52,29 @@ public class LoginDialog extends JDialog implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == accept_btn)
-		{
+		if (e.getSource() == accept_btn) {
 			this.dispose();
-			boolean res = EmployeeManager.verifyCreds(empId_txt.getText(), pwd_txt.getText());
+			EmployeeManager.verifyCreds(empId_txt.getText(), pwd_txt.getText());
 			InStoreEmployeeApp.loginEmployee(EmployeeManager.findEmployee(empId_txt.getText()));
-			System.out.println("Login successful: "+res);
-			InStoreEmployeeApp.setDialogOpen(false);
 		}
-		else if (e.getSource()== cancel_btn)
-		{
-			this.setVisible(false);
+		else if (e.getSource()== cancel_btn) {
+			this.dispose();
 		}
 	}
-
-
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent arg0) {
+
 	}
-
-
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseExited(MouseEvent arg0) {
+
 	}
-
-
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mousePressed(MouseEvent arg0) {
+
 	}
-
-
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent arg0) {
 
+	}
 }
