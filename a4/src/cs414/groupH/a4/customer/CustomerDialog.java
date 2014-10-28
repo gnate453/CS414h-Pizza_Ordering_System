@@ -10,12 +10,15 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import cs414.groupH.a4.address.Address;
+
 public class CustomerDialog extends JDialog implements MouseListener  {
 	JButton Accept;
 	JButton Cancel;
 	JLabel name;
 	JTextField nameTXT;
 	Customer DialogFor;
+	Address a = new Address();
 	CustomerDialog(Customer c){
 		DialogFor = c;
 		this.setSize(new Dimension(500, 255));
@@ -39,6 +42,7 @@ public class CustomerDialog extends JDialog implements MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
+			DialogFor.addAddress(a);
 			DialogFor.setFields(nameTXT.getText());
 			this.setVisible(false);
 		}
