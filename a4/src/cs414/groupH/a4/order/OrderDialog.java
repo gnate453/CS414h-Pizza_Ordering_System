@@ -47,7 +47,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 		
 		this.setModal(true);
 		this.setSize(new Dimension(500, 255));
-		
+		//comment
 		Accept = new JButton("Accept");
 		Cancel = new JButton("Cancel");
 		add = new JButton("Add selected items to order");
