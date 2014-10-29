@@ -7,7 +7,7 @@ public class Customer {
 
 	private String customerId;
 	private String name;
-	private ArrayList<Address> address = new ArrayList<Address>();
+	private Address address;
 	
 	public String getId(){
 		return customerId;
@@ -17,20 +17,20 @@ public class Customer {
 		return name;
 	}
 	
-	public ArrayList<Address> getAddress(){
+	public Address getAddress(){
 		return address;
 	}
 	
 	public Customer() {
 		
 	}
-	public Customer(String id, String iname, ArrayList<Address> ad){
+	public Customer(String id, String iname, Address ad){
 		customerId = id;
 		name = iname;
 		address = ad;
 	}
 	public void addAddress(Address a){
-		address.add(a);
+		address = a;
 	}
 	public void setFields(String n) {
 		name = n;
