@@ -40,7 +40,8 @@ public class EditItemPage extends JDialog implements MouseListener {
 		special_lbl = new JLabel("Daily Special:");
 		name_txt = new JTextField(name);
 		price_txt = new JTextField(Double.toString(price));
-		special_chkbox = new JCheckBox("Yes");
+		special_chkbox = new JCheckBox();
+		special_chkbox.setSelected(isSpecial);
 		
 		this.setLayout(new GridLayout(5,2));
 		this.setPreferredSize(new Dimension(50, 100));
@@ -49,6 +50,8 @@ public class EditItemPage extends JDialog implements MouseListener {
 		this.add(name_txt);
 		this.add(price_lbl);
 		this.add(price_txt);
+		this.add(special_lbl);
+		this.add(special_chkbox);
 		accept_btn.addMouseListener(this);
 		cancel_btn.addMouseListener(this);
 		this.add(accept_btn);
