@@ -12,9 +12,6 @@ import javax.swing.JTextField;
 
 public class AddressDialog extends JDialog implements MouseListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	JButton accept_btn;
@@ -32,7 +29,7 @@ public class AddressDialog extends JDialog implements MouseListener {
 	Address dialogFor;
 	
 	
-	AddressDialog(Address a) {
+	public AddressDialog(Address a) {
 		super();
 		this.setSize(new Dimension(1000, 500));
 		dialogFor = a;

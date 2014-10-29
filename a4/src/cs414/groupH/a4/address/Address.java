@@ -1,6 +1,5 @@
 package cs414.groupH.a4.address;
 
-import javax.swing.JFrame;
 
 public class Address {
 
@@ -9,11 +8,6 @@ public class Address {
 	private String state;
 	private String zip;
 	private String phone;
-	
-	public static void main(String [ ] args)
-	{
-		Address a = new Address();
-	}
 	
 	public String getStreet(){
 		return street;
@@ -35,12 +29,9 @@ public class Address {
 		return phone;
 	}
 	
-	public Address(){
-		AddressDialog dialog = new AddressDialog(this);
-
-		//System.out.println(this);
+	public Address() {
+		
 	}
-	
 	public Address(String street, String city, String state, String zip, String phone){
 		this.street = street;
 		this.city = city;

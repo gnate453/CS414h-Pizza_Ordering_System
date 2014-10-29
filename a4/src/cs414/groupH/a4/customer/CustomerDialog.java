@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import cs414.groupH.a4.address.Address;
+import cs414.groupH.a4.address.AddressDialog;
 
 public class CustomerDialog extends JDialog implements MouseListener  {
 	/**
@@ -23,8 +24,9 @@ public class CustomerDialog extends JDialog implements MouseListener  {
 	JTextField nameTXT;
 	Customer DialogFor;
 	Address a;
-	CustomerDialog(Customer c){
+	public CustomerDialog(Customer c) {
 		a = new Address();
+		new AddressDialog(a);
 		DialogFor = c;
 		this.setSize(new Dimension(500, 255));
 		Accept = new JButton("Accept");

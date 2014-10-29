@@ -4,12 +4,15 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import cs414.groupH.a4.customer.Customer;
+import cs414.groupH.a4.customer.CustomerDialog;
 import cs414.groupH.a4.employee.Employee;
 import cs414.groupH.a4.employee.EmployeeType;
 import cs414.groupH.a4.manager.SystemManager;
@@ -84,6 +87,12 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 		
 		SystemManager.addMenuItem("Pepperoni Pizza", 9.99, false);
 		SystemManager.addMenuItem("Cheese Pizza", 5.00, true);
+		
+		List<String> items = new ArrayList<String>();
+		items.add("Pepperoni Pizza");
+		items.add("Cheese Pizza");
+		items.add("Pepperoni Pizza");
+		SystemManager.createOrder(new Customer(), items);
 	}
 	
 	public void renderView() {
@@ -144,6 +153,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 			if (empLoggedIn != null) {
 				//employee is creating order. Need customer info and address
 				Customer c = new Customer();
+				new CustomerDialog(c);
 				new OrderDialog(c);
 			}
 			else{

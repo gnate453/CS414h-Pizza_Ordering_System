@@ -20,11 +20,9 @@ public class Customer {
 	public ArrayList<Address> getAddress(){
 		return address;
 	}
-	public static void main(String args[]){
-		Customer c = new Customer();	
-	}
-	public Customer(){
-		new CustomerDialog(this);
+	
+	public Customer() {
+		
 	}
 	public Customer(String id, String iname, ArrayList<Address> ad){
 		customerId = id;
