@@ -18,6 +18,10 @@ public class OrderManager {
 		}
 	}
 	
+	public static void markOrderComplete(Order order) {
+		order.markComplete();
+	}
+	
 	public static boolean doesOrderExist(Order o) {
 		return orders.contains(o);
 	}

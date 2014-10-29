@@ -49,6 +49,10 @@ public class SystemManager {
 		return newOrder.getOrderId();
 	}
 	
+	public static void markOrderComplete(String orderId) {
+		OrderManager.markOrderComplete(OrderManager.findOrder(orderId));
+	}
+	
 	public static boolean addPayment(String orderId, Payment payment) {
 		return OrderManager.findOrder(orderId).addPayment(payment);
 	}

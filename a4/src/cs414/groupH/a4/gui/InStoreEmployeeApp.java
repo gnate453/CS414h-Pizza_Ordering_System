@@ -81,6 +81,9 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 		SystemManager.addEmployee("002", "Joh Smith", "password", EmployeeType.chef);
 		SystemManager.addEmployee("003", "Jo Smith", "password", EmployeeType.manager);
 		SystemManager.addEmployee("004", "J Smith", "password", EmployeeType.cashier);
+		
+		SystemManager.addMenuItem("Pepperoni Pizza", 9.99, false);
+		SystemManager.addMenuItem("Cheese Pizza", 5.00, true);
 	}
 	
 	public void renderView() {

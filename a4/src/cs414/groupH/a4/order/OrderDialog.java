@@ -12,11 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import cs414.groupH.a4.address.Address;
 import cs414.groupH.a4.customer.Customer;
 import cs414.groupH.a4.manager.SystemManager;
 import cs414.groupH.a4.menu.Menu;
@@ -46,8 +43,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 		total = 0;
 		
 		this.setModal(true);
-		this.setSize(new Dimension(500, 255));
-		//comment
+		this.setSize(new Dimension(800, 500));
 		Accept = new JButton("Accept");
 		Cancel = new JButton("Cancel");
 		add = new JButton("Add selected items to order");
