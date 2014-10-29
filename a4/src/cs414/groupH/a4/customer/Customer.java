@@ -5,13 +5,8 @@ import cs414.groupH.a4.address.Address;
 
 public class Customer {
 
-	private String customerId;
 	private String name;
 	private Address address;
-	
-	public String getId(){
-		return customerId;
-	}
 	
 	public String getName(){
 		return name;
@@ -22,10 +17,10 @@ public class Customer {
 	}
 	
 	public Customer() {
-		
+		name = "";
+		address = new Address("", "", "", "", "");
 	}
-	public Customer(String id, String iname, Address ad){
-		customerId = id;
+	public Customer(String iname, Address ad){
 		name = iname;
 		address = ad;
 	}
