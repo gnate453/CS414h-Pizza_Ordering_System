@@ -22,9 +22,9 @@ public class Order {
 		isComplete = false;
 	}
 	
-	public Order(){
+	/*public Order(){
 		new OrderDialog(this);
-	}
+	}*/
 	
 	public boolean addPayment(Payment payment) {
 		boolean res = payments.add(payment);
@@ -63,9 +63,6 @@ public class Order {
 		isComplete = false;
 	}
 	
-	public String getId(){
-		return orderId;
-	}
 	public String getOrderId() {
 		return orderId;
 	}

@@ -43,11 +43,15 @@ public class SystemManager {
 			newOrder.addItem(item);
 		}
 		
-		return newOrder.getId();
+		return newOrder.getOrderId();
 	}
 	
 	public static boolean addPayment(String orderId, Payment payment) {
 		return OrderManager.findOrder(orderId).addPayment(payment);
+	}
+	
+	public static List<Order> getOrders() {
+		return OrderManager.getOrders();
 	}
 	
 }

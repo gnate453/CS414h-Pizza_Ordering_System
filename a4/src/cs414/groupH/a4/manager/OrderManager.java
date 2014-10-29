@@ -13,7 +13,7 @@ public class OrderManager {
 			return orders.add(o);
 		}
 		else {
-			System.out.println("ERROR: Order with ID '" + o.getId() + "' already exists.");
+			System.out.println("ERROR: Order with ID '" + o.getOrderId() + "' already exists.");
 			return false;
 		}
 	}
@@ -24,7 +24,7 @@ public class OrderManager {
 	
 	public static Order findOrder(String orderId) {
 		for (Order o : orders) {
-			if (o.getId().equals(orderId)) {
+			if (o.getOrderId().equals(orderId)) {
 				return o;
 			}
 		}
