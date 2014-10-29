@@ -31,7 +31,7 @@ public class ViewOrderDetails extends JDialog implements MouseListener {
 		Addr = new JLabel("Address: " + o.getCustomer().getAddress().getStreet()+" "+o.getCustomer().getAddress().getCity()+", "+o.getCustomer().getAddress().getState()+" "+o.getCustomer().getAddress().getZip());
 		Phone = new JLabel("Phone: " + o.getCustomer().getAddress().getPhone());
 		back_btn = new JButton("Back");
-        this.setSize(new Dimension(800, 500));
+        this.setSize(new Dimension(800, 400));
 		this.setLayout(new GridLayout(o.getItems().size(), 2));       
         
 		String dataValues[][] = new String[o.getItems().size()][1];
@@ -56,6 +56,9 @@ public class ViewOrderDetails extends JDialog implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getSource() == back_btn) {
+			this.dispose();
+		}
 		
 	}
 
