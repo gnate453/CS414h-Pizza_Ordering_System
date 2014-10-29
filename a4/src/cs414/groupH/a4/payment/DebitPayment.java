@@ -1,18 +1,16 @@
 package cs414.groupH.a4.payment;
 
 public class DebitPayment extends Payment {
-	protected int pin;
+	protected String pin;
 	protected String CardHolderName;
-	protected int securityCode;
-	protected int expiration;
-	protected int cardNum;
-	public static void main(String args[]){
-		DebitPayment p = new DebitPayment();
-	}
+	protected String securityCode;
+	protected String expiration;
+	protected String cardNum;
+	
 	public DebitPayment(){
 		new DebitPaymentDialog(this);
 	}
-	public void setFields(String name, int cn, int sc, int exp, int p) {
+	public void setFields(String name, String cn, String sc, String exp, String p) {
 		CardHolderName = name;
 		securityCode = sc;
 		expiration = exp;

@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -12,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import cs414.groupH.a4.manager.SystemManager;
+
 
 public class ViewOrderDetails extends JDialog implements MouseListener {
 	/**
@@ -27,8 +26,13 @@ public class ViewOrderDetails extends JDialog implements MouseListener {
 	JButton back_btn;
 	public ViewOrderDetails(Order o) {		
 		
-		Cust = new JLabel("Customer: " + o.getCustomer().getName());			
-		Addr = new JLabel("Address: " + o.getCustomer().getAddress().getStreet()+" "+o.getCustomer().getAddress().getCity()+", "+o.getCustomer().getAddress().getState()+" "+o.getCustomer().getAddress().getZip());
+		Cust = new JLabel("Customer: " + o.getCustomer().getName());		
+		if(o.getCustomer().getAddress().isEmpty()){
+			Addr = new JLabel("Address: ");
+		}else{
+			Addr = new JLabel("Address: " + o.getCustomer().getAddress().getStreet()+" "+o.getCustomer().getAddress().getCity()+", "+o.getCustomer().getAddress().getState()+" "+o.getCustomer().getAddress().getZip());
+		}
+		
 		Phone = new JLabel("Phone: " + o.getCustomer().getAddress().getPhone());
 		back_btn = new JButton("Back");
         this.setSize(new Dimension(800, 400));

@@ -30,7 +30,6 @@ public class PaymentMethodDialog extends JDialog implements MouseListener{
 		this.setSize(new Dimension(500, 500));
 		
 		Credit = new JButton("Credit");
-		GiftCard = new JButton("GiftCard");
 		Debit = new JButton("Debit");
 		Cash = new JButton("Cash");
 		Cancel = new JButton("Cancel");
@@ -43,13 +42,11 @@ public class PaymentMethodDialog extends JDialog implements MouseListener{
 		Credit.addMouseListener(this);
 		Debit.addMouseListener(this);
 		Cash.addMouseListener(this);
-		GiftCard.addMouseListener(this);
 		Cancel.addMouseListener(this);
 		
 		this.add(Credit);
 		this.add(Debit);
 		this.add(Cash);
-		this.add(GiftCard);
 		this.add(Cancel);
 		this.add(owed);
 		this.addMouseListener(this);
@@ -79,13 +76,7 @@ public class PaymentMethodDialog extends JDialog implements MouseListener{
 			this.setVisible(false);
 			this.dispose();
 		}
-		else if (e.getSource()== GiftCard)
-		{
-			GiftCardPayment g = new GiftCardPayment();
-			pay.add(g);
-			this.setVisible(false);
-			this.dispose();
-		}else if (e.getSource()== Cancel)
+		else if (e.getSource()== Cancel)
 		{
 			this.setVisible(false);
 			this.dispose();

@@ -72,7 +72,7 @@ public class DebitPaymentDialog extends JDialog implements MouseListener  {
 		if (e.getSource() == Accept)
 		{
 			this.setVisible(false);
-			DialogForDb.setFields(cardHolderTXT.getText(), Integer.parseInt(cardNumberTXT.getText()), Integer.parseInt(cardSecureTXT.getText()), Integer.parseInt(cardExpTXT.getText()),Integer.parseInt(cardPinTXT.getText()));
+			DialogForDb.setFields(cardHolderTXT.getText(), cardNumberTXT.getText(), cardSecureTXT.getText(), cardExpTXT.getText(),cardPinTXT.getText());
 		}
 		else if (e.getSource()== Cancel)
 		{

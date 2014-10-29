@@ -3,9 +3,7 @@ package cs414.groupH.a4.payment;
 public class GiftCardPayment extends Payment {
 	protected int balance;
 	protected int cardNumber;
-	public static void main(String args[]){
-		GiftCardPayment p = new GiftCardPayment();
-	}
+	
 	public GiftCardPayment(){
 		new GiftCardPaymentDialog(this);
 	}
