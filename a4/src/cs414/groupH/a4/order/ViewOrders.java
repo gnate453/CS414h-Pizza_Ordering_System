@@ -18,6 +18,7 @@ public class ViewOrders extends JDialog implements MouseListener {
 	private static final long serialVersionUID = 1L;
 
 	JButton back_btn;
+	JButton details_btn;
 	JTable table;
 	JButton markComplete;
 	
@@ -26,12 +27,13 @@ public class ViewOrders extends JDialog implements MouseListener {
 		List<Order> orders = SystemManager.getOrders();
         
 		back_btn = new JButton("Back");	
+		details_btn = new JButton("Details");
 		
 		markComplete = new JButton("Mark Complete");
 		markComplete.addMouseListener(this);
 		
         this.setSize(new Dimension(800, 500));
-		this.setLayout(new GridLayout(orders.size(), 2));       
+		this.setLayout(new GridLayout(orders.size(), 3));       
         
 		String dataValues[][] = new String[orders.size()][2];
         for(int i=0; i<orders.size(); i++){
@@ -43,7 +45,9 @@ public class ViewOrders extends JDialog implements MouseListener {
         table = new JTable(dataValues, columnNames);
         JScrollPane pane = new JScrollPane(table);
         back_btn.addMouseListener(this);
+        details_btn.addMouseListener(this);
         this.add(back_btn);
+        this.add(details_btn);
         
         this.add(pane);
         this.add(markComplete);
@@ -59,6 +63,14 @@ public class ViewOrders extends JDialog implements MouseListener {
 	    		SystemManager.markOrderComplete(table.getValueAt(table.getSelectedRow(), 0).toString());
 	    		this.dispose();
     		}
+    	}else if(me.getSource() == details_btn){   
+    		
+    		if (table.getSelectedRow() != -1) {
+    			System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+    			Order o = SystemManager.findOrder(table.getValueAt(table.getSelectedRow(), 0).toString());
+    			new ViewOrderDetails(o);
+    		}
+    		this.dispose();
     	}
 		if (me.getSource() == back_btn) {
 			this.dispose();
