@@ -8,13 +8,22 @@ public class Menu {
 
 	public static boolean addMenuItem(MenuItem item) {
 		if (!containsMenuItem(item)) {
-			menuItems.add(item);
-			return true;
+			return menuItems.add(item);
 		}
 		else {
-			System.out.println("ERROR: Menu item with name '"+item.getName()+"' already exists.");
+			System.out.println("ERROR: Item with name '"+item.getName()+"' already exists.");
 			return false;
 		}
+	}
+	
+	public static boolean editMenuItem(String oldName, MenuItem item) {
+		MenuItem oldItem = new MenuItem(oldName);
+		int index = menuItems.indexOf(oldItem);
+		MenuItem curItem = menuItems.get(index);
+		curItem.setName(item.getName());
+		curItem.setPrice(item.getPrice());
+		curItem.setDailySpecial(item.isDailySpecial());
+		return true;
 	}
 	
 	public static boolean containsMenuItem(MenuItem item) {

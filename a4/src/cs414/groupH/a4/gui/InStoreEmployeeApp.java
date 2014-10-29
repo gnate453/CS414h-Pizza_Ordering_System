@@ -13,6 +13,7 @@ import cs414.groupH.a4.customer.Customer;
 import cs414.groupH.a4.employee.Employee;
 import cs414.groupH.a4.employee.EmployeeType;
 import cs414.groupH.a4.manager.SystemManager;
+import cs414.groupH.a4.menu.EditItemDialog;
 import cs414.groupH.a4.menu.MenuItemDialog;
 import cs414.groupH.a4.menu.viewMenu;
 import cs414.groupH.a4.order.OrderDialog;
@@ -152,7 +153,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 			new MenuItemDialog(false);
 		}
 		else if (me.getSource() == editMenuItem_btn) {
-		
+			new EditItemDialog();
 		}
 		else if (me.getSource() == addSpecial_btn) {
 			new MenuItemDialog(true);
