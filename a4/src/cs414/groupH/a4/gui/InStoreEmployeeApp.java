@@ -19,7 +19,7 @@ import cs414.groupH.a4.employee.EmployeeType;
 import cs414.groupH.a4.manager.SystemManager;
 import cs414.groupH.a4.menu.EditItemDialog;
 import cs414.groupH.a4.menu.MenuItemDialog;
-import cs414.groupH.a4.menu.viewMenu;
+import cs414.groupH.a4.menu.ViewMenu;
 import cs414.groupH.a4.order.OrderDialog;
 import cs414.groupH.a4.order.ViewOrders;
 import cs414.groupH.a4.payment.Payment;
@@ -95,7 +95,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	}
 	
 	public void renderView() {
-		System.out.println("Rendering view...");
+		//System.out.println("Rendering view...");
 		this.add(loggedIn_lbl,0);
         this.add(emp_lbl,1);
         if (empLoggedIn == null) {
@@ -128,17 +128,17 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	
 	public static void loginEmployee(Employee e) {
 		empLoggedIn = e;
-		System.out.println("Logged in employee with ID '"+empLoggedIn.getEmployeeId()+"'");
+		//System.out.println("Logged in employee with ID '"+empLoggedIn.getEmployeeId()+"'");
 	}
 	public void logoutEmployee() {
-		System.out.println("Logged out employee '"+empLoggedIn.getEmployeeId()+"'");
+		//System.out.println("Logged out employee '"+empLoggedIn.getEmployeeId()+"'");
 		empLoggedIn = null;
 	}
 	
     @Override
     public void mouseClicked(MouseEvent me) {
 		if (me.getSource() == viewMenu_btn) {
-			new viewMenu();
+			new ViewMenu();
 		}
 		else if (me.getSource() == placeOrder_btn) {
 			if (empLoggedIn != null) {

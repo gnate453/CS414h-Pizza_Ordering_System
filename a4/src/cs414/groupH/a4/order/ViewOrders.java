@@ -65,7 +65,6 @@ public class ViewOrders extends JDialog implements MouseListener {
     	}else if(me.getSource() == details_btn){   
     		
     		if (table.getSelectedRow() != -1) {
-    			System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
     			Order o = SystemManager.findOrder(table.getValueAt(table.getSelectedRow(), 0).toString());
     			new ViewOrderDetails(o);
     		}
