@@ -33,8 +33,7 @@ public class SystemManager {
 	
 	public static List<MenuItem> getMenuItems() {
 		return Menu.getMenuItems();
-	}
-	
+	}	
 	
 	public static String createOrder(Customer cust, List<String> itemNames) {
 		Order newOrder = new Order(cust);

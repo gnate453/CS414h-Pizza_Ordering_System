@@ -141,12 +141,10 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 				//employee is creating order. Need customer info and address
 				Customer c = new Customer();
 				new OrderDialog(c);
-				//SystemManager.createOrder();
 			}
 			else{
 				//customer is creating order. 
 				new OrderDialog(null);
-				//SystemManager.createOrder();
 			}
 			
 		}

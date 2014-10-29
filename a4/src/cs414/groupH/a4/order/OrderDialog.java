@@ -20,31 +20,47 @@ import cs414.groupH.a4.address.Address;
 import cs414.groupH.a4.customer.Customer;
 import cs414.groupH.a4.manager.SystemManager;
 import cs414.groupH.a4.menu.Menu;
+import cs414.groupH.a4.payment.Payment;
 
 public class OrderDialog extends JDialog implements MouseListener  {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JButton Accept;
-	JButton Cancel;
+	
 	JTable menu;
 	JTable order;
+	JButton add;
+	JButton remove;
+	JButton Accept;
+	JButton Cancel;
+	JLabel total_lbl;
+	JTextField total_txt;
+	
 	ArrayList<String> selectedItems = new ArrayList<String>();
-	Customer cust;
+	Customer cust;	
+	double total;
 
 	public OrderDialog(Customer c){
-
 		cust = c;
+		total = 0;
+		
 		this.setModal(true);
 		this.setSize(new Dimension(500, 255));
+		
 		Accept = new JButton("Accept");
 		Cancel = new JButton("Cancel");
+		add = new JButton("Add selected items to order");
+		remove = new JButton("Remove selected items from order");
+		total_lbl = new JLabel("Total: ");
+		total_txt = new JTextField("0.00");
 
-		this.setLayout(new GridLayout(2,2));
+		this.setLayout(new GridLayout(4,2));
 		this.setPreferredSize(new Dimension(50, 100) );
 		Accept.addMouseListener(this);
 		Cancel.addMouseListener(this);
+		add.addMouseListener(this);
+		remove.addMouseListener(this);
 		
 		String dataValues[][] = new String[Menu.getMenuItems().size()][2];
         for(int i=0; i<Menu.getMenuItems().size(); i++){
@@ -56,41 +72,20 @@ public class OrderDialog extends JDialog implements MouseListener  {
         	}
         	dataValues[i][1] = String.valueOf(Menu.getMenuItems().get(i).getPrice());
         }        
-        String columnNames[] = {"Item","Price"};
+        String columnNames[] = {"Menu Items","Price"};
         menu = new JTable(dataValues, columnNames);
-        order = new JTable(new DefaultTableModel(new Object[]{"Item", "Price"}, 1));
+        order = new JTable(new DefaultTableModel(new Object[]{"Order Items", "Price"}, 0));
         JScrollPane pane = new JScrollPane(menu);
         JScrollPane orderPane = new JScrollPane(order);
-        
-        //SelectionListener for the Menu (for adding items to order)
-        menu.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-            	if(!event.getValueIsAdjusting()){
-            		selectedItems.add(menu.getValueAt(menu.getSelectedRow(), 0).toString().replace("Special: ", ""));
-            		DefaultTableModel model = (DefaultTableModel) order.getModel();
-            		String[] newRow = new String[2];
-            		newRow[0] = menu.getValueAt(menu.getSelectedRow(), 0).toString().replace("Special: ", "");
-            		newRow[1] = menu.getValueAt(menu.getSelectedRow(), 1).toString();
-            		model.addRow(newRow);
-            	}
-            }
-        });
-        
-        //SelectionListener for the menu(for removing items from order)
-        order.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-            	if(!event.getValueIsAdjusting()){
-            		selectedItems.remove(menu.getValueAt(menu.getSelectedRow(), 0).toString().replace("Special: ", ""));
-            		DefaultTableModel model = (DefaultTableModel) order.getModel();
-            		model.removeRow(menu.getSelectedRow());
-            	}
-            }
-        });
 
         this.add(pane);
         this.add(orderPane);
+        this.add(add);
+        this.add(remove);
 		this.add(Accept);
 		this.add(Cancel);
+		this.add(total_lbl);
+		this.add(total_txt);
 		this.addMouseListener(this);
 		this.setVisible(true);
 	}
@@ -99,10 +94,44 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
-			//SystemManager.createOrder(c, selectedItems);
+			SystemManager.createOrder(cust, selectedItems);
+			Payment p = new Payment();
 			this.setVisible(false);
 		}
-		else if (e.getSource()== Cancel)
+		
+		if (e.getSource() == remove)
+		{
+			int[] rows = order.getSelectedRows();			
+    		DefaultTableModel model = (DefaultTableModel) order.getModel();
+    		
+    		for(int i=0; i<rows.length; i++){  			
+
+	    		model.removeRow(rows[i]-i);
+	    		total = total - Double.parseDouble(menu.getValueAt(rows[i], 1).toString());	
+    		}
+    		
+    		total_txt.setText(String.valueOf(total));
+    		menu.clearSelection();			
+		}
+		
+		if (e.getSource() == add)
+		{
+			int[] rows = menu.getSelectedRows();			
+    		DefaultTableModel model = (DefaultTableModel) order.getModel();
+    		
+    		for(int i=0; i<rows.length; i++){  			
+	    		String[] newRow = new String[2];
+	    		newRow[0] = menu.getValueAt(rows[i], 0).toString().replace("Special: ", "");
+	    		newRow[1] = menu.getValueAt(rows[i], 1).toString();
+	    		model.addRow(newRow);
+	    		total = total + Double.parseDouble(menu.getValueAt(rows[i], 1).toString());	
+    		}
+    		
+    		total_txt.setText(String.valueOf(total));
+    		menu.clearSelection();
+		}
+		
+		if (e.getSource()== Cancel)
 		{
 			this.setVisible(false);
 			this.dispose();
