@@ -58,14 +58,41 @@ public class EditItemPage extends JDialog implements MouseListener {
 		this.setVisible(true);
 	}
 
+	public static boolean isNumeric(String str)  
+	{  
+		try {  
+			Double.parseDouble(str);  
+		}  
+		catch(NumberFormatException nfe) {  
+			return false;  
+		}  
+		return true;  
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == accept_btn) {
-			SystemManager.editMenuItem(oldName, name_txt.getText(), Double.parseDouble(price_txt.getText()), special_chkbox.isSelected());
-			
-			this.dispose();
-		}		
+			if (name_txt.getText().equals("")) {
+				this.add(new JLabel("ERROR: Please enter a name."));
+				this.revalidate();
+				this.repaint();
+			}
+			if (price_txt.getText().equals("") || !isNumeric(price_txt.getText())) {
+				this.add(new JLabel("ERROR: Please enter a valid price."));
+				this.revalidate();
+				this.repaint();
+			}
+			else {
+				if (e.getSource() == accept_btn) {
+					SystemManager.editMenuItem(oldName, name_txt.getText(), Double.parseDouble(price_txt.getText()), special_chkbox.isSelected());
+					
+					this.dispose();
+				}		
+				else if (e.getSource()== cancel_btn) {
+					this.dispose();
+				}
+			}
+		}
 		else if (e.getSource()== cancel_btn) {
 			this.dispose();
 		}
