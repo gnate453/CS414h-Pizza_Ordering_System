@@ -33,7 +33,7 @@ public class ViewOrders extends JDialog implements MouseListener {
 		markComplete.addMouseListener(this);
 		
         this.setSize(new Dimension(800, 500));
-		this.setLayout(new GridLayout(orders.size(), 3));       
+		this.setLayout(new GridLayout(2, 2));       
         
 		String dataValues[][] = new String[orders.size()][2];
         for(int i=0; i<orders.size(); i++){
@@ -47,9 +47,8 @@ public class ViewOrders extends JDialog implements MouseListener {
         back_btn.addMouseListener(this);
         details_btn.addMouseListener(this);
         this.add(back_btn);
-        this.add(details_btn);
-        
         this.add(pane);
+        this.add(details_btn);
         this.add(markComplete);
         
         this.addMouseListener(this);
