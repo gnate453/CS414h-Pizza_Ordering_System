@@ -18,7 +18,7 @@ public class DebitPayment extends Payment {
 		expiration = exp;
 		cardNum = cn;
 		pin = p;
-		System.out.println(this);
+		//System.out.println(this);
 	}
 	public String toString(){
 		return CardHolderName + " Card#:  " + cardNum + " SecurityCode: " + securityCode + " Exp: " +expiration+" Pin#: "+pin;

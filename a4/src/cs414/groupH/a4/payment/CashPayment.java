@@ -11,7 +11,7 @@ public class CashPayment extends Payment {
 	}
 	public void setFields(double a){
 		amount = a;
-		System.out.println(this);
+		//System.out.println(this);
 	}
 	public String toString(){
 		return "Cash: "+amount;

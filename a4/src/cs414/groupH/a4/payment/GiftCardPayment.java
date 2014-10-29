@@ -12,7 +12,7 @@ public class GiftCardPayment extends Payment {
 	public void setFields(int b, int cn){
 		balance = b;
 		cardNumber = cn;
-		System.out.println(this);
+		//System.out.println(this);
 	}
 	public String toString(){
 		return "Balance: "+balance+" Card#: "+cardNumber;

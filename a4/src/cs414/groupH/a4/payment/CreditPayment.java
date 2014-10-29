@@ -17,7 +17,7 @@ public class CreditPayment extends Payment{
 		securityCode = sc;
 		expiration = exp;
 		cardNum = cn;
-		System.out.println(this);
+		//System.out.println(this);
 	}
 	public String toString(){
 		return CardHolderName + " Card#: " + cardNum + "Security Code: " + securityCode + " Exp: " +expiration;

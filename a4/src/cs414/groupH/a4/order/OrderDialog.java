@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -37,11 +38,11 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	ArrayList<String> selectedItems = new ArrayList<String>();
 	Customer cust;	
 	double total;
+	DecimalFormat df = new DecimalFormat("####0.00");
 
 	public OrderDialog(Customer c){
 		cust = c;
 		total = 0;
-		
 		this.setModal(true);
 		this.setSize(new Dimension(800, 500));
 		Accept = new JButton("Accept");
@@ -100,14 +101,22 @@ public class OrderDialog extends JDialog implements MouseListener  {
 			}
 			else {
 				double pay = 0;
+				boolean cancel = false;
 				int i = 0;
 				while(total > pay){
 					new PaymentMethodDialog(payments, (total - pay));
-					pay = pay + payments.get(i).getAmount();
-					i++;
+					if(payments.size()>0){
+						pay = pay + payments.get(i).getAmount();
+						i++;
+					}else{
+						cancel = true;
+						break;
+					}
 				}
-				SystemManager.createOrder(cust, selectedItems,payments);
-				this.dispose();
+				if(!cancel){
+					SystemManager.createOrder(cust, selectedItems,payments);
+					this.dispose();
+				}
 			}
 		}
 		
@@ -116,13 +125,13 @@ public class OrderDialog extends JDialog implements MouseListener  {
 			int[] rows = order.getSelectedRows();			
     		DefaultTableModel model = (DefaultTableModel) order.getModel();
     		
-    		for(int i=0; i<rows.length; i++){  			
+    		for(int i=0; i<rows.length; i++){ 
+    			total = total - Double.parseDouble(model.getValueAt(rows[i]-i, 1).toString());	
+    			model.removeRow(rows[i]-i);
 
-	    		model.removeRow(rows[i]-i);
-	    		total = total - Double.parseDouble(menu.getValueAt(rows[i], 1).toString());	
     		}
     		
-    		total_txt.setText(String.valueOf(total));
+    		total_txt.setText(df.format(total));
     		menu.clearSelection();			
 		}
 		
@@ -140,7 +149,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	    		selectedItems.add(menu.getValueAt(rows[i], 0).toString().replace("Special: ", ""));
     		}
     		
-    		total_txt.setText(String.valueOf(total));
+    		total_txt.setText(df.format(total));
     		menu.clearSelection();
 		}
 		
