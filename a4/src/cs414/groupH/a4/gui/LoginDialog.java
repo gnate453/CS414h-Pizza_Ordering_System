@@ -53,10 +53,17 @@ public class LoginDialog extends JDialog implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == accept_btn) {
-			this.dispose();
 			boolean valid = EmployeeManager.verifyCreds(empId_txt.getText(), pwd_txt.getText());
 			if (valid) {
 				InStoreEmployeeApp.loginEmployee(EmployeeManager.findEmployee(empId_txt.getText()));
+				this.dispose();
+			}
+			else {
+				if (this.getContentPane().getComponentCount() < 7) {
+					this.setLayout(new GridLayout(4,2));
+					this.add(new JLabel("Invalid ID or password. Please try again."));
+					this.revalidate();
+				}
 			}
 		}
 		else if (e.getSource()== cancel_btn) {

@@ -126,9 +126,9 @@ public class OrderDialog extends JDialog implements MouseListener  {
     		DefaultTableModel model = (DefaultTableModel) order.getModel();
     		
     		for(int i=0; i<rows.length; i++){ 
-    			total = total - Double.parseDouble(model.getValueAt(rows[i]-i, 1).toString());	
-    			model.removeRow(rows[i]-i);
-
+	    		model.removeRow(rows[i]-i);
+	    		total = total - Double.parseDouble(menu.getValueAt(rows[i], 1).toString());	
+	    		selectedItems.remove(menu.getValueAt(rows[i], 0).toString().replace("Special: ", ""));
     		}
     		
     		total_txt.setText(df.format(total));
