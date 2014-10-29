@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,19 +12,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 
-public class viewMenu extends JFrame implements MouseListener {
+public class ViewMenu extends JFrame implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
 
 	JButton back_btn;
 	JTable table;
 	
-	public viewMenu() {		
+	DecimalFormat df = new DecimalFormat("#,##0.00");
+	
+	public ViewMenu() {		
         
 		back_btn = new JButton("Back");		
 		
         this.setSize(new Dimension(800, 500));
-		this.setLayout(new GridLayout(Menu.getMenuItems().size(), 2));       
+		this.setLayout(new GridLayout(1,2));       
         
 		String dataValues[][] = new String[Menu.getMenuItems().size()][2];
         for(int i=0; i<Menu.getMenuItems().size(); i++){
@@ -33,7 +36,7 @@ public class viewMenu extends JFrame implements MouseListener {
         	else{
         		dataValues[i][0] = Menu.getMenuItems().get(i).getName();
         	}
-        	dataValues[i][1] = String.valueOf(Menu.getMenuItems().get(i).getPrice());
+        	dataValues[i][1] = df.format(Menu.getMenuItems().get(i).getPrice()).replaceAll( "^-(?=0(.0*)?$)", "");
         }        
         
         String columnNames[] = {"Item","Price"};

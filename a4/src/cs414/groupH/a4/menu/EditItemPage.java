@@ -87,7 +87,13 @@ public class EditItemPage extends JDialog implements MouseListener {
 					this.revalidate();
 				}
 			}
-			else if (price_txt.getText().isEmpty() || isNumeric(price_txt.getText())) {
+			else if (price_txt.getText().isEmpty() || !isNumeric(price_txt.getText())) {
+				if (this.getContentPane().getComponentCount() < 10) {
+					this.add(errorPrice);
+					this.revalidate();
+				}
+			}
+			else if (Double.parseDouble(price_txt.getText()) < 0.0) {
 				if (this.getContentPane().getComponentCount() < 10) {
 					this.add(errorPrice);
 					this.revalidate();

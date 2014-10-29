@@ -91,7 +91,6 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
-			System.out.println("Items: "+selectedItems.size());
 			if (selectedItems.size() == 0) {
 				if (this.getContentPane().getComponentCount() < 9) {
 					this.setLayout(new GridLayout(5,2));
@@ -131,7 +130,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	    		model.removeRow(rows[i]-i);
     		}
     		
-    		total_txt.setText(df.format(total));
+    		total_txt.setText(df.format(total).replaceAll( "^-(?=0(.0*)?$)", ""));
     		menu.clearSelection();			
 		}
 		
@@ -149,7 +148,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	    		selectedItems.add(menu.getValueAt(rows[i], 0).toString().replace("Special: ", ""));
     		}
     		
-    		total_txt.setText(df.format(total));
+    		total_txt.setText(df.format(total).replaceAll( "^-(?=0(.0*)?$)", ""));
     		menu.clearSelection();
 		}
 		

@@ -27,7 +27,7 @@ public class Customer {
 	}
 	public void setFields(String n) {
 		name = n;
-		System.out.println(this);
+		//System.out.println(this);
 	}
 	public String toString(){
 		return "Name: " + name +

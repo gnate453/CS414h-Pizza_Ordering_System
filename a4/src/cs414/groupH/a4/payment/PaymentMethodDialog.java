@@ -33,7 +33,7 @@ public class PaymentMethodDialog extends JDialog implements MouseListener{
 		Debit = new JButton("Debit");
 		Cash = new JButton("Cash");
 		Cancel = new JButton("Cancel");
-		owed = new JLabel("Amount Due: " + df.format(amount));
+		owed = new JLabel("Amount Due: " + df.format(amount).replaceAll( "^-(?=0(.0*)?$)", ""));
 		
 		this.setModal(true);
 		this.setLayout(new GridLayout(3,2));
