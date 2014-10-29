@@ -32,7 +32,7 @@ public class ViewOrderDetails extends JDialog implements MouseListener {
 		Phone = new JLabel("Phone: " + o.getCustomer().getAddress().getPhone());
 		back_btn = new JButton("Back");
         this.setSize(new Dimension(800, 400));
-		this.setLayout(new GridLayout(o.getItems().size(), 2));       
+		this.setLayout(new GridLayout(3, 2));       
         
 		String dataValues[][] = new String[o.getItems().size()][1];
         for(int i=0; i<o.getItems().size(); i++){
