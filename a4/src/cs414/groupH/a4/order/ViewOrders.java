@@ -1,42 +1,41 @@
-package cs414.groupH.a4.menu;
+package cs414.groupH.a4.order;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import cs414.groupH.a4.manager.SystemManager;
 
-public class viewMenu extends JFrame implements MouseListener {
+public class ViewOrders extends JDialog implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
 
 	JButton back_btn;
 	JTable table;
 	
-	public viewMenu() {		
+	public ViewOrders() {		
+		
+		List<Order> orders = SystemManager.getOrders();
         
 		back_btn = new JButton("Back");		
 		
         this.setSize(new Dimension(800, 500));
-		this.setLayout(new GridLayout(Menu.getMenuItems().size(), 2));       
+		this.setLayout(new GridLayout(orders.size(), 2));       
         
-		String dataValues[][] = new String[Menu.getMenuItems().size()][2];
-        for(int i=0; i<Menu.getMenuItems().size(); i++){
-        	if(Menu.getMenuItems().get(i).isDailySpecial()){
-        		dataValues[i][0] = "Special: " + Menu.getMenuItems().get(i).getName();
-        	}
-        	else{
-        		dataValues[i][0] = Menu.getMenuItems().get(i).getName();
-        	}
-        	dataValues[i][1] = String.valueOf(Menu.getMenuItems().get(i).getPrice());
+		String dataValues[][] = new String[orders.size()][2];
+        for(int i=0; i<orders.size(); i++){
+        	dataValues[i][0] = orders.get(i).getOrderId();
+        	dataValues[i][1] = String.valueOf(orders.get(i).isComplete());
         }        
         
-        String columnNames[] = {"Item","Price"};
+        String columnNames[] = {"Order ID","Completed?"};
         table = new JTable(dataValues, columnNames);
         JScrollPane pane = new JScrollPane(table);
         back_btn.addMouseListener(this);
@@ -50,15 +49,9 @@ public class viewMenu extends JFrame implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent me) {
-    	
-    		if (me.getSource() == back_btn)
-    		{
-    			this.setVisible(false);
-    		}
-    		if (me.getSource() == back_btn)
-    		{
-    			this.setVisible(false);
-    		}
+		if (me.getSource() == back_btn) {
+			this.dispose();
+		}
     }
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
@@ -77,4 +70,3 @@ public class viewMenu extends JFrame implements MouseListener {
 
     }
 }
-

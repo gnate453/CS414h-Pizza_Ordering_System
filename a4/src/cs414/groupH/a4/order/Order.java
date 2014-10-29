@@ -14,13 +14,18 @@ public class Order {
 	private ArrayList<Payment> payments;
 	private boolean isComplete;
 
-	public Order(String orderId){
-		this.orderId = orderId;
+	public Order(Customer customer){
+		orderId = OrderIdIncrementer.getNewOrderId();
+		this.customer = customer;
 		amountPaid = 0.0;
 		orderedItems = new ArrayList<MenuItem>();
 		payments = new ArrayList<Payment>();
 		isComplete = false;
 	}
+	
+	/*public Order(){
+		new OrderDialog(this);
+	}*/
 	
 	public boolean addPayment(Payment payment) {
 		boolean res = payments.add(payment);
@@ -59,9 +64,6 @@ public class Order {
 		isComplete = false;
 	}
 	
-	public String getId(){
-		return orderId;
-	}
 	public String getOrderId() {
 		return orderId;
 	}
