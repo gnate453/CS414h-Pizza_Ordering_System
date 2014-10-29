@@ -8,7 +8,6 @@ import cs414.groupH.a4.employee.EmployeeType;
 import cs414.groupH.a4.menu.Menu;
 import cs414.groupH.a4.menu.MenuItem;
 import cs414.groupH.a4.order.Order;
-import cs414.groupH.a4.order.OrderIdIncrementer;
 import cs414.groupH.a4.payment.Payment;
 
 public class SystemManager {
@@ -25,6 +24,10 @@ public class SystemManager {
 	
 	public static boolean addMenuItem(String name, double price, boolean isDailySpecial) {
 		return Menu.addMenuItem(new MenuItem(name, price, isDailySpecial));
+	}
+	
+	public static boolean editMenuItem(String oldName, String newName, double price, boolean isDailySpecial) {
+		return Menu.editMenuItem(oldName, new MenuItem(newName, price, isDailySpecial));
 	}
 	
 	public static void removeMenuItem(MenuItem item) {
