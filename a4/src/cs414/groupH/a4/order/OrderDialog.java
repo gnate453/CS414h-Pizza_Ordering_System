@@ -14,9 +14,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 import cs414.groupH.a4.address.Address;
 import cs414.groupH.a4.customer.Customer;
+import cs414.groupH.a4.manager.SystemManager;
 import cs414.groupH.a4.menu.Menu;
 
 public class OrderDialog extends JDialog implements MouseListener  {
@@ -26,11 +28,14 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	private static final long serialVersionUID = 1L;
 	JButton Accept;
 	JButton Cancel;
-	JTable table;
-	 ArrayList<String> selectedItems = new ArrayList<String>();
+	JTable menu;
+	JTable order;
+	ArrayList<String> selectedItems = new ArrayList<String>();
+	Customer cust;
 
-	public OrderDialog(){
+	public OrderDialog(Customer c){
 
+		cust = c;
 		this.setModal(true);
 		this.setSize(new Dimension(500, 255));
 		Accept = new JButton("Accept");
@@ -51,20 +56,39 @@ public class OrderDialog extends JDialog implements MouseListener  {
         	}
         	dataValues[i][1] = String.valueOf(Menu.getMenuItems().get(i).getPrice());
         }        
-        
         String columnNames[] = {"Item","Price"};
-        table = new JTable(dataValues, columnNames);
-        JScrollPane pane = new JScrollPane(table);
+        menu = new JTable(dataValues, columnNames);
+        order = new JTable(new DefaultTableModel(new Object[]{"Item", "Price"}, 1));
+        JScrollPane pane = new JScrollPane(menu);
+        JScrollPane orderPane = new JScrollPane(order);
         
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        //SelectionListener for the Menu (for adding items to order)
+        menu.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                // do some actions here, for example
-                // print first column value from selected row
-                System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+            	if(!event.getValueIsAdjusting()){
+            		selectedItems.add(menu.getValueAt(menu.getSelectedRow(), 0).toString().replace("Special: ", ""));
+            		DefaultTableModel model = (DefaultTableModel) order.getModel();
+            		String[] newRow = new String[2];
+            		newRow[0] = menu.getValueAt(menu.getSelectedRow(), 0).toString().replace("Special: ", "");
+            		newRow[1] = menu.getValueAt(menu.getSelectedRow(), 1).toString();
+            		model.addRow(newRow);
+            	}
             }
         });
         
+        //SelectionListener for the menu(for removing items from order)
+        order.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+            	if(!event.getValueIsAdjusting()){
+            		selectedItems.remove(menu.getValueAt(menu.getSelectedRow(), 0).toString().replace("Special: ", ""));
+            		DefaultTableModel model = (DefaultTableModel) order.getModel();
+            		model.removeRow(menu.getSelectedRow());
+            	}
+            }
+        });
+
         this.add(pane);
+        this.add(orderPane);
 		this.add(Accept);
 		this.add(Cancel);
 		this.addMouseListener(this);
@@ -75,7 +99,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
-			
+			//SystemManager.createOrder(c, selectedItems);
 			this.setVisible(false);
 		}
 		else if (e.getSource()== Cancel)
