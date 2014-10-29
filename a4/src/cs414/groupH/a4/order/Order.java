@@ -22,6 +22,10 @@ public class Order {
 		isComplete = false;
 	}
 	
+	public Order(){
+		new OrderDialog(this);
+	}
+	
 	public boolean addPayment(Payment payment) {
 		boolean res = payments.add(payment);
 		if (res) {

@@ -55,6 +55,10 @@ public class viewMenu extends JFrame implements MouseListener {
     		{
     			this.setVisible(false);
     		}
+    		if (me.getSource() == back_btn)
+    		{
+    			this.setVisible(false);
+    		}
     }
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
