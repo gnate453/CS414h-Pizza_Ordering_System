@@ -14,8 +14,9 @@ public class Order {
 	private ArrayList<Payment> payments;
 	private boolean isComplete;
 
-	public Order(String orderId){
-		this.orderId = orderId;
+	public Order(Customer customer){
+		orderId = OrderIdIncrementer.getNewOrderId();
+		this.customer = customer;
 		amountPaid = 0.0;
 		orderedItems = new ArrayList<MenuItem>();
 		payments = new ArrayList<Payment>();
