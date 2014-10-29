@@ -52,6 +52,10 @@ public class SystemManager {
 		return newOrder.getOrderId();
 	}
 	
+	public static Order findOrder(String orderId) {
+		return OrderManager.findOrder(orderId);
+	}
+	
 	public static void markOrderComplete(String orderId) {
 		OrderManager.markOrderComplete(OrderManager.findOrder(orderId));
 	}
