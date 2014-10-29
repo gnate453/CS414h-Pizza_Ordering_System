@@ -11,6 +11,7 @@ import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import cs414.groupH.a4.address.Address;
 import cs414.groupH.a4.customer.Customer;
 import cs414.groupH.a4.customer.CustomerDialog;
 import cs414.groupH.a4.employee.Employee;
@@ -82,13 +83,15 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 		
 		SystemManager.addMenuItem("Pepperoni Pizza", 9.99, false);
 		SystemManager.addMenuItem("Cheese Pizza", 5.00, true);
-		
+		SystemManager.addMenuItem("Breadsticks(6)", 3.99, false);
+		Address addr = new Address("1423 Foo Bar","Fort Collins","CO","80526","(111)111-1111");
+		Customer c = new Customer("Rick Henderson", addr);
 		List<String> items = new ArrayList<String>();
 		items.add("Pepperoni Pizza");
 		items.add("Cheese Pizza");
 		items.add("Pepperoni Pizza");
 		List<Payment> pay = new ArrayList<Payment>();
-		SystemManager.createOrder(new Customer(), items, pay);
+		SystemManager.createOrder(c, items, pay);
 	}
 	
 	public void renderView() {
