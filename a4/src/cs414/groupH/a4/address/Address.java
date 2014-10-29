@@ -12,7 +12,13 @@ public class Address {
 	public String getStreet(){
 		return street;
 	}
-	
+	public boolean isEmpty(){
+		if(street.equals("") && city.equals("") && state.equals("") && zip.equals("") && phone.equals("")){
+			return true;
+		}else{
+			return false;
+		}
+	} 
 	public String getCity(){
 		return city;
 	}
