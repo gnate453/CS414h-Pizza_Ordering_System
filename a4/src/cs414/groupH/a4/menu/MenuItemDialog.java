@@ -26,6 +26,9 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 	JTextField price_txt;
 	JCheckBox special_chkbox;
 	boolean isSpecial;
+	
+	JLabel errorName;
+	JLabel errorPrice;
 
 	public MenuItemDialog() {
 		this.setSize(new Dimension(500, 1000));
@@ -38,6 +41,9 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 		name_txt = new JTextField();
 		price_txt = new JTextField();
 		special_chkbox = new JCheckBox("Yes");
+		
+		errorName = new JLabel("ERROR: Please enter a name.");
+		errorPrice = new JLabel("ERROR: Please enter a valid price.");
 		
 		this.setLayout(new GridLayout(5,2));
 		this.setPreferredSize(new Dimension(50, 100));
@@ -71,15 +77,17 @@ public class MenuItemDialog extends JDialog implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == accept_btn) {
-			if (name_txt.getText().equals("")) {
-				this.add(new JLabel("ERROR: Please enter a name."));
-				this.revalidate();
-				this.repaint();
+			if (name_txt.getText().isEmpty()) {
+				if (this.getContentPane().getComponentCount() < 10) {
+					this.add(errorName);
+					this.revalidate();
+				}
 			}
-			if (price_txt.getText().equals("") || !isNumeric(price_txt.getText())) {
-				this.add(new JLabel("ERROR: Please enter a valid price."));
-				this.revalidate();
-				this.repaint();
+			else if (price_txt.getText().isEmpty() || isNumeric(price_txt.getText())) {
+				if (this.getContentPane().getComponentCount() < 10) {
+					this.add(errorPrice);
+					this.revalidate();
+				}
 			}
 			else {
 				SystemManager.addMenuItem(name_txt.getText(), Double.parseDouble(price_txt.getText()), special_chkbox.isSelected());

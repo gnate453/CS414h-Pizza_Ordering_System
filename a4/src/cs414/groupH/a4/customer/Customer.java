@@ -1,6 +1,4 @@
 package cs414.groupH.a4.customer;
-import java.util.ArrayList;
-
 import cs414.groupH.a4.address.Address;
 
 public class Customer {
