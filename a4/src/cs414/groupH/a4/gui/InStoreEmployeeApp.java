@@ -73,6 +73,9 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 	}
 	
 	public void initialData() {
+		//Login with no credentials
+		SystemManager.addEmployee("", "John Smith", "", EmployeeType.manager);
+		
 		SystemManager.addEmployee("001", "John Smith", "password", EmployeeType.cashier);
 		SystemManager.addEmployee("002", "Joh Smith", "password", EmployeeType.chef);
 		SystemManager.addEmployee("003", "Jo Smith", "password", EmployeeType.manager);
