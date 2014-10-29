@@ -2,6 +2,7 @@ package cs414.groupH.a4.manager;
 
 import java.util.List;
 
+import cs414.groupH.a4.customer.Customer;
 import cs414.groupH.a4.employee.Employee;
 import cs414.groupH.a4.employee.EmployeeType;
 import cs414.groupH.a4.menu.Menu;
@@ -35,8 +36,8 @@ public class SystemManager {
 	}
 	
 	
-	public static String createOrder(List<String> itemNames) {
-		Order newOrder = new Order(OrderIdIncrementer.getNewOrderId());
+	public static String createOrder(Customer cust, List<String> itemNames) {
+		Order newOrder = new Order(cust);
 		OrderManager.addOrder(newOrder);
 		for (String i : itemNames) {
 			MenuItem item = Menu.findMenuItem(i);
