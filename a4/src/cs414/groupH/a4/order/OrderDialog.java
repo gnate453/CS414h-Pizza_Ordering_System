@@ -18,6 +18,7 @@ import cs414.groupH.a4.customer.Customer;
 import cs414.groupH.a4.manager.SystemManager;
 import cs414.groupH.a4.menu.Menu;
 import cs414.groupH.a4.payment.Payment;
+import cs414.groupH.a4.payment.PaymentMethodDialog;
 
 public class OrderDialog extends JDialog implements MouseListener  {
 	/**
@@ -34,6 +35,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	JLabel total_lbl;
 	JTextField total_txt;
 	
+	ArrayList<Payment> payments = new ArrayList<Payment>();
 	ArrayList<String> selectedItems = new ArrayList<String>();
 	Customer cust;	
 	double total;
@@ -90,8 +92,14 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
-			SystemManager.createOrder(cust, selectedItems);
-			Payment p = new Payment();
+			double pay = 0;
+			int i = 0;
+			while(total > pay){
+				new PaymentMethodDialog(payments, (total - pay));
+				pay = pay + payments.get(i).getAmount();
+				i++;
+			}
+			SystemManager.createOrder(cust, selectedItems,payments);
 			this.setVisible(false);
 		}
 		

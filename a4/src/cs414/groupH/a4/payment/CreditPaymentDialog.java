@@ -66,7 +66,9 @@ public class CreditPaymentDialog extends JDialog implements MouseListener {
 		if (e.getSource() == Accept)
 		{
 			this.setVisible(false);
-			DialogForCr.setFields(cardHolderTXT.getText(), Integer.parseInt(cardNumberTXT.getText()), Integer.parseInt(cardSecureTXT.getText()), Integer.parseInt(cardExpTXT.getText()));
+			if(!cardNumberTXT.getText().equals("")||!cardSecureTXT.getText().equals("")||!cardExpTXT.getText().equals("")){
+				DialogForCr.setFields(cardHolderTXT.getText(), Integer.parseInt(cardNumberTXT.getText()), Integer.parseInt(cardSecureTXT.getText()), Integer.parseInt(cardExpTXT.getText()));
+			}
 		}
 		else if (e.getSource()== Cancel)
 		{

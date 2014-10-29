@@ -38,14 +38,17 @@ public class SystemManager {
 		return Menu.getMenuItems();
 	}	
 	
-	public static String createOrder(Customer cust, List<String> itemNames) {
+	public static String createOrder(Customer cust, List<String> itemNames, List<Payment> payments) {
 		Order newOrder = new Order(cust);
 		OrderManager.addOrder(newOrder);
 		for (String i : itemNames) {
 			MenuItem item = Menu.findMenuItem(i);
 			newOrder.addItem(item);
 		}
-		
+		for(Payment p : payments){
+			newOrder.addPayment(p);
+		}
+				
 		return newOrder.getOrderId();
 	}
 	

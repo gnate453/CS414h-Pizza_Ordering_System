@@ -10,6 +10,7 @@ public class Order {
 	private String orderId;
 	private Customer customer;
 	private double amountPaid;
+	private double amountOwed;
 	private ArrayList<MenuItem> orderedItems;
 	private ArrayList<Payment> payments;
 	private boolean isComplete;
@@ -18,6 +19,7 @@ public class Order {
 		orderId = OrderIdIncrementer.getNewOrderId();
 		this.customer = customer;
 		amountPaid = 0.0;
+		amountOwed = 0.0;
 		orderedItems = new ArrayList<MenuItem>();
 		payments = new ArrayList<Payment>();
 		isComplete = false;
@@ -41,6 +43,7 @@ public class Order {
 	}
 	
 	public boolean addItem(MenuItem item) {
+		amountOwed = amountOwed + item.getPrice();
 		return orderedItems.add(item);
 	}
 	

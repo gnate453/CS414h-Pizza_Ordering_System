@@ -21,6 +21,7 @@ import cs414.groupH.a4.menu.MenuItemDialog;
 import cs414.groupH.a4.menu.viewMenu;
 import cs414.groupH.a4.order.OrderDialog;
 import cs414.groupH.a4.order.ViewOrders;
+import cs414.groupH.a4.payment.Payment;
 
 public class InStoreEmployeeApp extends JApplet implements MouseListener {
 
@@ -92,7 +93,8 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 		items.add("Pepperoni Pizza");
 		items.add("Cheese Pizza");
 		items.add("Pepperoni Pizza");
-		SystemManager.createOrder(new Customer(), items);
+		List<Payment> pay = new ArrayList<Payment>();
+		SystemManager.createOrder(new Customer(), items, pay);
 	}
 	
 	public void renderView() {
