@@ -21,9 +21,7 @@ import cs414.groupH.a4.payment.Payment;
 import cs414.groupH.a4.payment.PaymentMethodDialog;
 
 public class OrderDialog extends JDialog implements MouseListener  {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	JTable menu;
@@ -92,15 +90,25 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
-			double pay = 0;
-			int i = 0;
-			while(total > pay){
-				new PaymentMethodDialog(payments, (total - pay));
-				pay = pay + payments.get(i).getAmount();
-				i++;
+			System.out.println("Items: "+selectedItems.size());
+			if (selectedItems.size() == 0) {
+				if (this.getContentPane().getComponentCount() < 9) {
+					this.setLayout(new GridLayout(5,2));
+					this.add(new JLabel("ERROR: You have selected no items."));
+					this.revalidate();
+				}
 			}
-			SystemManager.createOrder(cust, selectedItems,payments);
-			this.setVisible(false);
+			else {
+				double pay = 0;
+				int i = 0;
+				while(total > pay){
+					new PaymentMethodDialog(payments, (total - pay));
+					pay = pay + payments.get(i).getAmount();
+					i++;
+				}
+				SystemManager.createOrder(cust, selectedItems,payments);
+				this.dispose();
+			}
 		}
 		
 		if (e.getSource() == remove)
@@ -129,6 +137,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	    		newRow[1] = menu.getValueAt(rows[i], 1).toString();
 	    		model.addRow(newRow);
 	    		total = total + Double.parseDouble(menu.getValueAt(rows[i], 1).toString());	
+	    		selectedItems.add(menu.getValueAt(rows[i], 1).toString().replace("Special: ", ""));
     		}
     		
     		total_txt.setText(String.valueOf(total));
