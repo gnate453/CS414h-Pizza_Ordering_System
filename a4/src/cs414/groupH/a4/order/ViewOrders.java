@@ -62,13 +62,12 @@ public class ViewOrders extends JDialog implements MouseListener {
 	    		SystemManager.markOrderComplete(table.getValueAt(table.getSelectedRow(), 0).toString());
 	    		this.dispose();
     		}
-    	}else if(me.getSource() == details_btn){   
-    		
+    	}else if(me.getSource() == details_btn){  
     		if (table.getSelectedRow() != -1) {
     			Order o = SystemManager.findOrder(table.getValueAt(table.getSelectedRow(), 0).toString());
     			new ViewOrderDetails(o);
+    			this.dispose();
     		}
-    		this.dispose();
     	}
 		if (me.getSource() == back_btn) {
 			this.dispose();
