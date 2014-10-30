@@ -10,7 +10,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import cs414.groupH.a4.manager.SystemManager;
 
 public class CreditPaymentDialog extends JDialog implements MouseListener {
 	
