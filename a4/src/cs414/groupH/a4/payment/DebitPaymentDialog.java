@@ -27,11 +27,12 @@ public class DebitPaymentDialog extends JDialog implements MouseListener  {
 	JTextField cardExpTXT;
 	JLabel cardPin;
 	JTextField cardPinTXT;
+	JLabel Error;
 	DebitPayment DialogForDb;
 	
 	DebitPaymentDialog(DebitPayment p){
 		DialogForDb = p;
-		this.setSize(new Dimension(500, 500));
+		this.setSize(new Dimension(750, 500));
 		Accept = new JButton("Accept");
 		Cancel = new JButton("Cancel");
 		cardHolder = new JLabel("Card Holder Name:");
@@ -44,8 +45,9 @@ public class DebitPaymentDialog extends JDialog implements MouseListener  {
 		cardExpTXT = new JTextField();
 		cardPin = new JLabel("Card Pin Number:");
 		cardPinTXT = new JTextField();
+		Error = new JLabel("Please Populate All Fields Correctly");
 		
-		this.setLayout(new GridLayout(6,2));
+		this.setLayout(new GridLayout(7,2));
 		this.setPreferredSize(new Dimension(50, 100) );
 		this.setModal(true);
 		
@@ -66,13 +68,57 @@ public class DebitPaymentDialog extends JDialog implements MouseListener  {
 		this.addMouseListener(this);
 		this.setVisible(true);
 	}
-
+	public static boolean isNumeric(String str)  
+	{  
+		try {  
+			Double.parseDouble(str);  
+		}  
+		catch(NumberFormatException nfe) {  
+			return false;  
+		}  
+		return true;  
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
-			this.setVisible(false);
-			DialogForDb.setFields(cardHolderTXT.getText(), cardNumberTXT.getText(), cardSecureTXT.getText(), cardExpTXT.getText(),cardPinTXT.getText());
+			if (cardNumberTXT.getText().isEmpty()|| !isNumeric(cardNumberTXT.getText())) {
+				if (this.getContentPane().getComponentCount() < 13) {
+					this.add(Error);
+					this.revalidate();
+				}
+			}
+			else if (cardSecureTXT.getText().isEmpty() || !isNumeric(cardSecureTXT.getText())) {
+				if (this.getContentPane().getComponentCount() < 13) {
+					this.add(Error);
+					this.revalidate();
+				}
+			}
+			else if (cardHolderTXT.getText().isEmpty()) {
+				if (this.getContentPane().getComponentCount() < 13) {
+					this.add(Error);
+					this.revalidate();
+				}
+			}
+			else if (cardExpTXT.getText().isEmpty() || !isNumeric(cardExpTXT.getText())) {
+				if (this.getContentPane().getComponentCount() < 13) {
+					this.add(Error);
+					this.revalidate();
+				}
+			}
+			else if (cardPinTXT.getText().isEmpty() || !isNumeric(cardPinTXT.getText())) {
+				if (this.getContentPane().getComponentCount() < 13) {
+					this.add(Error);
+					this.revalidate();
+				}
+			}
+			else {
+				this.setVisible(false);
+				if(!cardNumberTXT.getText().equals("")||!cardSecureTXT.getText().equals("")||!cardExpTXT.getText().equals("")){
+					DialogForDb.setFields(cardHolderTXT.getText(), cardNumberTXT.getText(), cardSecureTXT.getText(), cardExpTXT.getText(), cardPinTXT.getText());
+				}				
+				this.dispose();
+			}
 		}
 		else if (e.getSource()== Cancel)
 		{

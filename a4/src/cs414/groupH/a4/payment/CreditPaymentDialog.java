@@ -10,6 +10,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import cs414.groupH.a4.manager.SystemManager;
+
 public class CreditPaymentDialog extends JDialog implements MouseListener {
 	
 	/**
@@ -26,10 +28,11 @@ public class CreditPaymentDialog extends JDialog implements MouseListener {
 	JTextField cardSecureTXT;
 	JLabel cardExp;
 	JTextField cardExpTXT;
+	JLabel Error;
 	CreditPayment DialogForCr;
 	public CreditPaymentDialog(CreditPayment p){
 		DialogForCr = p;
-		this.setSize(new Dimension(500, 500));
+		this.setSize(new Dimension(750, 500));
 		Accept = new JButton("Accept");
 		Cancel = new JButton("Cancel");
 		cardHolder = new JLabel("Card Holder Name:");
@@ -40,9 +43,10 @@ public class CreditPaymentDialog extends JDialog implements MouseListener {
 		cardSecureTXT = new JTextField();
 		cardExp = new JLabel("Card Experation Date:");
 		cardExpTXT = new JTextField();
+		Error = new JLabel("Please Populate All Fields Correctly");
 		
 		this.setModal(true);
-		this.setLayout(new GridLayout(5,2));
+		this.setLayout(new GridLayout(6,2));
 		this.setPreferredSize(new Dimension(50, 100) );
 		
 		Accept.addMouseListener(this);
@@ -61,13 +65,50 @@ public class CreditPaymentDialog extends JDialog implements MouseListener {
 		this.setVisible(true);
 		
 	}
+	public static boolean isNumeric(String str)  
+	{  
+		try {  
+			Double.parseDouble(str);  
+		}  
+		catch(NumberFormatException nfe) {  
+			return false;  
+		}  
+		return true;  
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
-			this.setVisible(false);
-			if(!cardNumberTXT.getText().equals("")||!cardSecureTXT.getText().equals("")||!cardExpTXT.getText().equals("")){
-				DialogForCr.setFields(cardHolderTXT.getText(), cardNumberTXT.getText(), cardSecureTXT.getText(), cardExpTXT.getText());
+			if (cardNumberTXT.getText().isEmpty()|| !isNumeric(cardNumberTXT.getText())) {
+				if (this.getContentPane().getComponentCount() < 11) {
+					this.add(Error);
+					this.revalidate();
+				}
+			}
+			else if (cardSecureTXT.getText().isEmpty() || !isNumeric(cardSecureTXT.getText())) {
+				if (this.getContentPane().getComponentCount() < 11) {
+					this.add(Error);
+					this.revalidate();
+				}
+			}
+			else if (cardHolderTXT.getText().isEmpty()) {
+				if (this.getContentPane().getComponentCount() < 11) {
+					this.add(Error);
+					this.revalidate();
+				}
+			}
+			else if (cardExpTXT.getText().isEmpty() || !isNumeric(cardExpTXT.getText())) {
+				if (this.getContentPane().getComponentCount() < 11) {
+					this.add(Error);
+					this.revalidate();
+				}
+			}
+			else {
+				this.setVisible(false);
+				if(!cardNumberTXT.getText().equals("")||!cardSecureTXT.getText().equals("")||!cardExpTXT.getText().equals("")){
+					DialogForCr.setFields(cardHolderTXT.getText(), cardNumberTXT.getText(), cardSecureTXT.getText(), cardExpTXT.getText());
+				}				
+				this.dispose();
 			}
 		}
 		else if (e.getSource()== Cancel)
