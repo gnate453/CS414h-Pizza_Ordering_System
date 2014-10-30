@@ -38,7 +38,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	ArrayList<String> selectedItems = new ArrayList<String>();
 	Customer cust;	
 	double total;
-	DecimalFormat df = new DecimalFormat("####0.00");
+	DecimalFormat df = new DecimalFormat("#,##0.00");
 
 	public OrderDialog(Customer c){
 		cust = c;
@@ -67,7 +67,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
         	else{
         		dataValues[i][0] = Menu.getMenuItems().get(i).getName();
         	}
-        	dataValues[i][1] = String.valueOf(Menu.getMenuItems().get(i).getPrice());
+        	dataValues[i][1] = df.format(Menu.getMenuItems().get(i).getPrice()).replaceAll( "^-(?=0(.0*)?$)", "");
         }        
         String columnNames[] = {"Menu Items","Price"};
         menu = new JTable(dataValues, columnNames);
@@ -142,7 +142,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
     		for(int i=0; i<rows.length; i++){  			
 	    		String[] newRow = new String[2];
 	    		newRow[0] = menu.getValueAt(rows[i], 0).toString().replace("Special: ", "");
-	    		newRow[1] = menu.getValueAt(rows[i], 1).toString();
+	    		newRow[1] = df.format(Double.parseDouble(menu.getValueAt(rows[i], 1).toString())).replaceAll( "^-(?=0(.0*)?$)", "");
 	    		model.addRow(newRow);
 	    		total = total + Double.parseDouble(menu.getValueAt(rows[i], 1).toString());	
 	    		selectedItems.add(menu.getValueAt(rows[i], 0).toString().replace("Special: ", ""));

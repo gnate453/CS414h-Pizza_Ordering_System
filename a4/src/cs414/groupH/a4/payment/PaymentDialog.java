@@ -21,7 +21,7 @@ public class PaymentDialog extends JDialog implements MouseListener{
 	Payment DialogFor;
 	public PaymentDialog(Payment p){
 		DialogFor = p;
-		this.setSize(new Dimension(255, 255));
+		this.setSize(new Dimension(600, 255));
 		Accept = new JButton("Accept");
 		Cancel = new JButton("Cancel");
 		AmountLBL = new JLabel("Amount:");
@@ -41,12 +41,39 @@ public class PaymentDialog extends JDialog implements MouseListener{
 		this.setVisible(true);
 		
 	}
+	
+	public static boolean isNumeric(String str)  
+	{  
+		try {  
+			Double.parseDouble(str);  
+		}  
+		catch(NumberFormatException nfe) {  
+			return false;  
+		}  
+		return true;  
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
-			this.setVisible(false);
-			DialogFor.setAmount(Double.parseDouble(AmountTXT.getText()));
+			if (AmountTXT.getText().isEmpty() || !isNumeric(AmountTXT.getText())) {
+				if (this.getContentPane().getComponentCount() < 5) {
+					this.setLayout(new GridLayout(3,2));
+					this.add(new JLabel("ERROR: Enter a valid amount."));
+					this.revalidate();
+				}
+			}
+			else if (Double.parseDouble(AmountTXT.getText()) <= 0.0) {
+				if (this.getContentPane().getComponentCount() < 5) {
+					this.add(new JLabel("ERROR: Enter a valid amount."));
+					this.revalidate();
+				}
+			}
+			else {
+				DialogFor.setAmount(Double.parseDouble(AmountTXT.getText()));
+				this.dispose();
+			}
 		}
 		else if (e.getSource()== Cancel)
 		{
