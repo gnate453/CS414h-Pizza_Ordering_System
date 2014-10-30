@@ -67,7 +67,7 @@ public class AddressDialog extends JDialog implements MouseListener {
 		this.add(cancel_btn);
 		
 		this.addMouseListener(this);
-		this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setModal(true);
 		this.setVisible(true);
 	}

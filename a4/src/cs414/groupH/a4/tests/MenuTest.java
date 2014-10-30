@@ -1,6 +1,7 @@
 package cs414.groupH.a4.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
@@ -8,11 +9,9 @@ import cs414.groupH.a4.menu.Menu;
 import cs414.groupH.a4.menu.MenuItem;
 
 public class MenuTest {
-	
-	Menu Menu;
 
 	@Test
-	public void testAddMenuItem() {
+	public static void testAddMenuItem() {
 		Menu.addMenuItem(new MenuItem("Pepperoni Pizza", 12.00, false));
 		
 		assertEquals(1, Menu.getMenuItems().size());
@@ -28,9 +27,7 @@ public class MenuTest {
 	}
 
 	@Test
-	public void testRemoveMenuItem() {
-		Menu = new Menu();
-
+	public static void testRemoveMenuItem() {
 		Menu.addMenuItem(new MenuItem("Pepperoni Pizza", 12.00, false));
 		Menu.addMenuItem(new MenuItem("Sausage Pizza", 12.00, false));
 		Menu.addMenuItem(new MenuItem("Cheese Pizza", 10.00, false));
@@ -52,9 +49,7 @@ public class MenuTest {
 	}
 	
 	@Test
-	public void testContainsMenuItem() {
-		Menu = new Menu();
-		
+	public void testContainsMenuItem() {		
 		Menu.addMenuItem(new MenuItem("Pepperoni Pizza", 12.00, false));
 		Menu.addMenuItem(new MenuItem("Sausage Pizza", 12.00, false));
 		Menu.addMenuItem(new MenuItem("Cheese Pizza", 10.00, false));
@@ -69,8 +64,6 @@ public class MenuTest {
 
 	@Test
 	public void testGetMenuItems() {
-		Menu = new Menu();
-
 		Menu.addMenuItem(new MenuItem("Pepperoni Pizza", 12.00, false));
 		Menu.addMenuItem(new MenuItem("Sausage Pizza", 12.00, false));
 		Menu.addMenuItem(new MenuItem("Cheese Pizza", 10.00, true));
