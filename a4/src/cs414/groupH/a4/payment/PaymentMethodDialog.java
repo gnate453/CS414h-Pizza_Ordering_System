@@ -78,6 +78,7 @@ public class PaymentMethodDialog extends JDialog implements MouseListener{
 		}
 		else if (e.getSource()== Cancel)
 		{
+			pay.clear();
 			this.setVisible(false);
 			this.dispose();
 		}
