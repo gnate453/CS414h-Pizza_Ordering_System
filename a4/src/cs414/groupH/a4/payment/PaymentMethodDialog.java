@@ -24,9 +24,11 @@ public class PaymentMethodDialog extends JDialog implements MouseListener{
 	JLabel owed;
 	JLabel owed2;
 	ArrayList<Payment> pay;
+	double d = 0;
 	public PaymentMethodDialog(ArrayList<Payment> p, double amount){
 		DecimalFormat df = new DecimalFormat("###0.00");
 		pay = p;
+		d = amount;
 		this.setSize(new Dimension(500, 500));
 		
 		Credit = new JButton("Credit");
@@ -74,6 +76,9 @@ public class PaymentMethodDialog extends JDialog implements MouseListener{
 			CashPayment c = new CashPayment();
 			pay.add(c);
 			this.setVisible(false);
+			if(c.getAmount() > d){
+				new CashBack((c.getAmount()-d));
+			}
 			this.dispose();
 		}
 		else if (e.getSource()== Cancel)
