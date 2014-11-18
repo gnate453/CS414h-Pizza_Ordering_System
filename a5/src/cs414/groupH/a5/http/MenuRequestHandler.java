@@ -20,12 +20,12 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import cs414.groupH.a4.address.Address;
-import cs414.groupH.a4.customer.Customer;
-import cs414.groupH.a4.manager.SystemManager;
-import cs414.groupH.a4.menu.MenuItem;
-import cs414.groupH.a4.order.Order;
-import cs414.groupH.a4.payment.Payment;
+import cs414.groupH.a5.address.Address;
+import cs414.groupH.a5.customer.Customer;
+import cs414.groupH.a5.manager.SystemManager;
+import cs414.groupH.a5.menu.MenuItem;
+import cs414.groupH.a5.order.Order;
+import cs414.groupH.a5.payment.Payment;
 
 public class MenuRequestHandler implements HttpHandler {
 	//important main method is needed to run the server
