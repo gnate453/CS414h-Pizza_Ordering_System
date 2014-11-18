@@ -5,7 +5,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import android.database.MatrixCursor;
 import android.os.AsyncTask;
 
 //this is the class created for the AsyncTask
@@ -115,14 +113,14 @@ public class GetMenu extends AsyncTask<String, Void, List<String>> {
 			ioe.printStackTrace();
 		}
 		
-		final String[] matrix = { "_id", "name", "value" };
+		/*final String[] matrix = { "_id", "name", "value" };
 		MatrixCursor cursor = new MatrixCursor(matrix);
 		
 		DecimalFormat formatter = new DecimalFormat("##,##0.00");
 		for (int i=0; i<itemNames.size(); i++) {
 			cursor.addRow(new Object[] { i, "", itemNames.get(i)});
 		    cursor.addRow(new Object[] { i, "", "$" + formatter.format(itemPrices.get(i)) });
-		}
+		}*/
 		
 		return itemNames;
 	}
