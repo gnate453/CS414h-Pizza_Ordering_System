@@ -1,5 +1,7 @@
 package cs414.groupH.a5.http;
 
+import Pizza;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
@@ -25,7 +27,7 @@ import cs414.groupH.a5.menu.MenuItem;
 import cs414.groupH.a5.order.Order;
 import cs414.groupH.a5.payment.Payment;
 
-public class MenuRequestHandler implements HttpHandler {
+public class EmployeeRequestHandler implements HttpHandler {
 		
 	//this function is called when an HTTP request is made
 	@Override
@@ -33,12 +35,14 @@ public class MenuRequestHandler implements HttpHandler {
 		//this is the URL of the request
 		URI uri = exchange.getRequestURI();
 		
-		//the URL could come with parameters
 		String query = uri.getQuery();
+		if (query != null) {
+			//if the url has parameters, we need to parse them 
+			parseQuery(query);
+		}
+		
 		String response;
 		if (query != null) {
-			//get the XML response
-			response = parseQuery(query);
 			
 			if (response.equals("error")) {
 				response = "An error occurred! Please try your request again. Sorry for the inconvenience.";
@@ -64,54 +68,23 @@ public class MenuRequestHandler implements HttpHandler {
 	
 	//parses the parameters from the URL
 	//these are in the form {base_url}?customer=name&size=pizza_size&toppings=t1-t2-..-tn
-	private String parseQuery(String xmlInput) {
-		Document dom;
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		
-		try {
-			//Using factory get an instance of document builder
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			
-			//parse using builder to get DOM representation of the XML file
-			dom = db.parse(xmlInput);
-			
-			//get the root elememt
-			Element docEle = dom.getDocumentElement();
-			
-			String request = getTextValue(docEle, "Request");
-			
-			switch (request) {
-				case "getMenu":
-					return getMenuXml();
-				case "createOrder":
-					Order order = xmlParser(xmlInput);
-					if (order != null) {
-						return getOrderConfXml(order);
-					}
-					else {
-						return "error";
-					}
-				default:
-					return "error";
-			}
-			
-		}catch(ParserConfigurationException pce) {
-			pce.printStackTrace();
-		}catch(SAXException se) {
-			se.printStackTrace();
-		}catch(IOException ioe) {
-			ioe.printStackTrace();
-		}
-		
-		return "error";
-		
+	private void parseQuery(String query) {
 		//split the query based on parameters
-		/*String[] subs = query.split("&");
+		String[] subs = query.split("&");
+		
 		for (String parameter : subs) {	
 			//key is on the left and value is on the right, so we split this
 			String[] values = parameter.split("=");
-			params.put(values[0], values[1]);
-		}*/
+			if (values[0].equals("customer")) {
+				
+			}
+			else if (values[0].equals("size")) {
+				
+			}
+			else if (values[0].equals("toppings")) {
+				
+			}
+		}
 	}
 	
 	private Order xmlParser(String xmlInput) {
