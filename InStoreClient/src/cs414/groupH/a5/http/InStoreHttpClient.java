@@ -12,14 +12,14 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class InStoreHttpClient {
 	
-	private static final String ipAddr = "192.168.0.101:8000";
+	private static final String ipAddr = "10.84.44.121:8000";
 	
 	private static HttpClient httpclient = HttpClientBuilder.create().build();
 	
 	public static String getEmpType(String empID) {
 		String result = null;
 		
-		String url = "http://"+ipAddr+"/empTypeCheck?empID="+empID;
+		String url = "http://"+ipAddr+"/employee?type=TypeCheck&empID="+empID;
 		HttpGet httpget = new HttpGet(url);
 		
 		HttpResponse response;
@@ -32,7 +32,7 @@ public class InStoreHttpClient {
 				InputStream instream = entity.getContent();
 				result = convertToString(instream);
 				
-				System.out.println(result);
+				//System.out.println(result);
 				
 				//close the stream
 				instream.close();
@@ -66,7 +66,7 @@ public class InStoreHttpClient {
 				InputStream instream = entity.getContent();
 				result = convertToString(instream);
 				
-				System.out.println(result);
+				//System.out.println(result);
 				
 				//close the stream
 				instream.close();

@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/httpclient-4.3.6.jar"/>
 	<classpathentry kind="lib" path="libs/httpcore-4.3.3.jar"/>
+	<classpathentry kind="lib" path="libs/commons-logging-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

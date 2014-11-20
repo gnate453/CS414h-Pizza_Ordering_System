@@ -1,7 +1,5 @@
 package cs414.groupH.a5.http;
 
-import Pizza;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
@@ -22,6 +20,8 @@ import com.sun.net.httpserver.HttpHandler;
 
 import cs414.groupH.a5.address.Address;
 import cs414.groupH.a5.customer.Customer;
+import cs414.groupH.a5.employee.Employee;
+import cs414.groupH.a5.manager.EmployeeManager;
 import cs414.groupH.a5.manager.SystemManager;
 import cs414.groupH.a5.menu.MenuItem;
 import cs414.groupH.a5.order.Order;
@@ -36,18 +36,10 @@ public class EmployeeRequestHandler implements HttpHandler {
 		URI uri = exchange.getRequestURI();
 		
 		String query = uri.getQuery();
+		String response = "";
 		if (query != null) {
 			//if the url has parameters, we need to parse them 
-			parseQuery(query);
-		}
-		
-		String response;
-		if (query != null) {
-			
-			if (response.equals("error")) {
-				response = "An error occurred! Please try your request again. Sorry for the inconvenience.";
-				exchange.sendResponseHeaders(500, response.length());
-			}
+			response = parseQuery(query);
 			
 			//send the response
 			//200 means the request was successful 
@@ -68,15 +60,26 @@ public class EmployeeRequestHandler implements HttpHandler {
 	
 	//parses the parameters from the URL
 	//these are in the form {base_url}?customer=name&size=pizza_size&toppings=t1-t2-..-tn
-	private void parseQuery(String query) {
+	private String parseQuery(String query) {
 		//split the query based on parameters
 		String[] subs = query.split("&");
+		String ret = "";
 		
-		for (String parameter : subs) {	
+		for (int i=0; i<subs.length; i++) {	
 			//key is on the left and value is on the right, so we split this
-			String[] values = parameter.split("=");
-			if (values[0].equals("customer")) {
-				
+			String[] values = subs[i].split("=");
+			if (values[0].equalsIgnoreCase("type")) {
+				if (values[1].equalsIgnoreCase("typecheck")) {
+					values = subs[i+1].split("=");
+					Employee emp = EmployeeManager.findEmployee(values[1]);
+					if (emp != null) {
+						System.out.println(emp.getEmpType());
+						return emp.getEmpType().toString();
+					}
+					else {
+						System.out.println("ERROR: Employee with id '"+values[1]+"' not found.");
+					}
+				}
 			}
 			else if (values[0].equals("size")) {
 				
@@ -85,6 +88,8 @@ public class EmployeeRequestHandler implements HttpHandler {
 				
 			}
 		}
+		
+		return ret;
 	}
 	
 	private Order xmlParser(String xmlInput) {
