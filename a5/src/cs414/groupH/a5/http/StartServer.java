@@ -21,8 +21,10 @@ public class StartServer {
 		SystemManager.addMenuItem("Breadsticks(6)", 3.99, false);
 		MenuRequestHandler menuHandler = new MenuRequestHandler();
 		EmployeeRequestHandler empHandler = new EmployeeRequestHandler();
+        OrderRequestHandler orderHandler = new OrderRequestHandler();
 		//creates the URI for the pizza. In this case, {base}/pizzas redirects here
 		server.createContext("/menu", menuHandler);
+        server.createContext("/order", orderHandler);
 		server.createContext("/employee", empHandler);
 		
 		//start the server
