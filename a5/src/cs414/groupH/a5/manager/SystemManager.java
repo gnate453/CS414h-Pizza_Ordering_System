@@ -69,7 +69,9 @@ public class SystemManager {
 		for(Payment p : payments){
 			newOrder.addPayment(p);
 		}
-				
+
+
+
 		return newOrder;
 	}
 
@@ -90,6 +92,16 @@ public class SystemManager {
 	
 	public static List<Order> getOrders() {
 		return OrderManager.getOrders();
+	}
+
+	public static boolean removeMenuItem(String name) {
+		for (MenuItem it : getMenuItems()) {
+			if (it.getName().equalsIgnoreCase(name)) {
+				removeMenuItem(it);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

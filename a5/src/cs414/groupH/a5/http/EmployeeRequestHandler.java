@@ -51,12 +51,10 @@ public class EmployeeRequestHandler implements HttpHandler {
 			
 			response = parseEmployeeQuery(query);
 			
-			if (response.equalsIgnoreCase("error")) {
+			if (response.equalsIgnoreCase("error"))
 				exchange.sendResponseHeaders(SC_NOTFOUND, response.getBytes().length);
-			}
-			else {
+			else 
 				exchange.sendResponseHeaders(SC_OK, response.getBytes().length);
-			}
 		}
 		else {
 			response = "error";

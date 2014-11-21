@@ -20,6 +20,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import cs414.groupH.a5.address.Address;
 import cs414.groupH.a5.customer.Customer;
+import cs414.groupH.a5.manager.OrderManager;
 import cs414.groupH.a5.manager.SystemManager;
 import cs414.groupH.a5.menu.MenuItem;
 import cs414.groupH.a5.order.Order;
@@ -27,6 +28,14 @@ import cs414.groupH.a5.payment.Payment;
 
 public class OrderRequestHandler implements HttpHandler {
 
+	private static final int QUERY_TYPE = 0;
+	private static final int QUERY_ORDER = 1;
+	private static final int QUERY_KEY = 0;
+	private static final int QUERY_VAL = 1;
+	private static final int SC_OK = 200;
+	private static final int SC_NOTFOUND = 404;
+	private static final int SC_ERROR = 500;
+	
     //this function is called when an HTTP request is made
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -40,21 +49,16 @@ public class OrderRequestHandler implements HttpHandler {
             //get the XML response
             response = parseOrderRequest(query);
 
-            if (response.equals("error")) {
-                response = "An error occurred! Malformed order. Sorry for the inconvenience.";
-                exchange.sendResponseHeaders(500, response.length());
-            }
-            else {
-                //send the response
-                //200 means the request was successful
-                exchange.sendResponseHeaders(200, response.length());
-            }
+            if (response.equals("error"))
+                exchange.sendResponseHeaders(SC_NOTFOUND, response.length());
+            else 
+                exchange.sendResponseHeaders(SC_OK, response.length());
+            
         }
         else {
             response = "error";
-            System.out.println("Order Handler did not find order request string in URL.");
-            //response = "An error occurred! Please try your request again. Sorry for the inconvenience.";
-            exchange.sendResponseHeaders(200, response.length());
+            System.out.println("Order Handler did not find query string in URL.");
+            exchange.sendResponseHeaders(SC_ERROR, response.length());
         }
 
         //output the information
@@ -64,56 +68,46 @@ public class OrderRequestHandler implements HttpHandler {
     }
 
     //parses the parameters from the URL
-    //these are in the form {base_url}?customer=name&size=pizza_size&toppings=t1-t2-..-tn
-    private String parseOrderRequest(String xmlInput) {
-        Document dom;
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
-        try {
-            //Using factory get an instance of document builder
-            DocumentBuilder db = dbf.newDocumentBuilder();
-
-            //parse using builder to get DOM representation of the XML file
-            dom = db.parse(xmlInput);
-
-            //get the root elememt
-            Element docEle = dom.getDocumentElement();
-
-            String request = getTextValue(docEle, "Request");
-
-            if (request.equalsIgnoreCase("createOrder")) {
-
-                //get an order from the URL request, and add the order to the system.
-                Order order = orderXMLParser(xmlInput);
-
-                if (order != null) {
-                    //get the xml formatted confirmed order
-                    return getOrderConfXML(order);
-                }
-                else {
-                    return "error";
-                }
-            }
-            else
-                return "error";
-
-        }catch(ParserConfigurationException pce) {
-            pce.printStackTrace();
-        }catch(SAXException se) {
-            se.printStackTrace();
-        }catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-
-        return "error";
-
-        //split the query based on parameters
-		/*String[] subs = query.split("&");
-		for (String parameter : subs) {
-			//key is on the left and value is on the right, so we split this
-			String[] values = parameter.split("=");
-			params.put(values[0], values[1]);
-		}*/
+    //these are in the form 
+    //1. {base_url}/order?type=place&<ORDERXML>
+    //2. {base_url}/order?type=complete&id=orderID
+    //3. {base_url}/order?type=cancel&id=orderID
+    //4. {base_url}/order?type=get&
+    private String parseOrderRequest(String query) {
+    	String[] subs = query.split("&");	
+		
+		String[] type = subs[QUERY_TYPE].split("=");
+		
+		if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("place")) {
+			
+			Order o = orderXMLParser(subs[QUERY_ORDER]);
+			ArrayList<String> items = new ArrayList<String>();
+			for (MenuItem it : o.getItems()) {
+				items.add(it.getName());
+			}
+			return  getOrderConfXML(SystemManager.createOrder(o.getCustomer(), items, o.getPayments()));
+		}
+		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("complete")) {
+			String[] order = subs[QUERY_ORDER].split("=");
+			SystemManager.markOrderComplete(order[QUERY_VAL]);
+			return "VALID";	
+		}
+		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("cancel")) {
+			String[] order = subs[QUERY_ORDER].split("=");
+			if (OrderManager.removeOrder(OrderManager.findOrder(order[QUERY_VAL])))
+				return "VALID";
+			else
+				return "INVALID";		
+		}
+		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("get")) {
+			String orders = "";
+			for (Order o : OrderManager.getOrders()) {
+				orders += getOrderConfXML(o);
+			}
+			return orders;
+		}
+		else
+			return "error";
     }
 
     private Order orderXMLParser(String xmlInput) {
