@@ -16,10 +16,74 @@ public class InStoreHttpClient {
 	
 	private static HttpClient httpclient = HttpClientBuilder.create().build();
 	
+	public static boolean loginEmp(String empID, String empPW) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/employee?type=Login&id="+empID+"&pw="+empPW;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				//close the stream
+				instream.close();
+				
+				if (result.equalsIgnoreCase("valid"))
+					return true;
+				else
+					return false;
+			}
+			else
+				return false;
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+			return false;
+		}
+	}
+	
+	public static boolean logoutEmp(String empID) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/employee?type=Logout&id="+empID;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				//close the stream
+				instream.close();
+				
+				if (result.equalsIgnoreCase("valid"))
+					return true;
+				else
+					return false;
+			}
+			else
+				return false;
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+			return false;
+		}
+	}
+	
 	public static String getEmpType(String empID) {
 		String result = null;
 		
-		String url = "http://"+ipAddr+"/employee?type=TypeCheck&empID="+empID;
+		String url = "http://"+ipAddr+"/employee?type=TypeCheck&id="+empID;
 		HttpGet httpget = new HttpGet(url);
 		
 		HttpResponse response;
