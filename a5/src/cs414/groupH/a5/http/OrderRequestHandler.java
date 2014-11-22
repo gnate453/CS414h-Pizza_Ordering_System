@@ -1,6 +1,7 @@
 package cs414.groupH.a5.http;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,6 +18,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -87,6 +89,7 @@ public class OrderRequestHandler implements HttpHandler {
     //4. {base_url}/order?type=get&
     private String parseOrderRequest(String query, String reqBody) {
     	String[] subs = query.split("&");
+    	System.out.println(reqBody);
 		
 		String[] type = subs[QUERY_TYPE].split("=");
 		
@@ -150,10 +153,11 @@ public class OrderRequestHandler implements HttpHandler {
 				return "INVALID";		
 		}
 		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("get")) {
-			String orders = "";
+			String orders = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><orders>";
 			for (Order o : OrderManager.getOrders()) {
 				orders += getOrderXML(o);
 			}
+			orders += "</orders>";
 			return orders;
 		}
 		else
@@ -174,7 +178,7 @@ public class OrderRequestHandler implements HttpHandler {
             DocumentBuilder db = dbf.newDocumentBuilder();
 
             //parse using builder to get DOM representation of the XML file
-            dom = db.parse(xmlInput);
+            dom = db.parse(new InputSource(new ByteArrayInputStream(xmlInput.getBytes("utf-8"))));
 
 
             //get the root elememt
@@ -246,7 +250,6 @@ public class OrderRequestHandler implements HttpHandler {
     //Turns the order confirmation into XML
     private String getOrderXML(Order o) {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         buffer.append("<order>");
 
         buffer.append("<orderId>");

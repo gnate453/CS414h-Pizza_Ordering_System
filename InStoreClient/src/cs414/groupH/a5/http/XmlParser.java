@@ -70,15 +70,25 @@ public class XmlParser {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			
 			//parse using builder to get DOM representation of the XML file
+			System.out.println(orderXml);
 			dom = db.parse(new InputSource(new ByteArrayInputStream(orderXml.getBytes("utf-8"))));
 			
 			//get the root elememt
 			Element docEle = dom.getDocumentElement();
 			
-			System.out.println(docEle.getTagName());
-			
-			ret += getTextValue(docEle, "orderId")+",";
-			ret += getTextValue(docEle, "Complete");
+			//get a nodelist of <Item> elements
+			NodeList nl = docEle.getElementsByTagName("order");
+			if(nl != null && nl.getLength() > 0) {
+				for(int i = 0 ; i < nl.getLength();i++) {
+					if (i != 0 || i == nl.getLength()-1) {
+						ret += ",";
+					}
+					
+					Element el = (Element)nl.item(i);
+					ret += getTextValue(el, "orderId")+",";
+					ret += getTextValue(el, "Complete");
+				}
+			}
 		}catch(ParserConfigurationException pce) {
 			pce.printStackTrace();
 		}catch(SAXException se) {

@@ -50,6 +50,6 @@ public class RequestHandler {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(RequestHandler.isManager("0"));
+		System.out.println(InStoreHttpClient.getOrderItems("1"));
 	}
 }
