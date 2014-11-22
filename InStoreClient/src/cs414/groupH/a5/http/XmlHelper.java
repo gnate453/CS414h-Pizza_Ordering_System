@@ -14,6 +14,17 @@ public class XmlHelper {
 		return buffer.toString();
 	}
 	
+	public static String getItemXml(String name, String price, String special) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("<item>");
+			buffer.append("<name>"+name+"</name>");
+			buffer.append("<price>"+price+"</price>");
+			buffer.append("<special>"+special+"</special>");
+		buffer.append("</item>");
+		
+		return buffer.toString();
+	}
+	
 	public static String getCashPaymentXml(String amount) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("<payment>");

@@ -43,8 +43,8 @@ public class RequestHandler {
 		
 		res += customerXml;
 		res += addressXml;
-		res += itemXml;
-		res += paymentXml;
+		res += "<items>"+itemXml+"</items>";
+		res += "<payments>"+paymentXml+"</payments>";
 		
 		return res;
 	}
