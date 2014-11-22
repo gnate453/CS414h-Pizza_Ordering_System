@@ -93,13 +93,20 @@ public class OrderRequestHandler implements HttpHandler {
 		if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("place")) {
 			
 			Order o = orderXMLParser(reqBody);
-			ArrayList<String> items = new ArrayList<String>();
+			
+			if (o != null) {
+				return "VALID";
+			}
+			else {
+				return "NOT VALID";
+			}
+			/*ArrayList<String> items = new ArrayList<String>();
 			for (MenuItem it : o.getItems()) {
 				items.add(it.getName());
 			}
-			return  getOrderXML(SystemManager.createOrder(o.getCustomer(), items, o.getPayments()));
+			return  getOrderXML(SystemManager.createOrder(o.getCustomer(), items, o.getPayments()));*/
 		}
-		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("complete")) {
+		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("markComplete")) {
 			String[] order = subs[QUERY_ORDER].split("=");
 			SystemManager.markOrderComplete(order[QUERY_VAL]);
 			return "VALID";	

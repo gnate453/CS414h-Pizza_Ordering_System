@@ -111,6 +111,33 @@ public class InStoreHttpClient {
 		return XmlParser.parseViewOrder(result);
 	}
 	
+	public static String markComplete(String orderId) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/order?type=markComplete&orderId="+orderId;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+	
 	public static String getOrderCust(String orderId) {
 		String result = null;
 		

@@ -60,6 +60,7 @@ public class ViewOrders extends JDialog implements MouseListener {
     	if (me.getSource() == markComplete) {
     		if (table.getSelectedRow() != -1) {
 	    		//SystemManager.markOrderComplete(table.getValueAt(table.getSelectedRow(), 0).toString());
+    			InStoreHttpClient.markComplete(table.getValueAt(table.getSelectedRow(), 0).toString());
 	    		this.dispose();
     		}
     	}else if(me.getSource() == details_btn){  
