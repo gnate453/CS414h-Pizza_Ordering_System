@@ -114,6 +114,64 @@ public class InStoreHttpClient {
 		return result;
 	}
 	
+	public static String getOrders() {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/menu?type=get";
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				
+				//System.out.println(result);
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return XmlParser.parseMenu(result);
+	}
+	
+	public static String getMenu() {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/menu?type=get";
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				
+				//System.out.println(result);
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return XmlParser.parseMenu(result);
+	}
+	
 	public Object sendRequest() {
 		//this is what we will return
 		String result = null;

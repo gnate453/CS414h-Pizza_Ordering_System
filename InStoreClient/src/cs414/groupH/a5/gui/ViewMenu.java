@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import cs414.groupH.a5.http.InStoreHttpClient;
+
 
 public class ViewMenu extends JFrame implements MouseListener {
 
@@ -28,15 +30,20 @@ public class ViewMenu extends JFrame implements MouseListener {
         this.setSize(new Dimension(800, 500));
 		this.setLayout(new GridLayout(1,2));       
         
-		String dataValues[][] = new String[Menu.getMenuItems().size()][2];
-        for(int i=0; i<Menu.getMenuItems().size(); i++){
-        	if(Menu.getMenuItems().get(i).isDailySpecial()){
-        		dataValues[i][0] = "Special: " + Menu.getMenuItems().get(i).getName();
+		String[] items = InStoreHttpClient.getMenu().split(",");
+		String dataValues[][] = new String[(items.length/3)][2];
+		int j = 0;
+        for(int i=0; i<items.length; i++){
+        	if(items[i+2].equalsIgnoreCase("true")){
+        		dataValues[j][0] = "Special: " + items[i];
         	}
         	else{
-        		dataValues[i][0] = Menu.getMenuItems().get(i).getName();
+        		dataValues[j][0] = items[i];
         	}
-        	dataValues[i][1] = df.format(Menu.getMenuItems().get(i).getPrice()).replaceAll( "^-(?=0(.0*)?$)", "");
+        	dataValues[j][1] = df.format(Double.parseDouble(items[i+1])).replaceAll( "^-(?=0(.0*)?$)", "");
+        	i++;
+        	i++;
+        	j++;
         }        
         
         String columnNames[] = {"Item","Price"};
@@ -80,4 +87,3 @@ public class ViewMenu extends JFrame implements MouseListener {
 
     }
 }
-

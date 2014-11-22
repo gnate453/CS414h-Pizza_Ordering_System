@@ -35,6 +35,9 @@ public class MenuRequestHandler implements HttpHandler {
 		//this is the URL of the request
 		URI uri = exchange.getRequestURI();
 		
+		// Log URL hits
+		System.out.println(uri.getPath());
+		
 		//the URL could come with parameters
 		String query = uri.getQuery();
 		String response = "";
@@ -61,7 +64,10 @@ public class MenuRequestHandler implements HttpHandler {
 	
 	private String parseMenuQuery(String query) {
 		//split the query based on parameters
-		String[] subs = query.split("&");	
+		String[] subs = query.split("&");
+		for (String t : subs) {
+			System.out.println(t);
+		}
 		
 		String[] type = subs[QUERY_TYPE].split("=");
 		

@@ -27,6 +27,7 @@ public class EmployeeRequestHandler implements HttpHandler {
 		//this is the URL of the request
 		URI uri = exchange.getRequestURI();
 		
+		// Log URL hits
 		System.out.println(uri.getPath());
 		
 		String query = uri.getQuery();
