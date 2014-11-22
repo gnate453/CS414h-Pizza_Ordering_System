@@ -2,11 +2,16 @@ package cs414.groupH.a5.http;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.sun.net.httpserver.HttpServer;
 
+import cs414.groupH.a5.address.Address;
+import cs414.groupH.a5.customer.Customer;
 import cs414.groupH.a5.employee.EmployeeType;
 import cs414.groupH.a5.manager.SystemManager;
+import cs414.groupH.a5.payment.Payment;
 
 public class StartServer {
 	public static void main(String[] args) throws IOException {
@@ -20,10 +25,26 @@ public class StartServer {
 		
 		SystemManager.addEmployee("0", "John Smith", "0", EmployeeType.manager);
 		
-		//create the pizza controller
+		//create initial data
+		SystemManager.addEmployee("001", "John Smith", "password", EmployeeType.cashier);
+		SystemManager.addEmployee("002", "Joh Smith", "password", EmployeeType.chef);
+		SystemManager.addEmployee("003", "Jo Smith", "password", EmployeeType.manager);
+		SystemManager.addEmployee("004", "J Smith", "password", EmployeeType.cashier);
+		
 		SystemManager.addMenuItem("Pepperoni Pizza", 9.99, false);
 		SystemManager.addMenuItem("Cheese Pizza", 5.00, true);
 		SystemManager.addMenuItem("Breadsticks(6)", 3.99, false);
+		Address addr = new Address("1423 Foo Bar","Fort Collins","CO","80526","(111)111-1111");
+		Customer c = new Customer("Rick Henderson", addr);
+		List<String> items = new ArrayList<String>();
+		items.add("Pepperoni Pizza");
+		items.add("Cheese Pizza");
+		items.add("Pepperoni Pizza");
+		List<Payment> pay = new ArrayList<Payment>();
+		pay.add(new Payment(34.29));
+		SystemManager.createOrder(c, items, pay);
+		
+		
 		MenuRequestHandler menuHandler = new MenuRequestHandler();
 		EmployeeRequestHandler empHandler = new EmployeeRequestHandler();
         OrderRequestHandler orderHandler = new OrderRequestHandler();

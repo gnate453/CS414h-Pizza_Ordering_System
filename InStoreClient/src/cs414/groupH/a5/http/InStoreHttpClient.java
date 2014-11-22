@@ -53,38 +53,6 @@ public class InStoreHttpClient {
 		}
 	}
 	
-	public static boolean logoutEmp(String empID) {
-		String result = null;
-		
-		String url = "http://"+ipAddr+"/employee?type=Logout&id="+empID;
-		HttpGet httpget = new HttpGet(url);
-		
-		HttpResponse response;
-		try {
-			//response captures what happens when we execute
-			response = httpclient.execute(httpget);
-			HttpEntity entity = response.getEntity();
-
-			if (entity != null) {
-				InputStream instream = entity.getContent();
-				result = convertToString(instream);
-				//close the stream
-				instream.close();
-				
-				if (result.equalsIgnoreCase("valid"))
-					return true;
-				else
-					return false;
-			}
-			else
-				return false;
-		} 
-		catch (Exception e) {
-			System.out.println(e.toString());
-			return false;
-		}
-	}
-	
 	public static String getEmpType(String empID) {
 		String result = null;
 		
@@ -117,7 +85,7 @@ public class InStoreHttpClient {
 	public static String getOrders() {
 		String result = null;
 		
-		String url = "http://"+ipAddr+"/menu?type=get";
+		String url = "http://"+ipAddr+"/order?type=get";
 		HttpGet httpget = new HttpGet(url);
 		
 		HttpResponse response;
@@ -140,7 +108,88 @@ public class InStoreHttpClient {
 			System.out.println(e.toString());
 		}
 		
-		return XmlParser.parseMenu(result);
+		return XmlParser.parseViewOrder(result);
+	}
+	
+	public static String getOrderCust(String orderId) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/order?type=getCust&orderId="+orderId;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+	
+	public static String[] getOrderAddr(String orderId) {
+		String[] result = null;
+		
+		String url = "http://"+ipAddr+"/order?type=getAddr&orderId="+orderId;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream).split(",");
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+	
+	public static String[] getOrderItems(String orderId) {
+		String[] result = null;
+		
+		String url = "http://"+ipAddr+"/order?type=getItems&orderId="+orderId;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream).split(",");
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
 	}
 	
 	public static String getMenu() {

@@ -59,6 +59,37 @@ public class XmlParser {
 		return ret;
 	}
 	
+	public static String parseViewOrder(String orderXml) {
+		String ret = "";
+		
+		Document dom;
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		
+		try {
+			//Using factory get an instance of document builder
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			
+			//parse using builder to get DOM representation of the XML file
+			dom = db.parse(new InputSource(new ByteArrayInputStream(orderXml.getBytes("utf-8"))));
+			
+			//get the root elememt
+			Element docEle = dom.getDocumentElement();
+			
+			System.out.println(docEle.getTagName());
+			
+			ret += getTextValue(docEle, "orderId")+",";
+			ret += getTextValue(docEle, "Complete");
+		}catch(ParserConfigurationException pce) {
+			pce.printStackTrace();
+		}catch(SAXException se) {
+			se.printStackTrace();
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
 	private static String getTextValue(Element ele, String tagName) {
 		String textVal = null;
 		NodeList nl = ele.getElementsByTagName(tagName);

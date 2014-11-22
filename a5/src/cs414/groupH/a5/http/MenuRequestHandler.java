@@ -3,6 +3,7 @@ package cs414.groupH.a5.http;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,7 +37,7 @@ public class MenuRequestHandler implements HttpHandler {
 		URI uri = exchange.getRequestURI();
 		
 		// Log URL hits
-		System.out.println(uri.getPath());
+     	System.out.print(new Date()+" - "+uri.getPath()+"?");
 		
 		//the URL could come with parameters
 		String query = uri.getQuery();
@@ -63,11 +64,11 @@ public class MenuRequestHandler implements HttpHandler {
 	}
 	
 	private String parseMenuQuery(String query) {
+		System.out.print(query);
+    	System.out.println();
+    	
 		//split the query based on parameters
 		String[] subs = query.split("&");
-		for (String t : subs) {
-			System.out.println(t);
-		}
 		
 		String[] type = subs[QUERY_TYPE].split("=");
 		

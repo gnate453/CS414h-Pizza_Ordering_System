@@ -3,6 +3,7 @@ package cs414.groupH.a5.http;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
+import java.util.Date;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -28,7 +29,7 @@ public class EmployeeRequestHandler implements HttpHandler {
 		URI uri = exchange.getRequestURI();
 		
 		// Log URL hits
-		System.out.println(uri.getPath());
+     	System.out.print(new Date()+" - "+uri.getPath()+"?");
 		
 		String query = uri.getQuery();
 		String response = "";
@@ -59,12 +60,12 @@ public class EmployeeRequestHandler implements HttpHandler {
 	//Option 2: /employee?type=Logout&id=empID
 	//Option 3: /employee?type=TypeCheck&id=empID
 	private String parseEmployeeQuery(String query) {
+		System.out.print(query);
+    	System.out.println();
+    	
 		String retValue = "";
 		//split the query based on parameters
-		String[] subs = query.split("&");	
-		for (String t : subs) {
-			System.out.println(t);
-		}
+		String[] subs = query.split("&");
 		
 		String[] type = subs[QUERY_TYPE].split("=");
 		if (type[QUERY_KEY].equalsIgnoreCase("type")) {
@@ -77,14 +78,6 @@ public class EmployeeRequestHandler implements HttpHandler {
 						retValue = "VALID,"+emp.getName()+","+emp.getEmpType();
 					else
 						retValue = "INVALID";
-				}
-				else
-					retValue = "error";
-			}
-			else if (type[QUERY_VAL].equalsIgnoreCase("logout")) {
-				String[] id = subs[QUERY_ID].split("=");
-				if (EmployeeManager.doesEmpExist(EmployeeManager.findEmployee(id[QUERY_VAL]))) {
-					retValue = "VALID";
 				}
 				else
 					retValue = "error";

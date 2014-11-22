@@ -4,14 +4,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import cs414.groupH.a5.manager.SystemManager;
+import cs414.groupH.a5.http.InStoreHttpClient;
 
 public class ViewOrders extends JDialog implements MouseListener {
 
@@ -23,9 +22,6 @@ public class ViewOrders extends JDialog implements MouseListener {
 	JButton markComplete;
 	
 	public ViewOrders() {		
-		
-		List<Order> orders = SystemManager.getOrders();
-        
 		back_btn = new JButton("Back");	
 		details_btn = new JButton("Details");
 		
@@ -35,10 +31,14 @@ public class ViewOrders extends JDialog implements MouseListener {
         this.setSize(new Dimension(800, 500));
 		this.setLayout(new GridLayout(2, 2));       
         
-		String dataValues[][] = new String[orders.size()][2];
-        for(int i=0; i<orders.size(); i++){
-        	dataValues[i][0] = orders.get(i).getOrderId();
-        	dataValues[i][1] = String.valueOf(orders.get(i).isComplete());
+		String[] orders = InStoreHttpClient.getOrders().split(",");
+		String dataValues[][] = new String[(orders.length/2)][2];
+		int j = 0;
+        for(int i=0; i<orders.length; i++){
+        	dataValues[j][0] = orders[i];
+        	dataValues[j][1] = orders[i+1];
+        	i++;
+        	j++;
         }        
         
         String columnNames[] = {"Order ID","Completed?"};
@@ -59,13 +59,17 @@ public class ViewOrders extends JDialog implements MouseListener {
     public void mouseClicked(MouseEvent me) {
     	if (me.getSource() == markComplete) {
     		if (table.getSelectedRow() != -1) {
-	    		SystemManager.markOrderComplete(table.getValueAt(table.getSelectedRow(), 0).toString());
+	    		//SystemManager.markOrderComplete(table.getValueAt(table.getSelectedRow(), 0).toString());
 	    		this.dispose();
     		}
     	}else if(me.getSource() == details_btn){  
     		if (table.getSelectedRow() != -1) {
-    			Order o = SystemManager.findOrder(table.getValueAt(table.getSelectedRow(), 0).toString());
-    			new ViewOrderDetails(o);
+    			//Order o = SystemManager.findOrder(table.getValueAt(table.getSelectedRow(), 0).toString());
+    			String custName = InStoreHttpClient.getOrderCust(table.getValueAt(table.getSelectedRow(), 0).toString());
+    			String[] addr = InStoreHttpClient.getOrderAddr(table.getValueAt(table.getSelectedRow(), 0).toString());
+    			String[] items = InStoreHttpClient.getOrderItems(table.getValueAt(table.getSelectedRow(), 0).toString());
+    			
+    			new ViewOrderDetails(custName, addr, items);
     			this.dispose();
     		}
     	}

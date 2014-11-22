@@ -1,9 +1,13 @@
 package cs414.groupH.a5.http;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -41,13 +45,21 @@ public class OrderRequestHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         //this is the URL of the request
         URI uri = exchange.getRequestURI();
+        InputStream reqBody = exchange.getRequestBody();
+        String rBody = convertToString(reqBody);
+        
+        // Log URL hits
+     	System.out.print(new Date()+" - "+uri.getPath()+"?");
 
         //the URL could come with parameters
         String query = uri.getQuery();
         String response = "";
         if (query != null) {
+        	System.out.print(query);
+        	System.out.println();
+        	
             //get the XML response
-            response = parseOrderRequest(query);
+            response = parseOrderRequest(query, rBody);
 
             if (response.equals("error"))
                 exchange.sendResponseHeaders(SC_NOTFOUND, response.length());
@@ -73,36 +85,67 @@ public class OrderRequestHandler implements HttpHandler {
     //2. {base_url}/order?type=complete&id=orderID
     //3. {base_url}/order?type=cancel&id=orderID
     //4. {base_url}/order?type=get&
-    private String parseOrderRequest(String query) {
-    	String[] subs = query.split("&");	
+    private String parseOrderRequest(String query, String reqBody) {
+    	String[] subs = query.split("&");
 		
 		String[] type = subs[QUERY_TYPE].split("=");
 		
 		if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("place")) {
 			
-			Order o = orderXMLParser(subs[QUERY_ORDER]);
+			Order o = orderXMLParser(reqBody);
 			ArrayList<String> items = new ArrayList<String>();
 			for (MenuItem it : o.getItems()) {
 				items.add(it.getName());
 			}
-			return  getOrderConfXML(SystemManager.createOrder(o.getCustomer(), items, o.getPayments()));
+			return  getOrderXML(SystemManager.createOrder(o.getCustomer(), items, o.getPayments()));
 		}
 		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("complete")) {
 			String[] order = subs[QUERY_ORDER].split("=");
 			SystemManager.markOrderComplete(order[QUERY_VAL]);
 			return "VALID";	
 		}
-		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("cancel")) {
-			String[] order = subs[QUERY_ORDER].split("=");
-			if (OrderManager.removeOrder(OrderManager.findOrder(order[QUERY_VAL])))
-				return "VALID";
+		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("getCust")) {
+			String[] orderId = subs[QUERY_ORDER].split("=");
+			Order order = OrderManager.findOrder(orderId[QUERY_VAL]);
+			if (order != null)
+				return order.getCustomer().getName();
+			else
+				return "INVALID";		
+		}
+		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("getAddr")) {
+			String[] orderId = subs[QUERY_ORDER].split("=");
+			Order order = OrderManager.findOrder(orderId[QUERY_VAL]);
+			if (order != null) {
+				Address addr = order.getCustomer().getAddress();
+				String ret = addr.getStreet()+","+addr.getCity()+","+addr.getState()+","+addr.getZip()+","+addr.getPhone();
+				return ret;
+			}
+			else
+				return "INVALID";		
+		}
+		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("getItems")) {
+			String[] orderId = subs[QUERY_ORDER].split("=");
+			Order order = OrderManager.findOrder(orderId[QUERY_VAL]);
+			if (order != null) {
+				ArrayList<MenuItem> items = order.getItems();
+				String ret = "";
+				for (int i=0; i<items.size(); i++) {
+					MenuItem item = items.get(i);
+					ret += item.getName();
+					if (i != items.size()-1) {
+						ret += ",";
+					}
+				}
+				
+				return ret;
+			}
 			else
 				return "INVALID";		
 		}
 		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("get")) {
 			String orders = "";
 			for (Order o : OrderManager.getOrders()) {
-				orders += getOrderConfXML(o);
+				orders += getOrderXML(o);
 			}
 			return orders;
 		}
@@ -130,39 +173,53 @@ public class OrderRequestHandler implements HttpHandler {
             //get the root elememt
             Element docEle = dom.getDocumentElement();
 
-            //get a nodelist of <Customer> elements
-            NodeList nl = docEle.getElementsByTagName("Customer");
+            Address addr = new Address();
+            NodeList nl = docEle.getElementsByTagName("address");
             if(nl != null && nl.getLength() > 0) {
                 for(int i = 0 ; i < nl.getLength();i++) {
                     //get the customer element
                     Element el = (Element)nl.item(i);
 
                     //get the Customer object
-                    cust = getCustomer(el);
+                    addr = getAddress(el);
+                }
+            }
+            
+            //get a nodelist of <Customer> elements
+            nl = docEle.getElementsByTagName("customer");
+            if(nl != null && nl.getLength() > 0) {
+                for(int i = 0 ; i < nl.getLength();i++) {
+                    //get the customer element
+                    Element el = (Element)nl.item(i);
+
+                    //get the Customer object
+                    cust = getCustomer(el, addr);
                 }
             }
 
             //get a nodelist of <Item> elements
-            nl = docEle.getElementsByTagName("Item");
+            nl = docEle.getElementsByTagName("items");
             if(nl != null && nl.getLength() > 0) {
                 for(int i = 0 ; i < nl.getLength();i++) {
                     //get the item element
                     Element el = (Element)nl.item(i);
 
-                    //get the MenuItem object and adds it to list
-                    itemNames.add(getTextValue(el, "Name"));
+                    List<MenuItem> items = getItem(el);
+                    for (MenuItem item : items) {
+                    	itemNames.add(item.getName());
+                    }
                 }
             }
 
             //get a nodelist of <Payment> elements
-            nl = docEle.getElementsByTagName("Payment");
+            nl = docEle.getElementsByTagName("payments");
             if(nl != null && nl.getLength() > 0) {
                 for(int i = 0 ; i < nl.getLength();i++) {
                     //get the payment element
                     Element el = (Element)nl.item(i);
 
                     //get the MenuItem object and adds it to list
-                    payments.add(getPayment(el));
+                    payments = getPayment(el);
                 }
             }
 
@@ -180,7 +237,7 @@ public class OrderRequestHandler implements HttpHandler {
     }
 
     //Turns the order confirmation into XML
-    private String getOrderConfXML(Order o) {
+    private String getOrderXML(Order o) {
         StringBuffer buffer = new StringBuffer();
         buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         buffer.append("<order>");
@@ -188,26 +245,59 @@ public class OrderRequestHandler implements HttpHandler {
         buffer.append("<orderId>");
         buffer.append(o.getOrderId());
         buffer.append("</orderId>");
+        
+        buffer.append("<Complete>");
+        buffer.append(o.isComplete());
+        buffer.append("</Complete>");
 
         buffer.append("<customer>");
-        buffer.append("<name>");
-        buffer.append(o.getCustomer().getName());
-        buffer.append("</name>");
-        buffer.append("<address>");
-        buffer.append(o.getCustomer().getAddress());
-        buffer.append("</address>");
+	        buffer.append("<name>");
+	        buffer.append(o.getCustomer().getName());
+	        buffer.append("</name>");
         buffer.append("</customer>");
+        buffer.append("<address>");
+	        buffer.append("<street>");
+	        buffer.append(o.getCustomer().getAddress().getStreet());
+	        buffer.append("</street>");
+	        buffer.append("<city>");
+	        buffer.append(o.getCustomer().getAddress().getCity());
+	        buffer.append("</city>");
+	        buffer.append("<state>");
+	        buffer.append(o.getCustomer().getAddress().getState());
+	        buffer.append("</state>");
+	        buffer.append("<zipCode>");
+	        buffer.append(o.getCustomer().getAddress().getZip());
+	        buffer.append("</zipCode>");
+	        buffer.append("<phone>");
+	        buffer.append(o.getCustomer().getAddress().getPhone());
+	        buffer.append("</phone>");
+        buffer.append("</address>");
 
         buffer.append("<items>");
         for (MenuItem item : o.getItems()) {
-            buffer.append("<name>");
-            buffer.append(item.getName());
-            buffer.append("</name>");
-            buffer.append("<price>");
-            buffer.append(item.getPrice());
-            buffer.append("</price>");
+        	buffer.append("<item>");
+	            buffer.append("<name>");
+	            buffer.append(item.getName());
+	            buffer.append("</name>");
+	            buffer.append("<price>");
+	            buffer.append(item.getPrice());
+	            buffer.append("</price>");
+	            buffer.append("<special>");
+	            buffer.append(item.isDailySpecial());
+	            buffer.append("</special>");
+            buffer.append("</item>");
         }
         buffer.append("</items>");
+        
+        buffer.append("<payments>");
+        for (Payment p : o.getPayments()) {
+        	buffer.append("<payment>");
+	            buffer.append("<amount>");
+	            buffer.append(p.getAmount());
+	            buffer.append("</amount>");
+            buffer.append("</payment>");
+        }
+        buffer.append("</payments>");
 
         buffer.append("</order>");
 
@@ -230,29 +320,86 @@ public class OrderRequestHandler implements HttpHandler {
         //in production application you would catch the exception
         return Double.parseDouble(getTextValue(ele,tagName));
     }
+    
+    private Address getAddress(Element el) {
+    	String street = getTextValue(el, "Street");
+    	String city = getTextValue(el, "City");
+    	String state = getTextValue(el, "State");
+    	String zip = getTextValue(el, "Zip");
+    	String phone = getTextValue(el, "Phone");
+    	
+    	return new Address(street, city, state, zip, phone);
+    }
 
-    private Customer getCustomer(Element empEl) {
+    private Customer getCustomer(Element empEl, Address addr) {
         String name = getTextValue(empEl, "Name");
-        String street = getTextValue(empEl, "Street");
-        String city = getTextValue(empEl, "City");
-        String state = getTextValue(empEl, "State");
-        String zip = getTextValue(empEl, "Zip");
-        String phone = getTextValue(empEl, "Phone");
 
         //Create a new Customer with the value read from the xml nodes
-        Customer cust = new Customer(name, new Address(street, city, state, zip, phone));
+        Customer cust = new Customer(name, addr);
 
         return cust;
     }
+    
+    private List<MenuItem> getItem(Element empEl) {
+    	List<MenuItem> items = new ArrayList<MenuItem>();
+        String name = "";
+        double price = 0.0;
+        String special = "";
+        
+        NodeList nl = empEl.getElementsByTagName("item");
+        if(nl != null && nl.getLength() > 0) {
+            for(int i = 0 ; i < nl.getLength();i++) {
+                //get the customer element
+                Element el = (Element)nl.item(i);
+            
+                name = getTextValue(el, "name");
+                price = getDoubleValue(el, "price");
+                special = getTextValue(el, "special");
+                
+                items.add(new MenuItem(name, price, Boolean.parseBoolean(special)));
+            }
+        }
 
-    private Payment getPayment(Element empEl) {
-        double amount = getDoubleValue(empEl, "Amount");
-        String validated = getTextValue(empEl, "Validated");
-
-        //Create a new Customer with the value read from the xml nodes
-        Payment payment = new Payment(amount, Boolean.parseBoolean(validated));
-
-        return payment;
+        return items;
     }
+
+    private List<Payment> getPayment(Element empEl) {
+    	List<Payment> payments = new ArrayList<Payment>();
+        
+        NodeList nl = empEl.getElementsByTagName("item");
+        if(nl != null && nl.getLength() > 0) {
+            for(int i = 0 ; i < nl.getLength();i++) {
+                //get the customer element
+                Element el = (Element)nl.item(i);
+            
+                double amount = getDoubleValue(el, "amount");
+                
+                payments.add(new Payment(amount));
+            }
+        }
+
+        return payments;
+    }
+    
+  //converts an input stream to a string
+  	private static String convertToString(InputStream is) {
+  		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+  		StringBuffer buff = new StringBuffer();
+
+  		String line = null;
+  		try {
+  			line = reader.readLine();
+  			while (line != null) 
+  			{
+  				buff.append(line);
+  				line = reader.readLine();
+  			}
+  			is.close();
+  		} 
+  		catch (Exception e) {
+  			System.out.println(e.toString());
+  		} 
+  		return buff.toString();
+  	}
 
 }
