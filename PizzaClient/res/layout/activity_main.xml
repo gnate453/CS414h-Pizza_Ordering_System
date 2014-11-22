@@ -6,25 +6,102 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context="com.example.pt.MainActivity" >
+
+    <EditText
+        android:id="@+id/cphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/CardNumber"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/caddr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cphone"
+        android:layout_alignRight="@+id/cphone"
+        android:layout_below="@+id/cphone"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="textPostalAddress" />
+
+    <EditText
+        android:id="@+id/CardNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cphone"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/cphone"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Firstname Lastname"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Cardname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/caddr"
+        android:layout_alignRight="@+id/caddr"
+        android:layout_below="@+id/caddr"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="textPostalAddress" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/expDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Cardname"
+        android:layout_alignRight="@+id/Cardname"
+        android:layout_below="@+id/Cardname"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="State"
+        android:inputType="textPostalAddress" />
+
+    <EditText
+        android:id="@+id/securityCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/expDate"
+        android:layout_alignRight="@+id/expDate"
+        android:layout_below="@+id/expDate"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Zipcode"
+        android:inputType="textPostalAddress|number" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:text="@string/view_menu_button_text"
-        android:onClick="viewMenu" />
+        android:layout_alignLeft="@+id/securityCode"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="26dp"
+        android:minWidth="100dip"
+        android:onClick="sendMessage"
+        android:text="Save" />
 
-    <Button
-        android:id="@+id/button2"
+    <TextView
+        android:id="@+id/errorText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/button1"
-        android:layout_below="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:text="@string/place_order_button_text" />
+        android:layout_above="@+id/button1"
+        android:layout_alignLeft="@+id/securityCode"
+        android:layout_below="@+id/securityCode"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#F00" />
 
 </RelativeLayout>

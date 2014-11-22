@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.demo"
+    package="com.example.pt"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	<uses-permission android:name="android.permission.INTERNET" />
     <uses-sdk
-        android:minSdkVersion="18"
-        android:targetSdkVersion="18" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+	
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_launcher2"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.pizza.views.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".AddItems"
+            android:label="@string/title_activity_add_items" >
+        </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,13 +31,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.pizza.views.ViewMenuActivity"
-            android:label="@string/title_activity_view_menu"
-            android:parentActivityName="com.pizza.views.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pizza.views.MainActivity" />
+            android:name=".AddItem2"
+            android:label="@string/title_activity_add_item2" >
         </activity>
-    </application>
-
+        <activity
+            android:name=".CashorCredit"
+            android:label="@string/title_activity_cashor_credit" >
+        </activity>
+        <activity
+            android:name=".Credit"
+            android:label="@string/title_activity_credit" >
+        </activity>
+         <activity
+            android:name=".ViewMenuActivity"
+            android:label="@string/title_activity_review" >
+        </activity>
+        <activity
+            android:name=".Review"
+            android:label="@string/title_activity_review" >
+        </activity>
+    </application>	
 </manifest>

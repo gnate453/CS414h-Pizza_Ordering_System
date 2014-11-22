@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,19 +24,22 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.example.pt.Item;
+
 import android.os.AsyncTask;
 
 //this is the class created for the AsyncTask
 //AsyncTask is an Android base class you extend for your web calls
 public class GetMenu extends AsyncTask<String, Void, List<String>> {
+	public GetMenu(){
+	}
 	@Override
 	protected List<String> doInBackground(String... arg0) {
 		//this is what we will return
 		String xmlResult = null;
 		
 		//the parameters on this URL will generate a new pizza on the server
-		String url = "http://192.168.0.101:8000/menu";
-		
+		String url = "http://saint-paul.cs.colostate.edu:8000/menu?type=get";
 		//the http client to make the call
 		HttpClient httpclient = new DefaultHttpClient();
 
@@ -70,6 +74,8 @@ public class GetMenu extends AsyncTask<String, Void, List<String>> {
 		catch (Exception e) {
 			//you can change your code to handle an exception how you want
 			System.out.println(e.toString());
+			System.exit(0);
+			return null;
 		}
 
 		return xmlParser(xmlResult);
@@ -78,6 +84,7 @@ public class GetMenu extends AsyncTask<String, Void, List<String>> {
 	private List<String> xmlParser(String xmlInput) {
 		List<String> itemNames = new ArrayList<String>();
 		List<Double> itemPrices = new ArrayList<Double>();
+		ArrayList<Item> itemN = new ArrayList<Item>();
 		
 		Document dom;
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -98,11 +105,15 @@ public class GetMenu extends AsyncTask<String, Void, List<String>> {
 			if(nl != null && nl.getLength() > 0) {
 				for(int i = 0 ; i < nl.getLength();i++) {
 					//get the item element
-					Element el = (Element)nl.item(i);
-					
+					Element el = (Element)nl.item(i);					
 					//get the MenuItem object and adds it to list
-					itemNames.add(getTextValue(el, "Name"));
-					itemPrices.add(getDoubleValue(el, "Price"));
+					DecimalFormat df = new DecimalFormat("#,##0.00");
+					double d = 0;
+					String cost = getTextValue(el, "Price");
+					d = Double.parseDouble(cost);
+					cost = df.format(d);
+					Item temp = new Item(cost,getTextValue(el, "Name"),getTextValue(el, "Special"));
+					itemNames.add(temp.toString());
 				}
 			}
 		}catch(ParserConfigurationException pce) {
