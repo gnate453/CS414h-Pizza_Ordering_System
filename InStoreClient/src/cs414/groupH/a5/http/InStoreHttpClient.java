@@ -17,7 +17,7 @@ import cs414.groupH.a5.gui.InStoreApp;
 
 public class InStoreHttpClient {
 	
-	private static final String ipAddr = "saint-paul.cs.colostate.edu:8000";
+	private static final String ipAddr = "saint-paul.cs.colostate.edu:55789";
 	
 	private static HttpClient httpclient = HttpClientBuilder.create().build();
 	
@@ -257,6 +257,41 @@ public class InStoreHttpClient {
 		}
 		
 		return XmlParser.parseMenu(result);
+	}
+	
+	public static boolean editMenuItem(String oldName, String newName, String price, String special) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/menu?type=edit&name="+oldName+"&item="+
+					XmlHelper.getItemXml(newName, price, special);
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				//close the stream
+				instream.close();
+				String[] res = result.split(",");
+				
+				if (res[0].equalsIgnoreCase("valid")) {
+					return true;
+				}
+				else
+					return false;
+			}
+			else
+				return false;
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+			return false;
+		}
 	}
 	
 	public Object sendRequest() {

@@ -23,7 +23,8 @@ import cs414.groupH.a5.menu.MenuItem;
 public class MenuRequestHandler implements HttpHandler {
 	
 	private static final int QUERY_TYPE = 0;
-	private static final int QUERY_ITEM = 1;
+	private static final int QUERY_SECOND = 1;
+	private static final int QUERY_THIRD = 2;
 	private static final int QUERY_KEY = 0;
 	private static final int QUERY_VAL = 1;
 	private static final int SC_OK = 200;
@@ -73,7 +74,7 @@ public class MenuRequestHandler implements HttpHandler {
 		String[] type = subs[QUERY_TYPE].split("=");
 		
 		if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("add")) {
-			String[] item = subs[QUERY_ITEM].split("=");
+			String[] item = subs[QUERY_SECOND].split("=");
 			MenuItem it = itemXMLParser(item[QUERY_VAL]);
 			if (SystemManager.addMenuItem(it.getName(), it.getPrice(), it.isDailySpecial()))
 				return "VALID";
@@ -81,15 +82,17 @@ public class MenuRequestHandler implements HttpHandler {
 				return "INVALID";		
 		}
 		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("edit")) {
-			String[] item = subs[QUERY_ITEM].split("=");
-			MenuItem it = itemXMLParser(item[QUERY_VAL]);
-			if (SystemManager.editMenuItem(it.getName(), it.getName(), it.getPrice(), it.isDailySpecial()))
+			String[] name = subs[QUERY_SECOND].split("=");
+			String oldName = name[QUERY_VAL];
+			String[] editItem = subs[QUERY_THIRD].split("=");
+			MenuItem item = itemXMLParser(editItem[QUERY_VAL]);
+			if (SystemManager.editMenuItem(oldName, item.getName(), item.getPrice(), item.isDailySpecial()))
 				return "VALID";
 			else
 				return "INVALID";		
 		}
 		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("remove")) {
-			String[] item = subs[QUERY_ITEM].split("=");
+			String[] item = subs[QUERY_SECOND].split("=");
 			if (SystemManager.removeMenuItem(item[QUERY_VAL]))
 				return "VALID";
 			else

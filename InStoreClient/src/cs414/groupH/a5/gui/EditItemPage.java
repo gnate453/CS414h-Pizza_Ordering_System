@@ -11,7 +11,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import cs414.groupH.a5.manager.SystemManager;
+import cs414.groupH.a5.http.InStoreHttpClient;
 
 public class EditItemPage extends JDialog implements MouseListener {
 
@@ -100,7 +100,7 @@ public class EditItemPage extends JDialog implements MouseListener {
 				}
 			}
 			else {
-				SystemManager.editMenuItem(oldName, name_txt.getText(), Double.parseDouble(price_txt.getText()), special_chkbox.isSelected());
+				InStoreHttpClient.editMenuItem(oldName, name_txt.getText(), price_txt.getText(), Boolean.toString(special_chkbox.isSelected()));
 					
 				this.dispose();
 			}
