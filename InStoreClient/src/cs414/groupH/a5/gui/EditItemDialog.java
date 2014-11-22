@@ -12,29 +12,38 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import cs414.groupH.a5.http.InStoreHttpClient;
+import cs414.groupH.a5.http.XmlParser;
+
 public class EditItemDialog extends JDialog implements MouseListener, ListSelectionListener {
 
 	private static final long serialVersionUID = 1L;
+	private static final int TABLE_COLS = 2;
+	private static final int NAME = 0;
+	private static final int PRICE = 1;
+	private static final int SPECIAL = 2;
 
 	JButton back_btn;
 	JTable table;
 	
-	public EditItemDialog() {		
-        
-		back_btn = new JButton("Back");		
+	public EditItemDialog() {
 		
-        this.setSize(new Dimension(800, 500));
-		this.setLayout(new GridLayout(Menu.getMenuItems().size(), 2));       
+		this.setSize(new Dimension(800, 500));
+		back_btn = new JButton("Back");	
+		
+		String[] menuItems = InStoreHttpClient.getMenu().split("&");
+		this.setLayout(new GridLayout(menuItems.length, TABLE_COLS));       
         
-		String dataValues[][] = new String[Menu.getMenuItems().size()][2];
-        for(int i=0; i<Menu.getMenuItems().size(); i++){
-        	if(Menu.getMenuItems().get(i).isDailySpecial()){
-        		dataValues[i][0] = "Special: " + Menu.getMenuItems().get(i).getName();
+		String dataValues[][] = new String[menuItems.length][TABLE_COLS];
+        for(int i=0; i<menuItems.length; i++){
+        	String[] item = menuItems[i].split(",");
+        	if(item[SPECIAL].equalsIgnoreCase("True")){
+        		dataValues[i][NAME] = "Special: " + item[NAME];
         	}
         	else{
-        		dataValues[i][0] = Menu.getMenuItems().get(i).getName();
+        		dataValues[i][NAME] = item[NAME];
         	}
-        	dataValues[i][1] = String.valueOf(Menu.getMenuItems().get(i).getPrice());
+        	dataValues[i][PRICE] = item[PRICE];
         }        
         
         String columnNames[] = {"Item","Price"};

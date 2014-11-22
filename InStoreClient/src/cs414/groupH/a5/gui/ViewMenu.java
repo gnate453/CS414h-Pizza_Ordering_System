@@ -17,7 +17,11 @@ import cs414.groupH.a5.http.InStoreHttpClient;
 public class ViewMenu extends JFrame implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
-
+	private static final int TABLE_COLS = 2;
+	private static final int NAME = 0;
+	private static final int PRICE = 1;
+	private static final int SPECIAL = 2;
+	
 	JButton back_btn;
 	JTable table;
 	
@@ -30,20 +34,19 @@ public class ViewMenu extends JFrame implements MouseListener {
         this.setSize(new Dimension(800, 500));
 		this.setLayout(new GridLayout(1,2));       
         
-		String[] items = InStoreHttpClient.getMenu().split(",");
-		String dataValues[][] = new String[(items.length/3)][2];
-		int j = 0;
-        for(int i=0; i<items.length; i++){
-        	if(items[i+2].equalsIgnoreCase("true")){
-        		dataValues[j][0] = "Special: " + items[i];
+		String[] menuItems = InStoreHttpClient.getMenu().split("&");
+		//this.setLayout(new GridLayout(menuItems.length, TABLE_COLS));       
+        
+		String dataValues[][] = new String[menuItems.length][TABLE_COLS];
+        for(int i=0; i<menuItems.length; i++){
+        	String[] item = menuItems[i].split(",");
+        	if(item[SPECIAL].equalsIgnoreCase("True")){
+        		dataValues[i][NAME] = "Special: " + item[NAME];
         	}
         	else{
-        		dataValues[j][0] = items[i];
+        		dataValues[i][NAME] = item[NAME];
         	}
-        	dataValues[j][1] = df.format(Double.parseDouble(items[i+1])).replaceAll( "^-(?=0(.0*)?$)", "");
-        	i++;
-        	i++;
-        	j++;
+        	dataValues[i][PRICE] = item[PRICE];
         }        
         
         String columnNames[] = {"Item","Price"};

@@ -37,7 +37,7 @@ public class XmlParser {
 			if(nl != null && nl.getLength() > 0) {
 				for(int i = 0 ; i < nl.getLength();i++) {
 					if (i != 0) {
-						ret += ",";
+						ret += "&";
 					}
 					//get the item element
 					Element el = (Element)nl.item(i);
