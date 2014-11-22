@@ -36,6 +36,7 @@ public class RequestHandler {
 	
 	public static boolean isManager(String empID) {
 		String empType = InStoreHttpClient.getEmpType(empID);
+		System.out.println("empType: '"+empType+"'");
 		return empType.equalsIgnoreCase("manager");
 	}
 	

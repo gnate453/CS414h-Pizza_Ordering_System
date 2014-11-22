@@ -3,8 +3,6 @@ package cs414.groupH.a5.http;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,12 +16,8 @@ import org.xml.sax.SAXException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import cs414.groupH.a5.address.Address;
-import cs414.groupH.a5.customer.Customer;
 import cs414.groupH.a5.manager.SystemManager;
 import cs414.groupH.a5.menu.MenuItem;
-import cs414.groupH.a5.order.Order;
-import cs414.groupH.a5.payment.Payment;
 
 public class MenuRequestHandler implements HttpHandler {
 	
@@ -33,7 +27,7 @@ public class MenuRequestHandler implements HttpHandler {
 	private static final int QUERY_VAL = 1;
 	private static final int SC_OK = 200;
 	private static final int SC_NOTFOUND = 404;
-	private static final int SC_ERROR = 500;
+	//private static final int SC_ERROR = 500;
 	
 	//this function is called when an HTTP request is made
 	@Override

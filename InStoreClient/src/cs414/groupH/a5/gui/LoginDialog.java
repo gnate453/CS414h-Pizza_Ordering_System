@@ -10,6 +10,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import cs414.groupH.a5.http.InStoreHttpClient;
+
 public class LoginDialog extends JDialog implements MouseListener {
 
 	private static final long serialVersionUID = 6618108255319022180L;
@@ -51,9 +53,9 @@ public class LoginDialog extends JDialog implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == accept_btn) {
-			boolean valid = EmployeeManager.verifyCreds(empId_txt.getText(), pwd_txt.getText());
+			boolean valid = InStoreHttpClient.loginEmp(empId_txt.getText(), pwd_txt.getText());
 			if (valid) {
-				InStoreEmployeeApp.loginEmployee(EmployeeManager.findEmployee(empId_txt.getText()));
+				//InStoreEmployeeApp.loginEmployee(EmployeeManager.findEmployee(empId_txt.getText()));
 				this.dispose();
 			}
 			else {

@@ -11,9 +11,14 @@ import cs414.groupH.a5.manager.SystemManager;
 public class StartServer {
 	public static void main(String[] args) throws IOException {
 		//creates the server on port 8,000
-		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 8000);
+		int port = 8000;
+		if (args.length == 1) {
+			port = Integer.parseInt(args[0]);
+		}
+		System.out.println("Starting server using port: "+port);
+		HttpServer server = HttpServer.create(new InetSocketAddress(port), port);
 		
-		SystemManager.addEmployee("0", "John Smith", "", EmployeeType.manager);
+		SystemManager.addEmployee("0", "John Smith", "0", EmployeeType.manager);
 		
 		//create the pizza controller
 		SystemManager.addMenuItem("Pepperoni Pizza", 9.99, false);
@@ -29,5 +34,6 @@ public class StartServer {
 		
 		//start the server
 		server.start();
+		System.out.println("Server started");
 	}
 }

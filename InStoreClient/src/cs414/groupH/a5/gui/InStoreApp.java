@@ -9,9 +9,7 @@ import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import cs414.groupH.a5.http.RequestHandler;
-
-public class InStoreEmployeeApp extends JApplet implements MouseListener {
+public class InStoreApp extends JApplet implements MouseListener {
 
 	private static final long serialVersionUID = 482548685808198776L;
 	
@@ -30,8 +28,9 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
     //Application logic members
 	static String empLoggedInID;
 	static String empLoggedInName;
+	static String empLoggedInType;
 
-	public InStoreEmployeeApp() {
+	public InStoreApp() {
 		super();
 
         //Initialize gui objects
@@ -75,7 +74,7 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
 
         if (empLoggedInID != null) {
         	this.add(viewOrders_btn);
-	        if (RequestHandler.isManager(empLoggedInID)) {
+	        if (empLoggedInType.equalsIgnoreCase("manager")) {
 	        	this.setLayout(new GridLayout(3,3));
 		        this.add(addMenuItem_btn);
 		        this.add(editMenuItem_btn);
@@ -90,15 +89,17 @@ public class InStoreEmployeeApp extends JApplet implements MouseListener {
         this.repaint();
 	}
 	
-	public static void loginEmployee(String id, String name) {
+	public static void loginEmployee(String id, String name, String type) {
 		empLoggedInID = id;
 		empLoggedInName = name;
+		empLoggedInType = type;
 		//System.out.println("Logged in employee with ID '"+empLoggedIn.getEmployeeId()+"'");
 	}
 	public void logoutEmployee() {
 		//System.out.println("Logged out employee '"+empLoggedIn.getEmployeeId()+"'");
 		empLoggedInID = null;
 		empLoggedInName = "";
+		empLoggedInType = "";
 	}
 	
     @Override

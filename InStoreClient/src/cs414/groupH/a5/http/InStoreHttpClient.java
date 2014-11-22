@@ -10,9 +10,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+import cs414.groupH.a5.gui.InStoreApp;
+
 public class InStoreHttpClient {
 	
-	private static final String ipAddr = "10.84.44.121:8000";
+	private static final String ipAddr = "saint-paul.cs.colostate.edu:8000";
 	
 	private static HttpClient httpclient = HttpClientBuilder.create().build();
 	
@@ -33,9 +35,12 @@ public class InStoreHttpClient {
 				result = convertToString(instream);
 				//close the stream
 				instream.close();
+				String[] res = result.split(",");
 				
-				if (result.equalsIgnoreCase("valid"))
+				if (res[0].equalsIgnoreCase("valid")) {
+					InStoreApp.loginEmployee(empID, res[1], res[2]);
 					return true;
+				}
 				else
 					return false;
 			}
@@ -153,7 +158,7 @@ public class InStoreHttpClient {
 			line = reader.readLine();
 			while (line != null) 
 			{
-				buff.append(line + "\n");
+				buff.append(line);
 				line = reader.readLine();
 			}
 			is.close();
