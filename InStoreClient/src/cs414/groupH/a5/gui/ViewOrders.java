@@ -30,7 +30,7 @@ public class ViewOrders extends JDialog implements MouseListener {
 		
         this.setSize(new Dimension(800, 500));
 		this.setLayout(new GridLayout(2, 2));       
-        
+        System.out.println("ViewOrders: "+InStoreHttpClient.getOrders());
 		String[] orders = InStoreHttpClient.getOrders().split(",");
 		String dataValues[][] = new String[(orders.length/2)][2];
 		int j = 0;
