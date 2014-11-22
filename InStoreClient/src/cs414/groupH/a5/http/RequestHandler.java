@@ -1,7 +1,6 @@
 package cs414.groupH.a5.http;
 
 
-
 public class RequestHandler {
 	private static String addressXml;
 	private static String paymentXml;
@@ -37,6 +36,17 @@ public class RequestHandler {
 	public static boolean isManager(String empID) {
 		String empType = InStoreHttpClient.getEmpType(empID);
 		return empType.equalsIgnoreCase("manager");
+	}
+	
+	public static String getFinalXml() {
+		String res = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+		
+		res += customerXml;
+		res += addressXml;
+		res += itemXml;
+		res += paymentXml;
+		
+		return res;
 	}
 	
 	public static void main(String[] args) {
