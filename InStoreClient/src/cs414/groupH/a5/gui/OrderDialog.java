@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import cs414.groupH.a5.http.InStoreHttpClient;
 import cs414.groupH.a5.http.RequestHandler;
+import cs414.groupH.a5.http.XmlHelper;
 import cs414.groupH.a5.gui.PaymentMethodDialog;
 
 public class OrderDialog extends JDialog implements MouseListener  {
@@ -163,7 +164,8 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	    		newRow[1] = df.format(Double.parseDouble(menu.getValueAt(rows[i], 1).toString())).replaceAll( "^-(?=0(.0*)?$)", "");
 	    		model.addRow(newRow);
 	    		total = total + Double.parseDouble(menu.getValueAt(rows[i], 1).toString());	
-	    		selectedItems.add(menu.getValueAt(rows[i], 0).toString().replace("Special: ", ""));
+	    		RequestHandler.addItemXml(XmlHelper.getItemXml(menu.getValueAt(rows[i], 0).toString().replace("Special: ", ""),
+	    					menu.getValueAt(rows[i], 1).toString(), "false"));
     		}
     		
     		total_txt.setText(df.format(total).replaceAll( "^-(?=0(.0*)?$)", ""));
