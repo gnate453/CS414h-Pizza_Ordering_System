@@ -28,8 +28,10 @@ public class CreditPaymentDialog extends JDialog implements MouseListener {
 	JLabel cardExp;
 	JTextField cardExpTXT;
 	JLabel Error;
+	OrderDialog parentOrder;
 	
-	public CreditPaymentDialog() {
+	public CreditPaymentDialog(OrderDialog order) {
+		parentOrder = order;
 		this.setSize(new Dimension(750, 500));
 		Accept = new JButton("Accept");
 		Cancel = new JButton("Cancel");
@@ -103,6 +105,7 @@ public class CreditPaymentDialog extends JDialog implements MouseListener {
 			}
 			else {
 				this.setVisible(false);
+				parentOrder.addPayment(parentOrder.getAmountDue());
 				if(!cardNumberTXT.getText().equals("")||!cardSecureTXT.getText().equals("")||!cardExpTXT.getText().equals("")) {
 					String creditXML = XmlHelper.getCreditPaymentXml(cardHolderTXT.getText(), cardNumberTXT.getText(), cardSecureTXT.getText(), cardExpTXT.getText());
 					RequestHandler.addPaymentXml(creditXML);

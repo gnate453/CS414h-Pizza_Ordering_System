@@ -29,8 +29,10 @@ public class DebitPaymentDialog extends JDialog implements MouseListener  {
 	JLabel cardPin;
 	JTextField cardPinTXT;
 	JLabel Error;
+	OrderDialog parentOrder;
 	
-	DebitPaymentDialog() {
+	DebitPaymentDialog(OrderDialog order) {
+		parentOrder = order;
 		this.setSize(new Dimension(750, 500));
 		Accept = new JButton("Accept");
 		Cancel = new JButton("Cancel");
@@ -112,6 +114,7 @@ public class DebitPaymentDialog extends JDialog implements MouseListener  {
 			}
 			else {
 				this.setVisible(false);
+				parentOrder.addPayment(parentOrder.getAmountDue());
 				if(!cardNumberTXT.getText().equals("")||!cardSecureTXT.getText().equals("")||!cardExpTXT.getText().equals("")){
 					String paymentXml = XmlHelper.getDeditPaymentXml(cardHolderTXT.getText(), cardNumberTXT.getText(), cardSecureTXT.getText(), cardExpTXT.getText(), cardPinTXT.getText());
 					RequestHandler.addPaymentXml(paymentXml);

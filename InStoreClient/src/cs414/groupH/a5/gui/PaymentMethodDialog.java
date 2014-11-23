@@ -20,18 +20,18 @@ public class PaymentMethodDialog extends JDialog implements MouseListener{
 	JButton Debit;
 	JLabel owed;
 	JLabel owed2;
-	double d = 0;
+	OrderDialog parentOrder;
 	
-	public PaymentMethodDialog(double amount) {
+	public PaymentMethodDialog(OrderDialog order) {
+		parentOrder = order;
 		DecimalFormat df = new DecimalFormat("###0.00");
-		d = amount;
 		this.setSize(new Dimension(500, 500));
 		
 		Credit = new JButton("Credit");
 		Debit = new JButton("Debit");
 		Cash = new JButton("Cash");
 		Cancel = new JButton("Cancel");
-		owed = new JLabel("Amount Due: " + df.format(amount).replaceAll( "^-(?=0(.0*)?$)", ""));
+		owed = new JLabel("Amount Due: " + df.format(parentOrder.getAmountDue()).replaceAll( "^-(?=0(.0*)?$)", ""));
 		
 		this.setModal(true);
 		this.setLayout(new GridLayout(3,2));
@@ -54,17 +54,17 @@ public class PaymentMethodDialog extends JDialog implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Credit) {
-			new CreditPaymentDialog();
+			new CreditPaymentDialog(parentOrder);
 			this.setVisible(false);
 			this.dispose();
 		}
 		else if (e.getSource()== Debit) {
-			new DebitPaymentDialog();
+			new DebitPaymentDialog(parentOrder);
 			this.setVisible(false);
 			this.dispose();
 		}
 		else if (e.getSource()== Cash) {
-			new PaymentDialog(d);
+			new PaymentDialog(parentOrder);
 			this.setVisible(false);
 			/*if(c.getAmount() > d) {
 				new CashBack((c.getAmount()-d));

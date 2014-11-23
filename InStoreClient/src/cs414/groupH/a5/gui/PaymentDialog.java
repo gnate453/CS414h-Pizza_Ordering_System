@@ -20,10 +20,10 @@ public class PaymentDialog extends JDialog implements MouseListener{
 	JButton Cancel;
 	JLabel AmountLBL;
 	JTextField AmountTXT;
-	double amount = 0;
+	OrderDialog parentOrder;
 	
-	public PaymentDialog(double d) {
-		amount = d;
+	public PaymentDialog(OrderDialog order) {
+		parentOrder = order;
 		this.setSize(new Dimension(600, 255));
 		Accept = new JButton("Accept");
 		Cancel = new JButton("Cancel");
@@ -74,9 +74,10 @@ public class PaymentDialog extends JDialog implements MouseListener{
 				String paymentXml = XmlHelper.getCashPaymentXml(AmountTXT.getText());
 				RequestHandler.addPaymentXml(paymentXml);
 				double amtPaid = Double.parseDouble(AmountTXT.getText());
-				if(amtPaid > amount) {
-					new CashBack((amtPaid-amount));
+				if(amtPaid > parentOrder.getAmountDue()) {
+					new CashBack((amtPaid-parentOrder.getAmountDue()));
 				}
+				parentOrder.addPayment(amtPaid);
 				this.dispose();
 			}
 		}

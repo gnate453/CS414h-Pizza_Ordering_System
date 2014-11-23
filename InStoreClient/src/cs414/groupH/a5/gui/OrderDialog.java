@@ -15,15 +15,20 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import cs414.groupH.a5.customer.Customer;
-import cs414.groupH.a5.manager.SystemManager;
-import cs414.groupH.a5.menu.Menu;
-import cs414.groupH.a5.payment.Payment;
-import cs414.groupH.a5.payment.PaymentMethodDialog;
+
+import cs414.groupH.a5.http.InStoreHttpClient;
+import cs414.groupH.a5.http.RequestHandler;
+import cs414.groupH.a5.gui.PaymentMethodDialog;
 
 public class OrderDialog extends JDialog implements MouseListener  {
 
 	private static final long serialVersionUID = 1L;
+
+	private static final int TABLE_COLS = 2;
+	
+	private static final int ITEM_NAME = 0;
+	private static final int ITEM_PRICE = 1;
+	private static final int ITEM_SPECIAL = 2;
 	
 	JTable menu;
 	JTable order;
@@ -34,9 +39,10 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	JLabel total_lbl;
 	JTextField total_txt;
 	
-	ArrayList<Payment> payments = new ArrayList<Payment>();
+	ArrayList<String> payments = new ArrayList<String>();
 	ArrayList<String> selectedItems = new ArrayList<String>();
 	double total;
+	double paid;
 	DecimalFormat df = new DecimalFormat("#,##0.00");
 
 	public OrderDialog() {
@@ -57,15 +63,21 @@ public class OrderDialog extends JDialog implements MouseListener  {
 		add.addMouseListener(this);
 		remove.addMouseListener(this);
 		
-		String dataValues[][] = new String[Menu.getMenuItems().size()][2];
-        for(int i=0; i<Menu.getMenuItems().size(); i++){
-        	if(Menu.getMenuItems().get(i).isDailySpecial()){
-        		dataValues[i][0] = "Special: " + Menu.getMenuItems().get(i).getName();
+		
+		
+		String[] menuItems = InStoreHttpClient.getMenu().split("&");
+		//this.setLayout(new GridLayout(menuItems.length, TABLE_COLS));       
+        
+		String dataValues[][] = new String[menuItems.length][TABLE_COLS];
+        for(int i=0; i<menuItems.length; i++){
+        	String[] item = menuItems[i].split(",");
+        	if(item[ITEM_SPECIAL].equalsIgnoreCase("True")){
+        		dataValues[i][ITEM_NAME] = "Special: " + item[ITEM_NAME];
         	}
         	else{
-        		dataValues[i][0] = Menu.getMenuItems().get(i).getName();
+        		dataValues[i][ITEM_NAME] = item[ITEM_NAME];
         	}
-        	dataValues[i][1] = df.format(Menu.getMenuItems().get(i).getPrice()).replaceAll( "^-(?=0(.0*)?$)", "");
+        	dataValues[i][ITEM_PRICE] = item[ITEM_PRICE];
         }        
         String columnNames[] = {"Menu Items","Price"};
         menu = new JTable(dataValues, columnNames);
@@ -85,6 +97,14 @@ public class OrderDialog extends JDialog implements MouseListener  {
 		this.setVisible(true);
 	}
 
+	public void addPayment(double p) {
+		paid += p;
+	}
+	
+	public double getAmountDue() {
+		return total-paid;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
@@ -97,21 +117,13 @@ public class OrderDialog extends JDialog implements MouseListener  {
 				}
 			}
 			else {
-				double pay = 0;
 				boolean cancel = false;
 				int i = 0;
-				while(total > pay){
-					new PaymentMethodDialog(payments, (total - pay));
-					if(payments.size()>0){
-						pay = pay + payments.get(i).getAmount();
-						i++;
-					}else{
-						cancel = true;
-						break;
-					}
+				while(getAmountDue() > 0){
+					new PaymentMethodDialog(this);
 				}
 				if(!cancel){
-					SystemManager.createOrder(cust, selectedItems,payments);
+					InStoreHttpClient.createOrder(RequestHandler.getFinalXml());
 					this.dispose();
 				}
 			}
