@@ -80,7 +80,7 @@ public class XmlParser {
 			NodeList nl = docEle.getElementsByTagName("order");
 			if(nl != null && nl.getLength() > 0) {
 				for(int i = 0 ; i < nl.getLength();i++) {
-					if (i != 0 || i == nl.getLength()-1) {
+					if (i != 0) {
 						ret += "&";
 					}
 					
