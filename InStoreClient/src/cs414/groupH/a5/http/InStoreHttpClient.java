@@ -263,10 +263,10 @@ public class InStoreHttpClient {
 	
 	public static boolean editMenuItem(String oldName, String newName, String price, String special) {
 		String result = null;
-		String url = "http://"+ipAddr+"/menu?type=edit&oldName="+oldName+"&newName="+
+		String url = "http://"+ipAddr+"/menu?type=edit&oldName="+oldName+"&newName="+newName+
 						"&price="+price+"&special="+special;
 		
-		url.replace(' ', '_');
+		url = url.replace(' ', '_');
 		
 		HttpGet httpget = new HttpGet(url);
 		
