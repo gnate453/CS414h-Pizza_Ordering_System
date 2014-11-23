@@ -264,12 +264,18 @@ public class InStoreHttpClient {
 		String result = null;
 		String url = "http://"+ipAddr+"/menu?type=edit&name="+oldName+"&item="+
 					XmlHelper.getItemXml(newName, price, special);
+		
+		try {
+			url = URLEncoder.encode(url, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+			return false;
+		}
+		HttpGet httpget = new HttpGet(url);
+		
 		HttpResponse response;
 		
 		try {	
-			url = URLEncoder.encode(url, "UTF-8");
-			HttpGet httpget = new HttpGet(url);
-		
 			//response captures what happens when we execute
 			response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
