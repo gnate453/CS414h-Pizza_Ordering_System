@@ -298,6 +298,44 @@ public class InStoreHttpClient {
 			return false;
 		}
 	}
+	
+	public static boolean addMenuItem(String newName, String price, String special) {
+		String result = null;
+		String url = "http://"+ipAddr+"/menu?type=add&newName="+newName+
+						"&price="+price+"&special="+special;
+		
+		url = url.replace(' ', '_');
+		
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		
+		try {	
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				//close the stream
+				instream.close();
+				String[] res = result.split(",");
+				
+				if (res[0].equalsIgnoreCase("valid")) {
+					return true;
+				}
+				else
+					return false;
+			}
+			else
+				return false;
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+			return false;
+		}
+	}
 
 	public Object sendRequest() {
 		//this is what we will return
