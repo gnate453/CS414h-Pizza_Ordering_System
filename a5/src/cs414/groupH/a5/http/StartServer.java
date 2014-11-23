@@ -48,10 +48,12 @@ public class StartServer {
 		MenuRequestHandler menuHandler = new MenuRequestHandler();
 		EmployeeRequestHandler empHandler = new EmployeeRequestHandler();
         OrderRequestHandler orderHandler = new OrderRequestHandler();
+        CustomerRequestHandler custHandler = new CustomerRequestHandler();
 		//creates the URI for the pizza. In this case, {base}/pizzas redirects here
 		server.createContext("/menu", menuHandler);
         server.createContext("/order", orderHandler);
 		server.createContext("/employee", empHandler);
+		server.createContext("/customer", custHandler);
 		
 		//start the server
 		server.start();

@@ -3,21 +3,21 @@ package cs414.groupH.a5.rewards;
 import java.util.Map;
 
 public class RewardsSystem {
-	private Map<String, RewardsRecord> data;
-	private int pointsThreshold;
+	private static Map<String, RewardsRecord> data;
+	private static int pointsThreshold;
 	
-	public void setThreshold(int t) {
+	public static void setThreshold(int t) {
 		pointsThreshold = t;
 		for (String id : data.keySet()) {
 			getCustomerRecord(id).checkCertificate(pointsThreshold);
 		}
 	}
 	
-	public boolean isMember(String id) {
+	public static boolean isMember(String id) {
 		return data.containsKey(id);
 	}
 	
-	public boolean newMember(String id) {
+	public static boolean newMember(String id) {
 		if (!isMember(id)) {
 			data.put(id, new RewardsRecord());
 			return true;
@@ -26,7 +26,7 @@ public class RewardsSystem {
 			return false;
 	}
 	
-	public boolean addPoints(String id, int p) {
+	public static boolean addPoints(String id, int p) {
 		if (isMember(id)) {
 			getCustomerRecord(id).addPoints(p);
 			getCustomerRecord(id).checkCertificate(pointsThreshold);
@@ -36,7 +36,16 @@ public class RewardsSystem {
 			return false;
 	}
 	
-	public boolean redeemCertificate(String id) {
+	public static boolean isEligible(String id) {
+		if (isMember(id)) {
+			RewardsRecord rr = getCustomerRecord(id);
+			return (rr.getPoints() >= pointsThreshold);
+		}
+		else
+			return false;
+	}
+	
+	public static boolean redeemCertificate(String id) {
 		if (isMember(id)) {
 			return getCustomerRecord(id).redeemCertificate();
 		}
@@ -44,14 +53,11 @@ public class RewardsSystem {
 			return false;
 	}
 	
-	private RewardsRecord getCustomerRecord(String id) {
+	private static RewardsRecord getCustomerRecord(String id) {
 		if (isMember(id)) {
 			return data.get(id);
 		}
 		else 
 			return null;
 	}
-	
-	
-	
 }
