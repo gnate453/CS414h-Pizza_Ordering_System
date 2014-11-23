@@ -42,7 +42,7 @@ public class ViewOrders extends JDialog implements MouseListener {
         for(int i=0; i<orders.length; i++){
         	String[] order = orders[i].split(",");
         	dataValues[i][ID] = order[ID];
-        	dataValues[i][STATUS] = orders[STATUS];
+        	dataValues[i][STATUS] = order[STATUS];
         }        
         
         String columnNames[] = {"Order ID","Completed?"};

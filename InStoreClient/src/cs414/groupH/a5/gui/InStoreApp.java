@@ -34,7 +34,7 @@ public class InStoreApp extends JApplet implements MouseListener {
 		super();
 
         //Initialize gui objects
-        this.setSize(new Dimension(800, 500));
+        this.setSize(new Dimension(1200, 600));
 		this.setLayout(new GridLayout(2, 3));
         this.addMouseListener(this);
 
