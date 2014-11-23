@@ -46,6 +46,8 @@ public class RequestHandler {
 		res += "<items>"+itemXml+"</items>";
 		res += "<payments>"+paymentXml+"</payments>";
 		
+		res = "<order>" + res + "</order>";
+		 
 		return res;
 	}
 	
