@@ -7,7 +7,7 @@ public class Payment {
 	
 	public Payment(){
 		//Removed because this is a super class
-		new PaymentDialog(this);
+		//new PaymentDialog(this);
 	}
 	public Payment(double a){
 		amount = a;

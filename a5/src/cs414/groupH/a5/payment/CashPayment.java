@@ -3,7 +3,7 @@ package cs414.groupH.a5.payment;
 public class CashPayment extends Payment {
 	
 	public CashPayment(){
-		new CashPaymentDialog(this);
+		//new CashPaymentDialog(this);
 		//System.out.println(this);
 	}
 	public void setFields(double a){
