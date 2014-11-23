@@ -23,14 +23,21 @@ public class ViewOrderDetails extends JDialog implements MouseListener {
 	
 	public ViewOrderDetails(String custName, String[] addr, String[] items) {		
 		
-		Cust = new JLabel("Customer: " + custName);		
-		if(addr[0].isEmpty()){
+		Cust = new JLabel("Customer: " + custName);	
+		if (addr.length == 5) {
+			if(addr[0].isEmpty()){
+				Addr = new JLabel("Address: ");
+			}else{
+				Addr = new JLabel("Address: " +addr[0]+" "+addr[1]+", "+addr[2]+" "+addr[3]);
+			}
+			
+			Phone = new JLabel("Phone: " + addr[4]);
+		}
+		else {
 			Addr = new JLabel("Address: ");
-		}else{
-			Addr = new JLabel("Address: " +addr[0]+" "+addr[1]+", "+addr[2]+" "+addr[3]);
+			Phone = new JLabel("Phone: ");
 		}
 		
-		Phone = new JLabel("Phone: " + addr[4]);
 		back_btn = new JButton("Back");
         this.setSize(new Dimension(800, 400));
 		this.setLayout(new GridLayout(3, 2));       
