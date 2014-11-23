@@ -10,8 +10,10 @@ import com.sun.net.httpserver.HttpServer;
 import cs414.groupH.a5.address.Address;
 import cs414.groupH.a5.customer.Customer;
 import cs414.groupH.a5.employee.EmployeeType;
+import cs414.groupH.a5.manager.CustomerManager;
 import cs414.groupH.a5.manager.SystemManager;
 import cs414.groupH.a5.payment.Payment;
+import cs414.groupH.a5.rewards.RewardsSystem;
 
 public class StartServer {
 	public static void main(String[] args) throws IOException {
@@ -30,6 +32,19 @@ public class StartServer {
 		SystemManager.addEmployee("002", "Joh Smith", "password", EmployeeType.chef);
 		SystemManager.addEmployee("003", "Jo Smith", "password", EmployeeType.manager);
 		SystemManager.addEmployee("004", "J Smith", "password", EmployeeType.cashier);
+		
+		CustomerManager.addEmployee(new Customer("B", new Address(), "bm1", "pass"));
+		CustomerManager.addEmployee(new Customer("B", new Address(), "bm2", "pass"));
+		CustomerManager.addEmployee(new Customer("B", new Address(), "bm3", "pass"));
+		CustomerManager.addEmployee(new Customer("B", new Address(), "bm4", "pass"));
+		RewardsSystem.setThreshold(5);
+		RewardsSystem.newMember("bm1");
+		RewardsSystem.addPoints("bm1", 6);
+		RewardsSystem.newMember("bm2");
+		RewardsSystem.addPoints("bm2", 5);
+		RewardsSystem.newMember("bm3");
+		RewardsSystem.addPoints("bm3", 2);
+		RewardsSystem.newMember("bm4");
 		
 		SystemManager.addMenuItem("Pepperoni Pizza", 9.99, false);
 		SystemManager.addMenuItem("Cheese Pizza", 5.00, true);

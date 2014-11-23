@@ -75,7 +75,7 @@ public class CustomerRequestHandler implements HttpHandler {
 				String[] pw = subs[QUERY_PW].split("=");
 				Customer cust = CustomerManager.findCustomer(uname[QUERY_VAL]);
 				if (cust != null) {
-					if (CustomerManager.verifyCreds(uname[QUERY_VAL], pw[QUERY_VAL]))
+					if (cust.verifyPassword(pw[QUERY_VAL]))
 						retValue = "VALID";
 					else
 						retValue = "INVALID";
@@ -87,6 +87,7 @@ public class CustomerRequestHandler implements HttpHandler {
 				String[] uname = subs[QUERY_ID].split("=");
 				Customer cust = CustomerManager.findCustomer(uname[QUERY_VAL]);
 				if (cust != null) {
+					System.out.println("Found cust");
 					if (RewardsSystem.isEligible(cust.getUsername())) {
 						retValue = "TRUE";
 					}

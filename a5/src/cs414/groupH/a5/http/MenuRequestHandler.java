@@ -5,15 +5,6 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.util.Date;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -113,7 +104,7 @@ public class MenuRequestHandler implements HttpHandler {
 		
 	}
 	
-	private MenuItem itemXMLParser(String xmlInput) {
+/*	private MenuItem itemXMLParser(String xmlInput) {
         String name;
         double price;
         boolean isDailySpecial;
@@ -147,7 +138,7 @@ public class MenuRequestHandler implements HttpHandler {
         }
 
         return null;
-    }
+    }*/
 	
 	//Turns the menu into an XML representation
 	private String getMenuXml() {
@@ -178,7 +169,7 @@ public class MenuRequestHandler implements HttpHandler {
 		return buffer.toString();
 	}
 	
-	private String getTextValue(Element ele, String tagName) {
+	/*private String getTextValue(Element ele, String tagName) {
         String textVal = null;
         NodeList nl = ele.getElementsByTagName(tagName);
         if(nl != null && nl.getLength() > 0) {
@@ -197,5 +188,5 @@ public class MenuRequestHandler implements HttpHandler {
     private boolean getBoolValue(Element ele, String tagName) {
         //in production application you would catch the exception
         return Boolean.parseBoolean(getTextValue(ele,tagName));
-    }
+    }*/
 }

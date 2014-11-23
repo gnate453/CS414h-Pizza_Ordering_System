@@ -1,9 +1,10 @@
 package cs414.groupH.a5.rewards;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class RewardsSystem {
-	private static Map<String, RewardsRecord> data;
+	private static Map<String, RewardsRecord> data = new HashMap<String, RewardsRecord>();
 	private static int pointsThreshold;
 	
 	public static void setThreshold(int t) {
@@ -39,7 +40,7 @@ public class RewardsSystem {
 	public static boolean isEligible(String id) {
 		if (isMember(id)) {
 			RewardsRecord rr = getCustomerRecord(id);
-			return (rr.getPoints() >= pointsThreshold);
+			return (rr.getCertificates() > 0);
 		}
 		else
 			return false;
