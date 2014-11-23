@@ -39,14 +39,14 @@ public class RequestHandler {
 	}
 	
 	public static String getFinalXml() {
-		String res = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+		String res = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><order>";
 		
 		res += customerXml;
 		res += addressXml;
 		res += "<items>"+itemXml+"</items>";
 		res += "<payments>"+paymentXml+"</payments>";
 		
-		res = "<order>" + res + "</order>";
+		res += "</order>";
 		 
 		return res;
 	}
