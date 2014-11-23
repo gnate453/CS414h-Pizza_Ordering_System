@@ -3,9 +3,9 @@ package cs414.groupH.a5.http;
 
 public class RequestHandler {
 	private static String addressXml;
-	private static String paymentXml;
+	private static String paymentXml = "";
 	private static String customerXml;
-	private static String itemXml;
+	private static String itemXml = "";
 	//private static String addressXml;
 
 	public static String getAddressXml() {
