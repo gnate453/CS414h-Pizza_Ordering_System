@@ -76,29 +76,30 @@ public class Review extends ActionBarActivity {
 	}
 	public ArrayList<String> parseItems(String string){
 		ArrayList<String> result = new ArrayList<String>();
-		//for(int i = 0; i < AL.size();i++){
-			String test = string;
-			String ds = "";
-			DecimalFormat df = new DecimalFormat("#,##0.00");
-			double d = 0;
-			String price = "";
-			String name = "";
-			if(test.contains("(Special)")){
-				ds = "true";
-				test = test.replace("(Special)", "");
-				String s[] = test.split(":");
-				name = s[0];
-				price = s[1].replace(" $", "");
-				d = Double.parseDouble(price);
-				price = df.format(d);
-			}else{
-				ds = "false";
-				String s[] = test.split(":");
-				name = s[0];
-				price = s[1].replace(" $", "");
-				d = Double.parseDouble(price);
-				price = df.format(d);
-			//}
+		String test = string;
+		String ds = "";
+		DecimalFormat df = new DecimalFormat("#,##0.00");
+		double d = 0;
+		String price = "";
+		String name = "";
+		if(test.contains("(Special)")){
+			ds = "true";
+			test = test.replace("(Special)", "");
+			String s[] = test.split(":");
+			name = s[0];
+			price = s[1].replace(" $", "");
+			d = Double.parseDouble(price);
+			price = df.format(d);
+			result.add(name);
+			result.add(price);
+			result.add(ds);
+		}else{
+			ds = "false";
+			String s[] = test.split(":");
+			name = s[0];
+			price = s[1].replace(" $", "");
+			d = Double.parseDouble(price);
+			price = df.format(d);
 			result.add(name);
 			result.add(price);
 			result.add(ds);
