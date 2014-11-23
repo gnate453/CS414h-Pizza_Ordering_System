@@ -25,6 +25,8 @@ public class MenuRequestHandler implements HttpHandler {
 	private static final int QUERY_TYPE = 0;
 	private static final int QUERY_SECOND = 1;
 	private static final int QUERY_THIRD = 2;
+	private static final int QUERY_FOURTH = 3;
+	private static final int QUERY_FIFTH = 4;
 	private static final int QUERY_KEY = 0;
 	private static final int QUERY_VAL = 1;
 	private static final int SC_OK = 200;
@@ -84,9 +86,11 @@ public class MenuRequestHandler implements HttpHandler {
 		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("edit")) {
 			String[] name = subs[QUERY_SECOND].split("=");
 			String oldName = name[QUERY_VAL];
-			String[] editItem = subs[QUERY_THIRD].split("=");
-			MenuItem item = itemXMLParser(editItem[QUERY_VAL]);
-			if (SystemManager.editMenuItem(oldName, item.getName(), item.getPrice(), item.isDailySpecial()))
+			name = subs[QUERY_THIRD].split("=");
+			String newName = name[QUERY_VAL];
+			Double p = Double.parseDouble(subs[QUERY_FOURTH].split("=")[QUERY_VAL]);
+			Boolean s = Boolean.parseBoolean(subs[QUERY_FIFTH].split("=")[QUERY_VAL]);
+			if (SystemManager.editMenuItem(oldName, newName, p, s))
 				return "VALID";
 			else
 				return "INVALID";		

@@ -263,12 +263,10 @@ public class InStoreHttpClient {
 	
 	public static boolean editMenuItem(String oldName, String newName, String price, String special) {
 		String result = null;
-		String url = "http://"+ipAddr+"/menu?type=edit&name="+oldName+"&item="+
-					XmlHelper.getItemXml(newName, price, special);
+		String url = "http://"+ipAddr+"/menu?type=edit&oldName="+oldName+"&newName="+
+						"&price="+price+"&special="+special;
 		
-		StringEntity request = new StringEntity(url, "UTF-8");
-		request.setContentType("txt/xml");
-		HttpGet httpget = new HttpGet(request.toString());
+		HttpGet httpget = new HttpGet(url);
 		
 		HttpResponse response;
 		
