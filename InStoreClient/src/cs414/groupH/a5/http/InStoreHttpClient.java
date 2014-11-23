@@ -15,6 +15,10 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.HTTP;
 
+import com.example.pt.ClientProtocolException;
+import com.example.pt.DefaultHttpClient;
+import com.example.pt.IOException;
+
 import cs414.groupH.a5.gui.InStoreApp;
 
 public class InStoreHttpClient {
@@ -337,38 +341,76 @@ public class InStoreHttpClient {
 		}
 	}
 
-	public Object sendRequest() {
-		//this is what we will return
-		String result = null;
-		
-		//the parameters on this URL will generate a new pizza on the server
-		String url = "http://10.0.2.2:8000/pizzas?customer=Ashley&size=MEDIUM&toppings=CHEESE-MUSHROOMS-PEPPERONI";
-		
-		
-		HttpGet httpget = new HttpGet(url); 
+//	public Object sendRequest() {
+//		//this is what we will return
+//		String result = null;
+//		
+//		//the parameters on this URL will generate a new pizza on the server
+//		String url = "http://10.0.2.2:8000/pizzas?customer=Ashley&size=MEDIUM&toppings=CHEESE-MUSHROOMS-PEPPERONI";
+//		
+//		
+//		HttpGet httpget = new HttpGet(url); 
+//
+//		//we call the server for the response inside this try...catch because these often fail
+//		HttpResponse response;
+//		try {
+//			//response captures what happens when we execute
+//			response = httpclient.execute(httpget);
+//			HttpEntity entity = response.getEntity();
+//
+//			if (entity != null) {
+//				InputStream instream = entity.getContent();
+//				result = convertToString(instream);
+//				
+//				//System.out.println(result);
+//				
+//				//close the stream
+//				instream.close();
+//			}
+//		} 
+//		catch (Exception e) {
+//			System.out.println(e.toString());
+//		}
+//
+//		return result;
+//	}
 
-		//we call the server for the response inside this try...catch because these often fail
-		HttpResponse response;
+	public static Boolean createOrder(String finalXml) {
+		HttpClient httpclient = new DefaultHttpClient();
+		String result = null;
 		try {
-			//response captures what happens when we execute
-			response = httpclient.execute(httpget);
-			HttpEntity entity = response.getEntity();
+			HttpPost httppost = new HttpPost("http://"+ipAddr+"/order?type=place");          
+			StringEntity se = new StringEntity(finalXml);			
+			httppost.setEntity(se);  			
+			HttpResponse httpResponse = httpclient.execute(httppost);
+			
+			HttpEntity entity = httpResponse.getEntity();
 
 			if (entity != null) {
 				InputStream instream = entity.getContent();
 				result = convertToString(instream);
-				
-				//System.out.println(result);
-				
 				//close the stream
 				instream.close();
-			}
-		} 
-		catch (Exception e) {
-			System.out.println(e.toString());
-		}
+				
 
-		return result;
+				if (result.equalsIgnoreCase("valid")) {
+					return true;
+				}
+				else
+					return false;
+			}
+			else
+				return false;
+			
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 	//converts an input stream to a string

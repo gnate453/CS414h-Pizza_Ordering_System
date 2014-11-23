@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -123,8 +124,15 @@ public class OrderDialog extends JDialog implements MouseListener  {
 					new PaymentMethodDialog(this);
 				}
 				if(!cancel){
-					InStoreHttpClient.createOrder(RequestHandler.getFinalXml());
-					this.dispose();
+					if (InStoreHttpClient.createOrder(RequestHandler.getFinalXml()))
+					{
+						this.dispose();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(this, "Order Error server return invalid",
+								"error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		}
