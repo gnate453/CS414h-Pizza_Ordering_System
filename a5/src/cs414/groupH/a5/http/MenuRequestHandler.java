@@ -77,10 +77,10 @@ public class MenuRequestHandler implements HttpHandler {
 		String[] type = subs[QUERY_TYPE].split("=");
 		
 		if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("add")) {
-			String[] name = subs[QUERY_THIRD].split("=");
+			String[] name = subs[QUERY_SECOND].split("=");
 			String newName = name[QUERY_VAL];
-			Double p = Double.parseDouble(subs[QUERY_FOURTH].split("=")[QUERY_VAL]);
-			Boolean s = Boolean.parseBoolean(subs[QUERY_FIFTH].split("=")[QUERY_VAL]);
+			Double p = Double.parseDouble(subs[QUERY_THIRD].split("=")[QUERY_VAL]);
+			Boolean s = Boolean.parseBoolean(subs[QUERY_FOURTH].split("=")[QUERY_VAL]);
 			if (SystemManager.addMenuItem(newName, p, s))
 				return "VALID";
 			else
