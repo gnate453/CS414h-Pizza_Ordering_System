@@ -16,6 +16,10 @@ public class ViewOrders extends JDialog implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final int TABLE_COLS = 2;
+	private static final int ID = 0;
+	private static final int STATUS = 1;
+
 	JButton back_btn;
 	JButton details_btn;
 	JTable table;
@@ -29,16 +33,16 @@ public class ViewOrders extends JDialog implements MouseListener {
 		markComplete.addMouseListener(this);
 		
         this.setSize(new Dimension(800, 500));
-		this.setLayout(new GridLayout(2, 2));       
+		this.setLayout(new GridLayout(2, 2));
+		
         System.out.println("ViewOrders: "+InStoreHttpClient.getOrders());
-		String[] orders = InStoreHttpClient.getOrders().split(",");
-		String dataValues[][] = new String[(orders.length/2)][2];
-		int j = 0;
+        
+		String[] orders = InStoreHttpClient.getOrders().split("&");
+		String dataValues[][] = new String[orders.length][TABLE_COLS];
         for(int i=0; i<orders.length; i++){
-        	dataValues[j][0] = orders[i];
-        	dataValues[j][1] = orders[i+1];
-        	i++;
-        	j++;
+        	String[] order = orders[i].split(",");
+        	dataValues[i][ID] = order[ID];
+        	dataValues[i][STATUS] = orders[STATUS];
         }        
         
         String columnNames[] = {"Order ID","Completed?"};
