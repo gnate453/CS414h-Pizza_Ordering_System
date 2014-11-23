@@ -15,9 +15,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.HTTP;
 
-import com.example.pt.ClientProtocolException;
-import com.example.pt.DefaultHttpClient;
-import com.example.pt.IOException;
+import org.apache.http.client.ClientProtocolException;
+import java.io.IOException;
 
 import cs414.groupH.a5.gui.InStoreApp;
 
@@ -376,7 +375,6 @@ public class InStoreHttpClient {
 //	}
 
 	public static Boolean createOrder(String finalXml) {
-		HttpClient httpclient = new DefaultHttpClient();
 		String result = null;
 		try {
 			HttpPost httppost = new HttpPost("http://"+ipAddr+"/order?type=place");          
