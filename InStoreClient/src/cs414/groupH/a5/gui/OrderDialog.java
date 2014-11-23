@@ -47,6 +47,8 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	double paid;
 	DecimalFormat df = new DecimalFormat("#,##0.00");
 
+	private int itemCount;
+
 	public OrderDialog() {
 		total = 0;
 		this.setModal(true);
@@ -111,7 +113,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == Accept)
 		{
-			if (selectedItems.size() == 0) {
+			if (itemCount == 0) {
 				if (this.getContentPane().getComponentCount() < 9) {
 					this.setLayout(new GridLayout(5,2));
 					this.add(new JLabel("ERROR: You have selected no items."));
@@ -144,12 +146,14 @@ public class OrderDialog extends JDialog implements MouseListener  {
     		DefaultTableModel model = (DefaultTableModel) order.getModel();
     		
     		for(int i=0; i<rows.length; i++){ 
-	    		total = total - Double.parseDouble(order.getValueAt(rows[i]-i, 1).toString());	
-	    		selectedItems.remove(order.getValueAt(rows[i]-i, 0).toString().replace("Special: ", ""));
+	    		total = total - Double.parseDouble(order.getValueAt(rows[i]-i, 1).toString());
+	    		//TODO remove item from request Handler
+	    		//selectedItems.remove(order.getValueAt(rows[i]-i, 0).toString().replace("Special: ", ""));
 	    		model.removeRow(rows[i]-i);
     		}
     		
     		total_txt.setText(df.format(total).replaceAll( "^-(?=0(.0*)?$)", ""));
+    		itemCount--;
     		menu.clearSelection();			
 		}
 		
@@ -166,6 +170,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	    		total = total + Double.parseDouble(menu.getValueAt(rows[i], 1).toString());	
 	    		RequestHandler.addItemXml(XmlHelper.getItemXml(menu.getValueAt(rows[i], 0).toString().replace("Special: ", ""),
 	    					menu.getValueAt(rows[i], 1).toString(), "false"));
+				itemCount++;
     		}
     		
     		total_txt.setText(df.format(total).replaceAll( "^-(?=0(.0*)?$)", ""));
