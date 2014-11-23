@@ -269,6 +269,7 @@ public class InStoreHttpClient {
 			url = URLEncoder.encode(url, "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
+			System.out.print("encode error");
 			return false;
 		}
 		HttpGet httpget = new HttpGet(url);
