@@ -7,7 +7,7 @@ public class CreditPayment extends Payment{
 	protected String cardNum;
 	
 	public CreditPayment(){
-		new CreditPaymentDialog(this);
+		//new CreditPaymentDialog(this);
 	}
 	public void setFields(String name, String cn, String sc, String exp) {
 		CardHolderName = name;

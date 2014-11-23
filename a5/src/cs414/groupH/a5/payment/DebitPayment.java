@@ -8,7 +8,7 @@ public class DebitPayment extends Payment {
 	protected String cardNum;
 	
 	public DebitPayment(){
-		new DebitPaymentDialog(this);
+		//new DebitPaymentDialog(this);
 	}
 	public void setFields(String name, String cn, String sc, String exp, String p) {
 		CardHolderName = name;

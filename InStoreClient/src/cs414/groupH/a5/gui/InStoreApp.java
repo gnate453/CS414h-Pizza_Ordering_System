@@ -1,6 +1,5 @@
 package cs414.groupH.a5.gui;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -114,7 +113,8 @@ public class InStoreApp extends JApplet implements MouseListener {
 			}
 			else{
 				//customer is creating order. 
-				new OrderDialog();
+				//new OrderDialog();
+				new CustLoginDialog();
 			}
 			
 		}
