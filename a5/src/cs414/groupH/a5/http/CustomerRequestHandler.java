@@ -76,12 +76,12 @@ public class CustomerRequestHandler implements HttpHandler {
 				Customer cust = CustomerManager.findCustomer(uname[QUERY_VAL]);
 				if (cust != null) {
 					if (cust.verifyPassword(pw[QUERY_VAL]))
-						retValue = "VALID";
+						retValue = cust.getName();
 					else
 						retValue = "INVALID";
 				}
 				else
-					retValue = "error";
+					retValue = "invalid";
 			}
 			else if (type[QUERY_VAL].equalsIgnoreCase("rewardavailable")) {
 				String[] uname = subs[QUERY_ID].split("=");
