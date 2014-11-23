@@ -86,14 +86,14 @@ public class MenuRequestHandler implements HttpHandler {
 			String oldName = name[QUERY_VAL];
 			String[] editItem = subs[QUERY_THIRD].split("=");
 			MenuItem item = itemXMLParser(editItem[QUERY_VAL]);
-			if (SystemManager.editMenuItem(oldName.replace('_', ' '), item.getName().replace('_', ' '), item.getPrice(), item.isDailySpecial()))
+			if (SystemManager.editMenuItem(oldName, item.getName(), item.getPrice(), item.isDailySpecial()))
 				return "VALID";
 			else
 				return "INVALID";		
 		}
 		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("remove")) {
 			String[] item = subs[QUERY_SECOND].split("=");
-			if (SystemManager.removeMenuItem(item[QUERY_VAL].replace('_', ' ')))
+			if (SystemManager.removeMenuItem(item[QUERY_VAL]))
 				return "VALID";
 			else
 				return "INVALID";		

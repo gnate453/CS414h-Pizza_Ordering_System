@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -261,16 +262,14 @@ public class InStoreHttpClient {
 	
 	public static boolean editMenuItem(String oldName, String newName, String price, String special) {
 		String result = null;
-		
-		oldName = oldName.replace(' ', '_');
-		newName = newName.replace(' ', '_');
-		
 		String url = "http://"+ipAddr+"/menu?type=edit&name="+oldName+"&item="+
 					XmlHelper.getItemXml(newName, price, special);
-		HttpGet httpget = new HttpGet(url);
+	
+		try {	
+			url = URLEncoder.encode(url, "UTF-8");
+			HttpGet httpget = new HttpGet(url);
 		
-		HttpResponse response;
-		try {
+			HttpResponse response;
 			//response captures what happens when we execute
 			response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
@@ -296,7 +295,7 @@ public class InStoreHttpClient {
 			return false;
 		}
 	}
-	
+
 	public Object sendRequest() {
 		//this is what we will return
 		String result = null;
