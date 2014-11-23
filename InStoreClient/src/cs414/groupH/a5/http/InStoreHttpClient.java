@@ -1,28 +1,25 @@
 package cs414.groupH.a5.http;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.protocol.HTTP;
-
-import org.apache.http.client.ClientProtocolException;
-import java.io.IOException;
 
 import cs414.groupH.a5.gui.InStoreApp;
 
 public class InStoreHttpClient {
 	
-	private static final String ipAddr = "saint-paul.cs.colostate.edu:55789";
+	private static final String ipAddr = "saint-paul.cs.colostate.edu:8000";
 	
 	private static HttpClient httpclient = HttpClientBuilder.create().build();
 	
@@ -58,6 +55,35 @@ public class InStoreHttpClient {
 		catch (Exception e) {
 			System.out.println(e.toString());
 			return false;
+		}
+	}
+	
+	public static String loginCust(String uname, String empPW) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/customer?type=Login&id="+uname+"&pw="+empPW;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				//close the stream
+				instream.close();
+				
+				return result;
+			}
+			else
+				return "invalid";
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+			return "invalid";
 		}
 	}
 	
