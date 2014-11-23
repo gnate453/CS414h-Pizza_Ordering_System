@@ -67,6 +67,7 @@ public class MenuRequestHandler implements HttpHandler {
 	}
 	
 	private String parseMenuQuery(String query) {
+		query.replace('_', ' ')
 		System.out.print(query);
     	System.out.println();
     	

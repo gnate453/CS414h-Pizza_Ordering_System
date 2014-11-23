@@ -266,6 +266,8 @@ public class InStoreHttpClient {
 		String url = "http://"+ipAddr+"/menu?type=edit&oldName="+oldName+"&newName="+
 						"&price="+price+"&special="+special;
 		
+		url.replace(' ', '_');
+		
 		HttpGet httpget = new HttpGet(url);
 		
 		HttpResponse response;
