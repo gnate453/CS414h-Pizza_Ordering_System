@@ -13,6 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.protocol.HTTP;
 
 import cs414.groupH.a5.gui.InStoreApp;
 
@@ -265,14 +266,9 @@ public class InStoreHttpClient {
 		String url = "http://"+ipAddr+"/menu?type=edit&name="+oldName+"&item="+
 					XmlHelper.getItemXml(newName, price, special);
 		
-		try {
-			url = URLEncoder.encode(url, "UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-			System.out.print("encode error");
-			return false;
-		}
-		HttpGet httpget = new HttpGet(url);
+		StringEntity request = new StringEntity(url, "UTF-8");
+		request.setContentType("txt/xml");
+		HttpGet httpget = new HttpGet(request.toString());
 		
 		HttpResponse response;
 		
