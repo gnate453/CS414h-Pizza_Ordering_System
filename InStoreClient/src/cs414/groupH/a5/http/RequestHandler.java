@@ -1,11 +1,13 @@
 package cs414.groupH.a5.http;
 
+import java.util.ArrayList;
+
 
 public class RequestHandler {
 	private static String addressXml;
 	private static String paymentXml = "";
 	private static String customerXml;
-	private static String itemXml = "";
+	private static ArrayList<String> itemXml;
 	//private static String addressXml;
 
 	public static String getAddressXml() {
@@ -26,11 +28,21 @@ public class RequestHandler {
 	public static String getPaymentXml() {
 		return paymentXml;
 	}
-	public static void addItemXml(String itemXml) {
-		RequestHandler.itemXml += itemXml;
+	public static void addItemXml(String item) {
+		itemXml.add(item);
+	}
+	
+	public static void removeItem(int i) {
+		itemXml.remove(i);
 	}
 	public static String getItemXml() {
-		return itemXml;
+		String retVal = "";
+		
+		for (String s : itemXml) {
+			retVal += s;
+		}
+		
+		return retVal;
 	}
 	
 	public static boolean isManager(String empID) {
@@ -43,7 +55,8 @@ public class RequestHandler {
 		
 		res += customerXml;
 		res += addressXml;
-		res += "<items>"+itemXml+"</items>";
+		
+		res += "<items>"+getItemXml()+"</items>";
 		res += "<payments>"+paymentXml+"</payments>";
 		
 		res += "</order>";

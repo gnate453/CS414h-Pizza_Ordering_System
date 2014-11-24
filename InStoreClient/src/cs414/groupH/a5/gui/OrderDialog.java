@@ -147,13 +147,13 @@ public class OrderDialog extends JDialog implements MouseListener  {
     		
     		for(int i=0; i<rows.length; i++){ 
 	    		total = total - Double.parseDouble(order.getValueAt(rows[i]-i, 1).toString());
-	    		//TODO remove item from request Handler
-	    		//selectedItems.remove(order.getValueAt(rows[i]-i, 0).toString().replace("Special: ", ""));
+	    		RequestHandler.removeItem(rows[i]-i);
 	    		model.removeRow(rows[i]-i);
+	    		itemCount--;
     		}
     		
     		total_txt.setText(df.format(total).replaceAll( "^-(?=0(.0*)?$)", ""));
-    		itemCount--;
+    		
     		menu.clearSelection();			
 		}
 		
