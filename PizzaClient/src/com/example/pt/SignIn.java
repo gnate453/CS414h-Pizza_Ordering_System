@@ -59,7 +59,7 @@ public class SignIn extends ActionBarActivity {
 			e.printStackTrace();
 		}
 		String s = result.toString();
-		if(!s.equals("invalid")){
+		if(!s.equalsIgnoreCase("invalid")){
 			 Intent intent = new Intent(SignIn.this, LoggedIn.class);
 			 intent.putExtra("user",result.toString());
 			 startActivity(intent);

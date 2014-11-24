@@ -45,9 +45,8 @@
         android:id="@+id/SignErr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/login"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="14dp"
+        android:layout_alignLeft="@+id/passwd"
+        android:layout_below="@+id/passwd"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#F00" />
 
