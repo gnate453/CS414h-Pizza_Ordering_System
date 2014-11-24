@@ -11,5 +11,7 @@
     <string name="title_activity_credit">Credit</string>
     <string name="title_activity_review">Review</string>
     <string name="title_activity_sign_in">SignIn</string>
+    <string name="ServerName">http://sacramento.cs.colostate.edu:8000</string>
+    <string name="title_activity_logged_in">LoggedIn</string>
 
 </resources>

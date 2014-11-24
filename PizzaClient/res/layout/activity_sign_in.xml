@@ -9,7 +9,7 @@
     tools:context="com.example.pt.SignIn" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,27 +18,37 @@
         android:ems="10"
         android:hint="Username" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_below="@+id/editText2"
-        android:layout_marginTop="42dp"
-        android:text="Login" />
-
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/passwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/user"
+        android:layout_below="@+id/user"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword" >
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/passwd"
+        android:layout_below="@+id/passwd"
+        android:layout_marginTop="71dp"
+        android:onClick="sendMessage"
+        android:text="Login" />
+
+    <TextView
+        android:id="@+id/SignErr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/login"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="14dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#F00" />
 
 </RelativeLayout>

@@ -26,7 +26,7 @@ public class AddItem2 extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_item2);
 		
-		AsyncTask<String, Void, List<String>> result = new GetMenu().execute();
+		AsyncTask<String, Void, List<String>> result = new GetMenu(getString(R.string.ServerName)).execute();
 		ArrayList<String> string = new ArrayList<String>();
 		try {
 			string = (ArrayList<String>)result.get();

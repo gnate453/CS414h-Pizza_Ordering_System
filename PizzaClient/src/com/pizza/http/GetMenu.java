@@ -26,12 +26,15 @@ import org.xml.sax.SAXException;
 
 import com.example.pt.Item;
 
+import com.example.pt.*; 
 import android.os.AsyncTask;
 
 //this is the class created for the AsyncTask
 //AsyncTask is an Android base class you extend for your web calls
 public class GetMenu extends AsyncTask<String, Void, List<String>> {
-	public GetMenu(){
+	String u = "";
+	public GetMenu(String s){
+		u = s;
 	}
 	@Override
 	protected List<String> doInBackground(String... arg0) {
@@ -39,7 +42,7 @@ public class GetMenu extends AsyncTask<String, Void, List<String>> {
 		String xmlResult = null;
 		
 		//the parameters on this URL will generate a new pizza on the server
-		String url = "http://saint-paul.cs.colostate.edu:8000/menu?type=get";
+		String url = u+"/menu?type=get";
 		//the http client to make the call
 		HttpClient httpclient = new DefaultHttpClient();
 

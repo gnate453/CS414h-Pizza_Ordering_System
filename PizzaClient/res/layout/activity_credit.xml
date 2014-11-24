@@ -59,7 +59,7 @@
         android:inputType="text|textPersonName" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/creditErr"
@@ -73,7 +73,7 @@
         android:id="@+id/creditErr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/login"
         android:layout_alignLeft="@+id/securityCode"
         android:layout_marginBottom="16dp"
         android:gravity="top|left"

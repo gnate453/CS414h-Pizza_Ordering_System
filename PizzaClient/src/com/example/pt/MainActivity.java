@@ -65,6 +65,7 @@ public class MainActivity extends ActionBarActivity {
 			customer.add(zip);
 			intent.putStringArrayListExtra("cust", customer);
 			intent.putExtra("Prev","MA");
+			intent.putExtra("islog", getIntent().getStringExtra("islog"));
 			startActivity(intent);
 	    }
 	}	

@@ -17,7 +17,7 @@ public class ViewMenuActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_menu);
 		
-		AsyncTask<String, Void, List<String>> result = new GetMenu().execute();
+		AsyncTask<String, Void, List<String>> result = new GetMenu(getString(R.string.ServerName)).execute();
 		List<String> string = new ArrayList<String>();
 		//final String[] matrix = { "_id", "name", "value" };
 		//MatrixCursor cursor = new MatrixCursor(matrix);

@@ -8,29 +8,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class Login extends ActionBarActivity {
+public class LoggedIn extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);		
+		setContentView(R.layout.activity_logged_in);		
+		String usr = getIntent().getStringExtra("user");
+		if(!usr.equals(null)){
+			 TextView text = (TextView) findViewById(R.id.usrLI);
+			  text.setText("Welcome "+usr+"!");
+		}
 	}
 	public void sendMessage(View view) 
 	{
-	    Intent intent = new Intent(Login.this, MainActivity.class);
+	    Intent intent = new Intent(LoggedIn.this, MainActivity.class);
 	    intent.putExtra("Prev","LI");
-	    intent.putExtra("islog", "false");
+	    intent.putExtra("islog", "true");
 	    startActivity(intent);
 	}
 	public void sendMessage2(View view) 
 	{
-	    Intent intent = new Intent(Login.this, ViewMenuActivity.class);
-	    intent.putExtra("islog", "false");
+	    Intent intent = new Intent(LoggedIn.this, ViewMenuActivity.class);
+	    intent.putExtra("islog", "true");
 	    startActivity(intent);
 	}
 	public void sendMessage3(View view) 
 	{
-	    Intent intent = new Intent(Login.this, SignIn.class);
+	    Intent intent = new Intent(LoggedIn.this, Login.class);
+	    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 	    startActivity(intent);
 	}
 	
