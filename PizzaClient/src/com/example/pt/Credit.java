@@ -71,6 +71,7 @@ public class Credit extends ActionBarActivity {
 	        intent.putStringArrayListExtra("items", getIntent().getStringArrayListExtra("items"));
 	        intent.putStringArrayListExtra("card", cInfo);
 	        intent.putExtra("islog", getIntent().getStringExtra("islog"));
+	        intent.putExtra("user",getIntent().getStringExtra("user"));
 		    startActivity(intent);
 	    }
 	}

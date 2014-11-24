@@ -24,6 +24,8 @@ public class CashorCredit extends ActionBarActivity {
         intent.putExtra("cost", getIntent().getStringExtra("cost"));
         intent.putStringArrayListExtra("items", getIntent().getStringArrayListExtra("items"));
         intent.putExtra("islog", getIntent().getStringExtra("islog"));
+        intent.putExtra("red", getIntent().getStringExtra("red"));
+        intent.putExtra("user",getIntent().getStringExtra("user"));
 	    startActivity(intent);
 	}
 	public void sendMessage2(View view) 
@@ -34,6 +36,8 @@ public class CashorCredit extends ActionBarActivity {
         intent.putExtra("cost", getIntent().getStringExtra("cost"));
         intent.putStringArrayListExtra("items", getIntent().getStringArrayListExtra("items"));
         intent.putExtra("islog", getIntent().getStringExtra("islog"));
+        intent.putExtra("red", getIntent().getStringExtra("red"));
+        intent.putExtra("user",getIntent().getStringExtra("user"));
 	    startActivity(intent);
 	}
 

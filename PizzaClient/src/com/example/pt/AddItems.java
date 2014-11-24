@@ -85,6 +85,7 @@ public class AddItems extends ActionBarActivity {
         intent.putExtra("user",getIntent().getStringExtra("user"));
         intent.putStringArrayListExtra("items2", sItems);
 	    intent.putParcelableArrayListExtra("items", addedNames);
+	    intent.putExtra("red", "false");
 	    startActivity(intent);
 	}
 	public void sendMessage2(View view) 
@@ -113,6 +114,8 @@ public class AddItems extends ActionBarActivity {
 	        intent.putExtra("islog", getIntent().getStringExtra("islog"));
 	        intent.putStringArrayListExtra("items2", sItems);
 	        intent.putParcelableArrayListExtra("items", addedNames);
+	        intent.putExtra("red", "false");
+	        intent.putExtra("user",getIntent().getStringExtra("user"));
 		    startActivity(intent);
 		}
 		else{
@@ -122,6 +125,8 @@ public class AddItems extends ActionBarActivity {
 	        intent.putExtra("cost", price);
 	        intent.putExtra("islog", getIntent().getStringExtra("islog"));
 	        intent.putParcelableArrayListExtra("items", addedNames);
+	        intent.putExtra("user",getIntent().getStringExtra("user"));
+	        intent.putExtra("red", "false");
 		    startActivity(intent);
 		}
 	}

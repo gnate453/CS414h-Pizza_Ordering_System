@@ -45,6 +45,8 @@ public class Reward extends ActionBarActivity {
 	     intent.putExtra("cost", getIntent().getStringExtra("cost"));
 	     intent.putStringArrayListExtra("items", getIntent().getStringArrayListExtra("items"));
 	     intent.putExtra("islog", getIntent().getStringExtra("islog"));
+	     intent.putExtra("user",getIntent().getStringExtra("user"));
+	     intent.putExtra("red", "false");
 		 startActivity(intent);
 	}
 	private void redeemed(View view){
@@ -76,6 +78,8 @@ public class Reward extends ActionBarActivity {
 		        intent.putExtra("cost", cost+"");
 		        intent.putStringArrayListExtra("items", sitems);
 		        intent.putExtra("islog", getIntent().getStringExtra("islog"));
+		        intent.putExtra("user",getIntent().getStringExtra("user"));
+		        intent.putExtra("red", "true");
 				startActivity(intent);				
 			}
 			

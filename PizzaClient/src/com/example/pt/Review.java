@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -13,6 +16,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 
 import com.pizza.http.RequestHandler;
 import com.pizza.http.XmlHelper;
@@ -132,6 +136,20 @@ public class Review extends ActionBarActivity {
 		ADB.setPositiveButton("OK",new DialogInterface.OnClickListener(){
 
 			public void onClick(DialogInterface dialog, int which) {
+				String user =getIntent().getStringExtra("user");
+				AsyncTask<String, Void, String> result = new checkRew(user,getString(R.string.ServerName)).execute();
+				try {
+					result.get(1000, TimeUnit.MILLISECONDS);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TimeoutException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Intent in = new Intent(Review.this,Login.class);
 				in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				startActivity(in);				
@@ -143,6 +161,36 @@ public class Review extends ActionBarActivity {
 
 	}
 	
+}
+class cashRew extends AsyncTask<String, Void, String> {
+
+    private String srv;
+    private String usr;
+    private String ret;
+    
+    public String toString(){
+    	return ret;
+    }
+    public cashRew(String user, String s) {
+		// TODO Auto-generated constructor stub
+    	usr = user;
+    	srv = s;
+	}
+	protected String doInBackground(String... urls) {
+    	HttpClient httpclient = new DefaultHttpClient();
+		try {
+			HttpPost httppost = new HttpPost(srv+"/customer?type=redeemreward&username="+usr);          		
+			HttpResponse httpResponse = httpclient.execute(httppost);
+			ret = EntityUtils.toString(httpResponse.getEntity());
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
+    }
 }
 class submitOrder extends AsyncTask<String, Void, String> {
 
