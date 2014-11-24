@@ -129,6 +129,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 				if(!cancel){
 					if (InStoreHttpClient.createOrder(RequestHandler.getFinalXml()))
 					{
+						RequestHandler.resetRequestHandler();
 						this.dispose();
 					}
 					else
@@ -179,6 +180,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 		
 		if (e.getSource()== Cancel)
 		{
+			RequestHandler.resetRequestHandler();
 			this.setVisible(false);
 			this.dispose();
 		}

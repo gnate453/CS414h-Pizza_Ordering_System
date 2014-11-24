@@ -64,6 +64,13 @@ public class RequestHandler {
 		return res;
 	}
 	
+	public static void resetRequestHandler() {
+		addressXml = "";
+		paymentXml = "";
+		customerXml = "";
+		itemXml = new ArrayList<String>();
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(InStoreHttpClient.getOrderItems("1"));
 	}
