@@ -1,6 +1,7 @@
 package cs414.groupH.a5.http;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,8 +9,15 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.util.Date;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -94,19 +102,20 @@ public class CustomerRequestHandler implements HttpHandler {
 			}
 			else if (type[QUERY_VAL].equalsIgnoreCase("add")) {
 				
-				Customer cust = 
+				Customer cust = customerXmlParser(request);
+				CustomerManager.addEmployee(cust);
+				RewardsSystem.newMember(cust.getUsername());
 				
-				if (cust != null) {
-					System.out.println("Found cust");
-					if (RewardsSystem.isEligible(cust.getUsername())) {
-						retValue = "TRUE";
-					}
-					else {
-						retValue = "FALSE";
-					}
+				return "SUCCESS";
+			}
+			else if (type[QUERY_VAL].equalsIgnoreCase("unameExist")) {
+				String[] uname = subs[QUERY_ID].split("=");
+				Customer cust = CustomerManager.findCustomer(uname[QUERY_VAL]);
+				if (cust == null) {
+					return "available";
 				}
 				else
-					retValue = "FALSE";
+					retValue = "exists";
 			}
 			else if (type[QUERY_VAL].equalsIgnoreCase("rewardavailable")) {
 				String[] uname = subs[QUERY_ID].split("=");
@@ -151,6 +160,61 @@ public class CustomerRequestHandler implements HttpHandler {
 		return retValue;
 	}
 	
+	private Customer customerXmlParser(String xmlInput) {
+        Customer cust = new Customer();
+
+        Document dom;
+        //get the factory
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+        try {
+            //Using factory get an instance of document builder
+            DocumentBuilder db = dbf.newDocumentBuilder();
+
+            //parse using builder to get DOM representation of the XML file
+            dom = db.parse(new InputSource(new ByteArrayInputStream(xmlInput.getBytes("utf-8"))));
+
+
+            //get the root elememt
+            Element docEle = dom.getDocumentElement();
+
+            Address addr = new Address();
+            NodeList nl = docEle.getElementsByTagName("address");
+            if(nl != null && nl.getLength() > 0) {
+                for(int i = 0 ; i < nl.getLength();i++) {
+                    //get the customer element
+                    Element el = (Element)nl.item(i);
+
+                    //get the Customer object
+                    addr = getAddress(el);
+                }
+            }
+            
+            //get a nodelist of <Customer> elements
+            nl = docEle.getElementsByTagName("customer");
+            if(nl != null && nl.getLength() > 0) {
+                for(int i = 0 ; i < nl.getLength();i++) {
+                    //get the customer element
+                    Element el = (Element)nl.item(i);
+
+                    //get the Customer object
+                    cust = getCustomer(el, addr);
+                }
+            }
+
+            return cust;
+
+        }catch(ParserConfigurationException pce) {
+            pce.printStackTrace();
+        }catch(SAXException se) {
+            se.printStackTrace();
+        }catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        return null;
+    }
+	
 	private Address getAddress(Element el) {
     	String street = getTextValue(el, "Street");
     	String city = getTextValue(el, "City");
@@ -162,10 +226,11 @@ public class CustomerRequestHandler implements HttpHandler {
     }
 
     private Customer getCustomer(Element empEl, Address addr) {
-        String name = getTextValue(empEl, "Name");
-
-        //Create a new Customer with the value read from the xml nodes
-        Customer cust = new Customer(name, addr);
+    	String name = getTextValue(empEl, "name");
+        String uname = getTextValue(empEl, "uname");
+        String password = getTextValue(empEl, "password");
+        
+        Customer cust = new Customer(name, addr, uname, password);
 
         return cust;
     }

@@ -33,7 +33,7 @@ public class StartServer {
 		SystemManager.addEmployee("003", "Jo Smith", "password", EmployeeType.manager);
 		SystemManager.addEmployee("004", "J Smith", "password", EmployeeType.cashier);
 		
-		CustomerManager.addEmployee(new Customer("B", new Address(), "bm1", "pass"));
+		CustomerManager.addEmployee(new Customer("B", new Address("123 main", "foco", "co", "80525", "3035554678"), "bm1", "pass"));
 		CustomerManager.addEmployee(new Customer("B", new Address(), "bm2", "pass"));
 		CustomerManager.addEmployee(new Customer("B", new Address(), "bm3", "pass"));
 		CustomerManager.addEmployee(new Customer("B", new Address(), "bm4", "pass"));

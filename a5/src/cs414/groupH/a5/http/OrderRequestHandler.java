@@ -26,6 +26,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import cs414.groupH.a5.address.Address;
 import cs414.groupH.a5.customer.Customer;
+import cs414.groupH.a5.manager.CustomerManager;
 import cs414.groupH.a5.manager.OrderManager;
 import cs414.groupH.a5.manager.SystemManager;
 import cs414.groupH.a5.menu.MenuItem;
@@ -332,20 +333,28 @@ public class OrderRequestHandler implements HttpHandler {
     }
     
     private Address getAddress(Element el) {
-    	String street = getTextValue(el, "Street");
-    	String city = getTextValue(el, "City");
-    	String state = getTextValue(el, "State");
-    	String zip = getTextValue(el, "Zip");
-    	String phone = getTextValue(el, "Phone");
+    	String street = getTextValue(el, "street");
+    	String city = getTextValue(el, "city");
+    	String state = getTextValue(el, "state");
+    	String zip = getTextValue(el, "zip");
+    	String phone = getTextValue(el, "phone");
     	
     	return new Address(street, city, state, zip, phone);
     }
 
     private Customer getCustomer(Element empEl, Address addr) {
-        String name = getTextValue(empEl, "Name");
+        String name = getTextValue(empEl, "name");
+        String uname = getTextValue(empEl, "uname");
 
         //Create a new Customer with the value read from the xml nodes
-        Customer cust = new Customer(name, addr);
+        Customer cust;
+        
+        if (uname != null) {
+        	cust = new Customer(name, CustomerManager.findCustomer(uname).getAddress());
+        }
+        else {
+        	cust = new Customer(name, addr);
+        }
 
         return cust;
     }

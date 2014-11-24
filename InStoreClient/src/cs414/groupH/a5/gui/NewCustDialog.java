@@ -63,7 +63,7 @@ public class NewCustDialog extends JDialog implements MouseListener {
 		pwd_txt = new JPasswordField();
 		
 		this.setModal(true);
-		this.setLayout(new GridLayout(7,2));
+		this.setLayout(new GridLayout(9,2));
 		this.setPreferredSize(new Dimension(50, 100));
 		
 		this.add(name_lbl);
@@ -78,6 +78,10 @@ public class NewCustDialog extends JDialog implements MouseListener {
 		this.add(zip_txt);
 		this.add(phone_lbl);
 		this.add(phone_txt);
+		this.add(uname_lbl);
+		this.add(uname_txt);
+		this.add(pwd_lbl);
+		this.add(pwd_txt);
 		register_btn.addMouseListener(this);
 		cancel_btn.addMouseListener(this);
 		this.add(register_btn);
@@ -93,12 +97,31 @@ public class NewCustDialog extends JDialog implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == register_btn) {
-			
-			
-			String addressXml = XmlHelper.getAddressXml(street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(), phone_txt.getText());
-			RequestHandler.setAddressXml(addressXml);
-			this.setVisible(false);
-			this.dispose();
+			if (!name_txt.getText().isEmpty() || !uname_txt.getText().isEmpty() || pwd_txt.getPassword()==null || !street_txt.getText().isEmpty() || !city_txt.getText().isEmpty() || !state_txt.getText().isEmpty() || !zip_txt.getText().isEmpty() || !phone_txt.getText().isEmpty()) {
+				if (InStoreHttpClient.isUnameAvail(uname_txt.getText())) {
+					String customerXml = XmlHelper.getCustomerXml(name_txt.getText(), uname_txt.getText(), String.valueOf(pwd_txt.getPassword()));
+					RequestHandler.setCustomerXml(customerXml);
+					String addressXml = XmlHelper.getAddressXml(street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(), phone_txt.getText());
+					RequestHandler.setAddressXml(addressXml);
+					InStoreHttpClient.addCust(RequestHandler.getFinalXml());
+					
+					this.dispose();
+				}
+				else {
+					if (this.getContentPane().getComponentCount() < 20) {
+						this.setLayout(new GridLayout(10,2));
+						this.add(new JLabel("Username already exists!"));
+						this.revalidate();
+					}
+				}
+			}
+			else {
+				if (this.getContentPane().getComponentCount() < 20) {
+					this.setLayout(new GridLayout(10,2));
+					this.add(new JLabel("Please fill out every field."));
+					this.revalidate();
+				}
+			}
 		}
 		else if (e.getSource()== cancel_btn) {
 			this.setVisible(false);

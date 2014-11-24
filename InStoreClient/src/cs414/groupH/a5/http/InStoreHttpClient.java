@@ -116,6 +116,72 @@ public class InStoreHttpClient {
 		return result;
 	}
 	
+	public static boolean isUnameAvail(String uname) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/customer?type=unameexist&id="+uname;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				
+				//System.out.println(result);
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result.equalsIgnoreCase("available");
+	}
+	
+	public static String addCust(String xmlInput) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/customer?type=add";
+		try {
+			HttpPost httppost = new HttpPost(url);          
+			StringEntity se = new StringEntity(xmlInput);			
+			httppost.setEntity(se);  			
+			HttpResponse httpResponse = httpclient.execute(httppost);
+			
+			HttpEntity entity = httpResponse.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				//close the stream
+				instream.close();
+				
+
+				if (result.equalsIgnoreCase("success")) {
+					return "success";
+				}
+				else
+					return "failure";
+			}
+			else
+				return "failure";
+			
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return "failure";
+	}
+	
 	public static String getOrders() {
 		String result = null;
 		

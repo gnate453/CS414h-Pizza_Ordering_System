@@ -122,7 +122,6 @@ public class OrderDialog extends JDialog implements MouseListener  {
 			}
 			else {
 				boolean cancel = false;
-				int i = 0;
 				while(getAmountDue() > 0){
 					new PaymentMethodDialog(this);
 				}
