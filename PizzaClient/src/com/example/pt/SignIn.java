@@ -47,7 +47,7 @@ public class SignIn extends ActionBarActivity {
 		String pass= t.getText().toString();
 		AsyncTask<String, Void, String> result = new loginCust(user,pass, getString(R.string.ServerName)).execute();
 		try {
-			result.get(1000, TimeUnit.MILLISECONDS);
+			result.get(10000, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

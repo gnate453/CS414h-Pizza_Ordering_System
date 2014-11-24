@@ -60,6 +60,10 @@
             android:name=".LoggedIn"
             android:label="@string/title_activity_logged_in" >
         </activity>
+        <activity
+            android:name=".Reward"
+            android:label="@string/title_activity_reward" >
+        </activity>
     </application>
 
 </manifest>

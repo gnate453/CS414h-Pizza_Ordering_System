@@ -9,7 +9,7 @@
     tools:context="com.example.pt.CashorCredit" >
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/redeem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -24,8 +24,8 @@
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/Button01"
-        android:layout_alignLeft="@+id/Button01"
+        android:layout_alignBottom="@+id/redeem"
+        android:layout_alignLeft="@+id/redeem"
         android:layout_marginBottom="98dp"
         android:gravity="center_vertical|center_horizontal"
         android:minWidth="200dip"

@@ -22,7 +22,7 @@
         android:text="View Menu" />
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/redeem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -35,8 +35,8 @@
         android:id="@+id/errorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Button01"
-        android:layout_below="@+id/Button01"
+        android:layout_alignLeft="@+id/redeem"
+        android:layout_below="@+id/redeem"
         android:layout_marginTop="18dp"
         android:clickable="true"
         android:onClick="sendMessage3"

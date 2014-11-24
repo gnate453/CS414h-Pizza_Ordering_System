@@ -24,45 +24,43 @@
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/login"
+        android:layout_above="@+id/redeem"
         android:layout_alignLeft="@+id/login"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="31dp"
+        android:layout_marginBottom="72dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="18dp" >
 
     </ListView>
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/redeem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="sendMessage2"
+        android:layout_alignBaseline="@+id/login"
+        android:layout_alignBottom="@+id/login"
         android:layout_alignRight="@+id/listView1"
-        android:layout_below="@+id/listView1"
         android:gravity="center_vertical"
         android:minWidth="135dip"
+        android:onClick="sendMessage2"
         android:text="Finish" />
-
-    <TextView
-        android:id="@+id/errorText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/login"
-        android:layout_alignLeft="@+id/listView1"
-        android:layout_alignRight="@+id/login"
-        android:layout_marginBottom="14dp"
-        android:layout_marginRight="38dp"
-        android:text="Amount due :" />
 
     <TextView
         android:id="@+id/aiprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Button01"
-        android:layout_alignTop="@+id/errorText"
+        android:layout_above="@+id/redeem"
+        android:layout_alignLeft="@+id/redeem"
         android:text="0.00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/login"
+        android:layout_alignTop="@+id/aiprice"
+        android:text="Amount due :" />
 
 </RelativeLayout>

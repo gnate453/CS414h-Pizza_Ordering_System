@@ -25,11 +25,13 @@ public class LoggedIn extends ActionBarActivity {
 	    Intent intent = new Intent(LoggedIn.this, MainActivity.class);
 	    intent.putExtra("Prev","LI");
 	    intent.putExtra("islog", "true");
+	    intent.putExtra("user",getIntent().getStringExtra("user"));
 	    startActivity(intent);
 	}
 	public void sendMessage2(View view) 
 	{
 	    Intent intent = new Intent(LoggedIn.this, ViewMenuActivity.class);
+	    intent.putExtra("user",getIntent().getStringExtra("user"));
 	    intent.putExtra("islog", "true");
 	    startActivity(intent);
 	}

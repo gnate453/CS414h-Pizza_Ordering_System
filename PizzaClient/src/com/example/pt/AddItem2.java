@@ -38,12 +38,14 @@ public class AddItem2 extends ActionBarActivity {
 			public void onItemClick(AdapterView<?> arg0, View v,int position, long arg3)
 	            {
 						ArrayList<String> it = getIntent().getStringArrayListExtra("items");
+						ArrayList<Item> addedNames =  getIntent().getParcelableArrayListExtra("items2");
 						Intent intent = new Intent(AddItem2.this, AddItems.class);
 	                    Item selectedItem = (Item) menuNames.get(position);
+	                    addedNames.add(selectedItem);
 	                    //pass item info
 	                    String p = selectedItem.price;
 	                    it.add(selectedItem.toString());
-	                    intent.putParcelableArrayListExtra("items2", menuNames);
+	                    intent.putParcelableArrayListExtra("items2", addedNames);
 	                    intent.putStringArrayListExtra("items", it);
 	                    //Pass Price info
 	                    String co = getIntent().getStringExtra("cost");
@@ -53,6 +55,8 @@ public class AddItem2 extends ActionBarActivity {
 	                    ArrayList<String> c = getIntent().getStringArrayListExtra("cust");
 	                    intent.putStringArrayListExtra("cust", c);
 	                    intent.putExtra("Prev","AI2");
+	                    intent.putExtra("user",getIntent().getStringExtra("user"));
+	                    intent.putExtra("islog", getIntent().getStringExtra("islog"));
 	                    startActivity(intent);
 	            }
 			});

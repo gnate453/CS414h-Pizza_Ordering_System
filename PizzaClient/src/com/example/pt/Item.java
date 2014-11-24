@@ -16,7 +16,9 @@ public class Item implements Parcelable {
 			return new Item[size];
 		}
 	};
-	
+	protected void redeemed(){
+		price = "0.00";
+	}
 	public Item(){
 		price = "";
 		name = "";
