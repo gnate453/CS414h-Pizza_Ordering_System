@@ -94,9 +94,9 @@ public class CustomerRequestHandler implements HttpHandler {
 			}
 			else if (type[QUERY_VAL].equalsIgnoreCase("add")) {
 				
-				Customer cust = 
+				//Customer cust = 
 				
-				if (cust != null) {
+				/*if (cust != null) {
 					System.out.println("Found cust");
 					if (RewardsSystem.isEligible(cust.getUsername())) {
 						retValue = "TRUE";
@@ -106,7 +106,7 @@ public class CustomerRequestHandler implements HttpHandler {
 					}
 				}
 				else
-					retValue = "FALSE";
+					retValue = "FALSE";*/
 			}
 			else if (type[QUERY_VAL].equalsIgnoreCase("rewardavailable")) {
 				String[] uname = subs[QUERY_ID].split("=");

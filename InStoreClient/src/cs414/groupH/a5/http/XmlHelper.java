@@ -70,4 +70,14 @@ public class XmlHelper {
 		
 		return buffer.toString();
 	}
+	
+	public static String getCustomerXml(String name, String uname) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("<customer>");
+			buffer.append("<name>"+name+"</name>");
+			buffer.append("<uname>"+uname+"</uname>");
+		buffer.append("</customer>");
+		
+		return buffer.toString();
+	}
 }
