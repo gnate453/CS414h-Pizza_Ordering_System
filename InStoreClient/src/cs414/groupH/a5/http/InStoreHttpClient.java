@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -383,20 +382,12 @@ public class InStoreHttpClient {
 		String[] result = null;
 		
 		String url = "http://"+ipAddr+"/order?type=getItems&orderId="+orderId;
-		//HttpGet httpget = new HttpGet(url);
-		HttpPost post = new HttpPost(url);
-		try {
-			post.setEntity(new StringEntity("I'm here"));
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		//post.
+		HttpGet httpget = new HttpGet(url);
 		
 		HttpResponse response;
 		try {
 			//response captures what happens when we execute
-			response = httpclient.execute(post);
+			response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
 
 			if (entity != null) {

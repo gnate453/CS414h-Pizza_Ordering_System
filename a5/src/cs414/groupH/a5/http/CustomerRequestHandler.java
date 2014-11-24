@@ -141,7 +141,6 @@ public class CustomerRequestHandler implements HttpHandler {
 				String[] uname = subs[QUERY_ID].split("=");
 				Customer cust = CustomerManager.findCustomer(uname[QUERY_VAL]);
 				if (cust != null) {
-					System.out.println("Found cust");
 					if (RewardsSystem.isEligible(cust.getUsername())) {
 						retValue = "TRUE";
 					}

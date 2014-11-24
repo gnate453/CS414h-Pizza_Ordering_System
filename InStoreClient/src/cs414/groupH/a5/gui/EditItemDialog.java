@@ -13,7 +13,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import cs414.groupH.a5.http.InStoreHttpClient;
-import cs414.groupH.a5.http.XmlParser;
 
 public class EditItemDialog extends JDialog implements MouseListener, ListSelectionListener {
 
