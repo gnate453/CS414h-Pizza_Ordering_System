@@ -1,0 +1,49 @@
+CS - 414 Design Assignment 5
+Group H
+Troy Cogburn
+Sky Egelhoff
+Bryce Myers
+Nate Gillard
+
+1) All used Jars will be packaged into the runnable jar for each application.  Here is a list of used libraries.
+
+	PizzaMobileApp:
+	android-support-v4.jar
+	android-support-v7-appcompat.jar
+
+	PizzaInStore:
+	commons-logging-1.2.jar
+	httpclient-4.3.6.jar
+	httpcore-4.3.3.jar
+
+	PizzaBackend:
+
+
+2) The most important detail about running our project is that the server must be run on saint-paul in the cs120 lab.
+The android application has the port number and server address hard coded to be saint-paul:8000.  We apologize for the inconvenience.
+	
+	To run the pizza mobile App. for Android  start an android virtual device and run the command:
+	adb install PizzaMobileApp.apk.	
+
+	To run the in store pizza client application use:
+	java -jar PizzaInStore.jar
+
+	To run the PizzaBackend server application SSH to saint-paul.cs.colostate.edu and use:
+	java -jar PizzaBackend.jar
+
+3)
+
+	Employee login information (for instore application):
+
+		logins: 001 - 003
+		passwords: password
+
+	User Logins (for mobile app):
+		
+		Usernames: bm2, bm3, or bm4
+		passwords: pass
+
+4)  A strength is remote invocation.  We think it works really well, and is a neat way to write a client server application.  A weakenss is certainly the UI look and feel; it is not very pretty. 
+
+5)  We think we are closest to a Model-View-controller pattern.  Perhaps some of our controllers are a bit bloated.
+
