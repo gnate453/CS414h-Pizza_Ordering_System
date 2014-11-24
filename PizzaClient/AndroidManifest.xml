@@ -3,11 +3,13 @@
     package="com.example.pt"
     android:versionCode="1"
     android:versionName="1.0" >
-	<uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-	
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher2"
@@ -42,7 +44,7 @@
             android:name=".Credit"
             android:label="@string/title_activity_credit" >
         </activity>
-         <activity
+        <activity
             android:name=".ViewMenuActivity"
             android:label="@string/title_activity_review" >
         </activity>
@@ -50,5 +52,10 @@
             android:name=".Review"
             android:label="@string/title_activity_review" >
         </activity>
-    </application>	
+        <activity
+            android:name=".SignIn"
+            android:label="@string/title_activity_sign_in" >
+        </activity>
+    </application>
+
 </manifest>

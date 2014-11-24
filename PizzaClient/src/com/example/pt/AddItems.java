@@ -36,13 +36,16 @@ public class AddItems extends ActionBarActivity {
 		menuList.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> arg0, View v,int position, long arg3)
 			{
-				ArrayList<Item> myList = getIntent().getParcelableArrayListExtra("items");
+				ArrayList<Item> myList = getIntent().getParcelableArrayListExtra("items2");
+				ArrayList<String> myList2 = getIntent().getStringArrayListExtra("items");
 				Intent intent = new Intent(AddItems.this, AddItems.class);
-                Item selectedItem = (Item) addedNames.get(position);
+				Item selectedItem = myList.get(position);
                 //pass item info
                 String p = selectedItem.price;
-                myList.remove(position);
-                intent.putParcelableArrayListExtra("items", myList);
+                myList.remove(position); 
+                myList2.remove(position);
+                intent.putStringArrayListExtra("items", myList2);
+                intent.putParcelableArrayListExtra("items2",myList);
                 //Pass Price info
                 String co = getIntent().getStringExtra("cost");
                 double cost = (Double.parseDouble(co)) - (Double.parseDouble(p));
@@ -52,8 +55,7 @@ public class AddItems extends ActionBarActivity {
                 intent.putStringArrayListExtra("cust", c);
                 intent.putExtra("Prev","AI2");
                 startActivity(intent);
-                
-			}
+               }
 		});
 		
 		

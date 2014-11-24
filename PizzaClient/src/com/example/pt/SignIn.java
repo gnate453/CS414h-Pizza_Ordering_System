@@ -1,40 +1,22 @@
 package com.example.pt;
 
 import android.support.v7.app.ActionBarActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-public class Login extends ActionBarActivity {
+public class SignIn extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.activity_sign_in);
 	}
-	public void sendMessage(View view) 
-	{
-	    Intent intent = new Intent(Login.this, MainActivity.class);
-	    intent.putExtra("Prev","LI");
-	    startActivity(intent);
-	}
-	public void sendMessage2(View view) 
-	{
-	    Intent intent = new Intent(Login.this, ViewMenuActivity.class);
-	    startActivity(intent);
-	}
-	public void sendMessage3(View view) 
-	{
-	    Intent intent = new Intent(Login.this, SignIn.class);
-	    startActivity(intent);
-	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
+		getMenuInflater().inflate(R.menu.sign_in, menu);
 		return true;
 	}
 

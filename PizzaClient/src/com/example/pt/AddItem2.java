@@ -43,6 +43,7 @@ public class AddItem2 extends ActionBarActivity {
 	                    //pass item info
 	                    String p = selectedItem.price;
 	                    it.add(selectedItem.toString());
+	                    intent.putParcelableArrayListExtra("items2", menuNames);
 	                    intent.putStringArrayListExtra("items", it);
 	                    //Pass Price info
 	                    String co = getIntent().getStringExtra("cost");

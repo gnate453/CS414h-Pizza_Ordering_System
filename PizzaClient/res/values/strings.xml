@@ -10,5 +10,6 @@
     <string name="title_activity_cashor_credit">CashorCredit</string>
     <string name="title_activity_credit">Credit</string>
     <string name="title_activity_review">Review</string>
+    <string name="title_activity_sign_in">SignIn</string>
 
 </resources>
