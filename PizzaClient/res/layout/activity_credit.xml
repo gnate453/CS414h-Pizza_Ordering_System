@@ -77,7 +77,6 @@
         android:layout_alignLeft="@+id/rzip"
         android:layout_marginBottom="16dp"
         android:gravity="top|left"
-        android:text="ERROR With a bunch of stuff"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#F00" />
 

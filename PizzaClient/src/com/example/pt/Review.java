@@ -51,15 +51,16 @@ public class Review extends ActionBarActivity {
 		order.setAdapter(arrayAdapter);
 		String price = getIntent().getStringExtra("cost");
 		TextView text = (TextView) findViewById(R.id.name);
-		ArrayList<String> c = getIntent().getStringArrayListExtra("cust");
-		String name = c.get(0);
-		text.setText(name);
-	    text = (TextView) findViewById(R.id.phone);
-		text.setText(c.get(1));
-		text = (TextView) findViewById(R.id.addr);
-		text.setText(c.get(2));
-		text = (TextView) findViewById(R.id.total);
-		text.setText(price);
+		String log = getIntent().getStringExtra("islog");
+			ArrayList<String> c = getIntent().getStringArrayListExtra("cust");
+			String name = c.get(0);
+			text.setText(name);
+		    text = (TextView) findViewById(R.id.phone);
+			text.setText(c.get(1));
+			text = (TextView) findViewById(R.id.addr);
+			text.setText(c.get(2));
+			text = (TextView) findViewById(R.id.total);
+			text.setText(price);
 	}
 	public void sendMessage(View view) 
 	{
