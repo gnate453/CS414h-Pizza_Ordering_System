@@ -10,7 +10,7 @@
     tools:context="com.example.pt.AddItems" >
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/rfinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="sendMessage"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/redeem"
-        android:layout_alignLeft="@+id/login"
+        android:layout_alignLeft="@+id/rfinish"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="72dp"
@@ -38,8 +38,8 @@
         android:id="@+id/redeem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/login"
-        android:layout_alignBottom="@+id/login"
+        android:layout_alignBaseline="@+id/rfinish"
+        android:layout_alignBottom="@+id/rfinish"
         android:layout_alignRight="@+id/listView1"
         android:gravity="center_vertical"
         android:minWidth="135dip"
@@ -56,10 +56,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/errorText"
+        android:id="@+id/rErr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/login"
+        android:layout_alignLeft="@+id/rfinish"
         android:layout_alignTop="@+id/aiprice"
         android:text="Amount due :" />
 

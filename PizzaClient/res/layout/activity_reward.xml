@@ -9,7 +9,7 @@
     tools:context="com.example.pt.Reward" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/lgErr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,8 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button2"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/lgErr"
+        android:layout_below="@+id/lgErr"
         android:layout_marginBottom="17dp" >
 
     </ListView>

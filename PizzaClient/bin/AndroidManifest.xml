@@ -64,6 +64,14 @@
             android:name=".Reward"
             android:label="@string/title_activity_reward" >
         </activity>
+        <activity
+            android:name=".Register"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name=".RegAddr"
+            android:label="@string/title_activity_reg_addr" >
+        </activity>
     </application>
 
 </manifest>

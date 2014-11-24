@@ -75,7 +75,7 @@ public class Review extends ActionBarActivity {
 		RequestHandler.setCustomerXml(XmlHelper.getCustomerXml(customer.get(0)));
 		RequestHandler.setAddressXml(XmlHelper.getAddressXml(customer.get(2), customer.get(3), customer.get(4), customer.get(5), customer.get(1)));
 		String finalXML = RequestHandler.getFinalXml();
-		new submitOrder().execute(finalXML);
+		new submitOrder(getString(R.string.ServerName)).execute(finalXML);
 		orderComplete(view);
 	}
 	public ArrayList<String> parseItems(String string){
@@ -137,9 +137,22 @@ public class Review extends ActionBarActivity {
 
 			public void onClick(DialogInterface dialog, int which) {
 				String user =getIntent().getStringExtra("user");
-				AsyncTask<String, Void, String> result = new checkRew(user,getString(R.string.ServerName)).execute();
+				AsyncTask<String, Void, String> result = new cashRew(user,getString(R.string.ServerName)).execute();
 				try {
 					result.get(1000, TimeUnit.MILLISECONDS);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TimeoutException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				AsyncTask<String, Void, String> result2 = new addRew(user,getString(R.string.ServerName)).execute();
+				try {
+					result2.get(1000, TimeUnit.MILLISECONDS);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -192,14 +205,48 @@ class cashRew extends AsyncTask<String, Void, String> {
 		return ret;
     }
 }
+class addRew extends AsyncTask<String, Void, String> {
+
+    private String srv;
+    private String usr;
+    private String ret;
+    
+    public String toString(){
+    	return ret;
+    }
+    public addRew(String user, String s) {
+		// TODO Auto-generated constructor stub
+    	usr = user;
+    	srv = s;
+	}
+	protected String doInBackground(String... urls) {
+    	HttpClient httpclient = new DefaultHttpClient();
+		try {
+			HttpPost httppost = new HttpPost(srv+"/customer?type=addRewardPoint&uname="+usr);          		
+			HttpResponse httpResponse = httpclient.execute(httppost);
+			ret = EntityUtils.toString(httpResponse.getEntity());
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
+    }
+}
 class submitOrder extends AsyncTask<String, Void, String> {
 
     private Exception exception;
+    private String srv;
+    public submitOrder(String string) {
+		srv = string;
+	}
 
-    protected String doInBackground(String... urls) {
+	protected String doInBackground(String... urls) {
     	HttpClient httpclient = new DefaultHttpClient();
 		try {
-			HttpPost httppost = new HttpPost("http://saint-paul.cs.colostate.edu:8000/order?type=place");          
+			HttpPost httppost = new HttpPost(srv+"/order?type=place");          
 			StringEntity se = new StringEntity(urls[0]);			
 			httppost.setEntity(se);  			
 			HttpResponse httpResponse = httpclient.execute(httppost);			

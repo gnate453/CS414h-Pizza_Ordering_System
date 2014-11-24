@@ -32,7 +32,7 @@
         android:text="Place Order" />
 
     <TextView
-        android:id="@+id/errorText"
+        android:id="@+id/rErr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/redeem"
@@ -50,5 +50,17 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/redeem"
+        android:layout_below="@+id/redeem"
+        android:layout_marginTop="19dp"
+        android:clickable="true"
+        android:onClick="sendMessage4"
+        android:text="Register"
+        android:textColor="#00F" />
 
 </RelativeLayout>

@@ -61,11 +61,20 @@ public class XmlHelper {
 		
 		return buffer.toString();
 	}
-	
 	public static String getCustomerXml(String name) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("<customer>");
 			buffer.append("<name>"+name+"</name>");
+		buffer.append("</customer>");
+		
+		return buffer.toString();
+	}
+	public static String getCustomerXml(String name, String uname, String password) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("<customer>");
+			buffer.append("<name>"+name+"</name>");
+			buffer.append("<uname>"+uname+"</uname>");
+			buffer.append("<password>"+password+"</password>");
 		buffer.append("</customer>");
 		
 		return buffer.toString();

@@ -9,7 +9,7 @@
     tools:context="com.example.pt.Credit" >
 
     <EditText
-        android:id="@+id/Cardname"
+        android:id="@+id/rcity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -20,12 +20,12 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/CardNumber"
+        android:id="@+id/rname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Cardname"
-        android:layout_alignRight="@+id/Cardname"
-        android:layout_below="@+id/Cardname"
+        android:layout_alignLeft="@+id/rcity"
+        android:layout_alignRight="@+id/rcity"
+        android:layout_below="@+id/rcity"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Card Number"
@@ -35,31 +35,31 @@
     </EditText>
 
     <EditText
-        android:id="@+id/expDate"
+        android:id="@+id/rstate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/CardNumber"
-        android:layout_alignRight="@+id/CardNumber"
-        android:layout_below="@+id/CardNumber"
+        android:layout_alignLeft="@+id/rname"
+        android:layout_alignRight="@+id/rname"
+        android:layout_below="@+id/rname"
         android:layout_marginTop="21dp"
         android:ems="10"
         android:hint="Expiration date"
         android:inputType="text|textPersonName" />
 
     <EditText
-        android:id="@+id/securityCode"
+        android:id="@+id/rzip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/expDate"
-        android:layout_alignRight="@+id/expDate"
-        android:layout_below="@+id/expDate"
+        android:layout_alignLeft="@+id/rstate"
+        android:layout_alignRight="@+id/rstate"
+        android:layout_below="@+id/rstate"
         android:layout_marginTop="21dp"
         android:ems="10"
         android:hint="Security Code (on the back)"
         android:inputType="text|textPersonName" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/rfinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/creditErr"
@@ -73,8 +73,8 @@
         android:id="@+id/creditErr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/login"
-        android:layout_alignLeft="@+id/securityCode"
+        android:layout_above="@+id/rfinish"
+        android:layout_alignLeft="@+id/rzip"
         android:layout_marginBottom="16dp"
         android:gravity="top|left"
         android:text="ERROR With a bunch of stuff"

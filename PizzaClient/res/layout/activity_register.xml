@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.pt.Register" >
+
+    <EditText
+        android:id="@+id/rusr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="88dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/rpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rusr"
+        android:layout_alignRight="@+id/rusr"
+        android:layout_below="@+id/rusr"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rpass"
+        android:layout_alignRight="@+id/rpass"
+        android:layout_below="@+id/rpass"
+        android:layout_marginTop="52dp"
+        android:onClick="sendMessage"
+        android:text="Next" />
+
+    <TextView
+        android:id="@+id/lgErr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rpass"
+        android:layout_alignRight="@+id/rpass"
+        android:layout_below="@+id/rpass"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#F00" />
+
+</RelativeLayout>

@@ -22,48 +22,48 @@ public class Credit extends ActionBarActivity {
 	public void sendMessage(View view) 
 	{
 		Intent intent = new Intent(Credit.this, Review.class);
-		EditText t = (EditText) findViewById(R.id.Cardname);
+		EditText t = (EditText) findViewById(R.id.rcity);
 		ArrayList<String> cInfo = new ArrayList<String>();
 		String name = t.getText().toString();
 		cInfo.add(name);
-		t = (EditText) findViewById(R.id.CardNumber);
+		t = (EditText) findViewById(R.id.rname);
 		String CN = t.getText().toString();
 		cInfo.add(CN);
-		t = (EditText) findViewById(R.id.expDate);
+		t = (EditText) findViewById(R.id.rstate);
 		String exp = t.getText().toString();
 		cInfo.add(exp);
-		t = (EditText) findViewById(R.id.securityCode);
+		t = (EditText) findViewById(R.id.rzip);
 		String SC = t.getText().toString();
 		cInfo.add(SC);
 		TextView text = (TextView) findViewById(R.id.creditErr);
 	    text.setText("");
 	    boolean e = false;
-//	    if(name.equals("")){
-//	    	e = true;
-//	    	text.append("Name Error ");
-//	    }if(CN.length() != 16 || !isNumeric(CN)){
-//	    	e = true;
-//	    	text.append("Card Number Error ");
-//	    }if(exp.length() > 5 || exp.length() < 4){
-//	    	e = true;
-//	    	text.append("Exp Error ");
-//	    }else if(exp.length() == 5){
-//	    	String s = exp.substring(3, 5);
-//	    	Calendar cal = Calendar.getInstance();
-//	    	int te = Integer.parseInt(s);
-//	    	if(Integer.parseInt(s) < (cal.get(Calendar.YEAR)-2000)){
-//	    		e = true;
-//	    		text.append("Card Expired ");
-//	    	}else if(Integer.parseInt(s) == (cal.get(Calendar.YEAR)-2000)){
-//	    		if(Integer.parseInt(exp.substring(0,2)) < cal.get(Calendar.MONTH)){
-//	    			e = true;
-//	    			text.append("Card Expired ");
-//	    		}
-//	    	}
-//	    }if(SC.length() != 3 || !isNumeric(SC)){
-//	    	e = true;
-//	    	text.append("SC Error");
-//	    }
+	    if(name.equals("")){
+	    	e = true;
+	    	text.append("Name Error ");
+	    }if(CN.length() != 16 || !isNumeric(CN)){
+	    	e = true;
+	    	text.append("Card Number Error ");
+	    }if(exp.length() > 5 || exp.length() < 4){
+	    	e = true;
+	    	text.append("Exp Error ");
+	    }else if(exp.length() == 5){
+	    	String s = exp.substring(3, 5);
+	    	Calendar cal = Calendar.getInstance();
+	    	int te = Integer.parseInt(s);
+	    	if(Integer.parseInt(s) < (cal.get(Calendar.YEAR)-2000)){
+	    		e = true;
+	    		text.append("Card Expired ");
+	    	}else if(Integer.parseInt(s) == (cal.get(Calendar.YEAR)-2000)){
+	    		if(Integer.parseInt(exp.substring(0,2)) < cal.get(Calendar.MONTH)){
+	    			e = true;
+	    			text.append("Card Expired ");
+	    		}
+	    	}
+	    }if(SC.length() != 3 || !isNumeric(SC)){
+	    	e = true;
+	    	text.append("SC Error");
+	    }
 	    if(e == false){
 		    ArrayList<String> c = getIntent().getStringArrayListExtra("cust");
 	        intent.putStringArrayListExtra("cust", c);

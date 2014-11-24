@@ -33,6 +33,11 @@ public class Login extends ActionBarActivity {
 	    Intent intent = new Intent(Login.this, SignIn.class);
 	    startActivity(intent);
 	}
+	public void sendMessage4(View view) 
+	{
+	    Intent intent = new Intent(Login.this, Register.class);
+	    startActivity(intent);
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

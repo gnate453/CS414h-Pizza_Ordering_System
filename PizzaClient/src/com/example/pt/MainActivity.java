@@ -21,40 +21,40 @@ public class MainActivity extends ActionBarActivity {
 	public void sendMessage(View view) 
 	{
 	    Intent intent = new Intent(MainActivity.this, AddItems.class);
-	    EditText t = (EditText) findViewById(R.id.CardNumber);
+	    EditText t = (EditText) findViewById(R.id.rname);
 	    String name = t.getText().toString();
-	    t = (EditText) findViewById(R.id.cphone);
+	    t = (EditText) findViewById(R.id.rphone);
 	    String phone = t.getText().toString();
-	    t = (EditText) findViewById(R.id.caddr);
+	    t = (EditText) findViewById(R.id.raddr);
 	    String addr = t.getText().toString();
-	    t = (EditText) findViewById(R.id.Cardname);
+	    t = (EditText) findViewById(R.id.rcity);
 	    String city = t.getText().toString();
-	    t = (EditText) findViewById(R.id.expDate);
+	    t = (EditText) findViewById(R.id.rstate);
 	    String state = t.getText().toString();
-	    t = (EditText) findViewById(R.id.securityCode);
+	    t = (EditText) findViewById(R.id.rzip);
 	    String zip = t.getText().toString();
-	    TextView text = (TextView) findViewById(R.id.errorText);
+	    TextView text = (TextView) findViewById(R.id.rErr);
 	    text.setText("");
 	    boolean e = false;
-//	    if(name.equals("")){
-//	    	e = true;
-//	    	text.append("Name Error ");
-//	    }if(phone.length() <10 || phone.length()>11){
-//	    	e = true;
-//	    	text.append("Phone Error ");
-//	    }if(addr.equals("")){
-//	    	e = true;
-//	    	text.append("Address Error ");
-//	    }if(city.equals("")){
-//	    	e = true;
-//	    	text.append("City Error ");
-//	    }if(state.equals("")){
-//	    	e = true;
-//	    	text.append("State Error ");
-//	    }if(zip.length() != 5){
-//	    	e = true;
-//	    	text.append("Zip Error");
-//	    }  
+	    if(name.equals("")){
+	    	e = true;
+	    	text.append("Name Error ");
+	    }if(phone.length() <10 || phone.length()>11){
+	    	e = true;
+	    	text.append("Phone Error ");
+	    }if(addr.equals("")){
+	    	e = true;
+	    	text.append("Address Error ");
+	    }if(city.equals("")){
+	    	e = true;
+	    	text.append("City Error ");
+	    }if(state.equals("")){
+	    	e = true;
+	    	text.append("State Error ");
+	    }if(zip.length() != 5){
+	    	e = true;
+	    	text.append("Zip Error");
+	    }  
 	    if(e == false){
 		    ArrayList<String> customer = new ArrayList<String>();
 			customer.add(name);

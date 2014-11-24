@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.pt.MainActivity" >
+    tools:context="com.example.pt.regaddr" >
 
     <EditText
         android:id="@+id/rphone"
@@ -92,7 +92,7 @@
         android:layout_marginBottom="26dp"
         android:minWidth="100dip"
         android:onClick="sendMessage"
-        android:text="Save" />
+        android:text="Finish" />
 
     <TextView
         android:id="@+id/rErr"
