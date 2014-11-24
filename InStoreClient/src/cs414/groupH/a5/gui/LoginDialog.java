@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 import cs414.groupH.a5.http.InStoreHttpClient;
 
@@ -21,7 +22,7 @@ public class LoginDialog extends JDialog implements MouseListener {
 	JLabel empId_lbl;
 	JLabel pwd_lbl;
 	JTextField empId_txt;
-	JTextField pwd_txt;
+	JPasswordField pwd_txt;
 	
 	
 	public LoginDialog() {
@@ -30,7 +31,7 @@ public class LoginDialog extends JDialog implements MouseListener {
 		empId_lbl = new JLabel("Employee ID:");
 		pwd_lbl = new JLabel("Password:");
 		empId_txt = new JTextField();
-		pwd_txt = new JTextField();
+		pwd_txt = new JPasswordField();
 		
 		this.setLayout(new GridLayout(3,2));
 		this.setSize(new Dimension(800, 500));
@@ -53,7 +54,7 @@ public class LoginDialog extends JDialog implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == accept_btn) {
-			boolean valid = InStoreHttpClient.loginEmp(empId_txt.getText(), pwd_txt.getText());
+			boolean valid = InStoreHttpClient.loginEmp(empId_txt.getText(),new String(pwd_txt.getPassword()));
 			if (valid) {
 				//InStoreEmployeeApp.loginEmployee(EmployeeManager.findEmployee(empId_txt.getText()));
 				this.dispose();
