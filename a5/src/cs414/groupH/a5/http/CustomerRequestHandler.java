@@ -93,7 +93,7 @@ public class CustomerRequestHandler implements HttpHandler {
 				Customer cust = CustomerManager.findCustomer(uname[QUERY_VAL]);
 				if (cust != null) {
 					if (cust.verifyPassword(pw[QUERY_VAL]))
-						retValue = cust.getName();
+						retValue = cust.getUsername();
 					else
 						retValue = "INVALID";
 				}
@@ -108,6 +108,18 @@ public class CustomerRequestHandler implements HttpHandler {
 				
 				return "SUCCESS";
 			}
+			else if (type[QUERY_VAL].equalsIgnoreCase("addRewardPoint")) {
+				String[] uname = subs[QUERY_ID].split("=");
+				
+				boolean res = RewardsSystem.addPoints(uname[QUERY_VAL], 1);
+				
+				if (res) {
+					return "SUCCESS";
+				}
+				else {
+					return "FAILURE";
+				}
+			}
 			else if (type[QUERY_VAL].equalsIgnoreCase("unameExist")) {
 				String[] uname = subs[QUERY_ID].split("=");
 				Customer cust = CustomerManager.findCustomer(uname[QUERY_VAL]);
@@ -116,6 +128,14 @@ public class CustomerRequestHandler implements HttpHandler {
 				}
 				else
 					retValue = "exists";
+			}
+			else if (type[QUERY_VAL].equalsIgnoreCase("getThreshold")) {
+				return Integer.toString(RewardsSystem.getThreshold());
+			}
+			else if (type[QUERY_VAL].equalsIgnoreCase("setThreshold")) {
+				String[] threshold = subs[QUERY_ID].split("=");
+				RewardsSystem.setThreshold(Integer.parseInt(threshold[QUERY_VAL]));
+				return "SUCCESS";
 			}
 			else if (type[QUERY_VAL].equalsIgnoreCase("rewardavailable")) {
 				String[] uname = subs[QUERY_ID].split("=");
