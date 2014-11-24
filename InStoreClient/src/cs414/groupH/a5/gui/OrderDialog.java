@@ -43,6 +43,7 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	
 	ArrayList<String> payments = new ArrayList<String>();
 	ArrayList<String> selectedItems = new ArrayList<String>();
+	ArrayList<String> selectedPrices = new ArrayList<String>();
 	double total;
 	double paid;
 	DecimalFormat df = new DecimalFormat("#,##0.00");
@@ -122,6 +123,24 @@ public class OrderDialog extends JDialog implements MouseListener  {
 			}
 			else {
 				boolean cancel = false;
+				if (RequestHandler.getCustomer() != null) {
+					if (InStoreHttpClient.hasCertificate(RequestHandler.getCustomer())) {
+						double smallest = 0.0;
+						boolean set = false;
+						for (int i=0; i<selectedItems.size(); i++) {
+							if (selectedItems.get(i).contains("pizza")) {
+								if (!set) {
+									smallest = Double.parseDouble(selectedPrices.get(i));
+								}
+								else if (Double.parseDouble(selectedPrices.get(i)) < smallest) {
+									smallest = Double.parseDouble(selectedPrices.get(i));
+								}
+							}
+						}
+						
+						total -= smallest;
+					}
+				}
 				while(getAmountDue() > 0){
 					new PaymentMethodDialog(this);
 				}
@@ -146,6 +165,8 @@ public class OrderDialog extends JDialog implements MouseListener  {
     		DefaultTableModel model = (DefaultTableModel) order.getModel();
     		
     		for(int i=0; i<rows.length; i++){ 
+    			selectedPrices.remove(selectedItems.indexOf(order.getValueAt(rows[i]-i, 0).toString()));
+    			selectedItems.remove(order.getValueAt(rows[i]-i, 0).toString());
 	    		total = total - Double.parseDouble(order.getValueAt(rows[i]-i, 1).toString());
 	    		RequestHandler.removeItem(rows[i]-i);
 	    		model.removeRow(rows[i]-i);
@@ -167,6 +188,8 @@ public class OrderDialog extends JDialog implements MouseListener  {
 	    		newRow[0] = menu.getValueAt(rows[i], 0).toString().replace("Special: ", "");
 	    		newRow[1] = df.format(Double.parseDouble(menu.getValueAt(rows[i], 1).toString())).replaceAll( "^-(?=0(.0*)?$)", "");
 	    		model.addRow(newRow);
+	    		selectedItems.add(menu.getValueAt(rows[i], 0).toString());
+	    		selectedPrices.add(menu.getValueAt(rows[i], 1).toString());
 	    		total = total + Double.parseDouble(menu.getValueAt(rows[i], 1).toString());	
 	    		RequestHandler.addItemXml(XmlHelper.getItemXml(menu.getValueAt(rows[i], 0).toString().replace("Special: ", ""),
 	    					menu.getValueAt(rows[i], 1).toString(), "false"));

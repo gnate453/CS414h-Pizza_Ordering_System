@@ -7,6 +7,10 @@ public class RewardsSystem {
 	private static Map<String, RewardsRecord> data = new HashMap<String, RewardsRecord>();
 	private static int pointsThreshold;
 	
+	public static int getThreshold() {
+		return pointsThreshold;
+	}
+	
 	public static void setThreshold(int t) {
 		pointsThreshold = t;
 		for (String id : data.keySet()) {

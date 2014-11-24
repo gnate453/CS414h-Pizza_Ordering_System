@@ -145,6 +145,93 @@ public class InStoreHttpClient {
 		return result.equalsIgnoreCase("available");
 	}
 	
+	public static String getThreshold() {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/customer?type=getThreshold";
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				
+				//System.out.println(result);
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+	
+	public static String setThreshold(String threshold) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/customer?type=setThreshold&threshold="+threshold;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				
+				//System.out.println(result);
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+	
+	public static boolean hasCertificate(String uname) {
+		String result = null;
+		
+		String url = "http://"+ipAddr+"/customer?type=rewardavailable&id="+uname;
+		HttpGet httpget = new HttpGet(url);
+		
+		HttpResponse response;
+		try {
+			//response captures what happens when we execute
+			response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+				result = convertToString(instream);
+				
+				//System.out.println(result);
+				
+				//close the stream
+				instream.close();
+			}
+		} 
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result.equalsIgnoreCase("true");
+	}
+	
 	public static String addCust(String xmlInput) {
 		String result = null;
 		

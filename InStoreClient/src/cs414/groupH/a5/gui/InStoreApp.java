@@ -21,6 +21,7 @@ public class InStoreApp extends JApplet implements MouseListener {
 	JButton viewMenu_btn;
 	JButton viewOrders_btn;
 	JButton register_btn;
+	JButton threshold_btn;
 	
 	JLabel loggedIn_lbl = new JLabel("Logged in as: ");
 	JLabel emp_lbl = new JLabel("NOT LOGGED IN");
@@ -45,6 +46,7 @@ public class InStoreApp extends JApplet implements MouseListener {
         viewMenu_btn = new JButton("View Menu");
         viewOrders_btn = new JButton("View Orders");
         register_btn = new JButton("Register");
+        threshold_btn = new JButton("Change Reward Threshold");
         
         login_btn.addMouseListener(this);
         logout_btn.addMouseListener(this);
@@ -54,6 +56,7 @@ public class InStoreApp extends JApplet implements MouseListener {
         viewMenu_btn.addMouseListener(this);
         viewOrders_btn.addMouseListener(this);
         register_btn.addMouseListener(this);
+        threshold_btn.addMouseListener(this);
         
         renderView();
 	}
@@ -80,6 +83,7 @@ public class InStoreApp extends JApplet implements MouseListener {
 	        	this.setLayout(new GridLayout(3,3));
 		        this.add(addMenuItem_btn);
 		        this.add(editMenuItem_btn);
+		        this.add(threshold_btn);
 	        }
         }
         else {
@@ -87,6 +91,7 @@ public class InStoreApp extends JApplet implements MouseListener {
         	this.remove(addMenuItem_btn);
 	        this.remove(editMenuItem_btn);
 	        this.remove(viewOrders_btn);
+	        this.remove(threshold_btn);
         }
         this.repaint();
 	}
@@ -133,6 +138,9 @@ public class InStoreApp extends JApplet implements MouseListener {
 		}
 		else if (me.getSource() == register_btn) {
 			new NewCustDialog();
+		}
+		else if (me.getSource() == threshold_btn) {
+			new ThreshholdDialog();
 		}
 		else if (me.getSource() == login_btn) {
 			new LoginDialog();

@@ -66,6 +66,7 @@ public class CustLoginDialog extends JDialog implements MouseListener {
 				String name = InStoreHttpClient.loginCust(empId_txt.getText(), pwd_txt.getText());
 				if (!name.equalsIgnoreCase("invalid")) {
 					String custXml = XmlHelper.getCustomerXml(name, empId_txt.getText());
+					RequestHandler.setCustomer(empId_txt.getText());
 					RequestHandler.setCustomerXml(custXml);
 					new OrderDialog();
 					this.dispose();

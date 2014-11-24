@@ -8,6 +8,7 @@ public class RequestHandler {
 	private static String paymentXml = "";
 	private static String customerXml;
 	private static ArrayList<String> itemXml = new ArrayList<String>();
+	private static String customer;
 	//private static String addressXml;
 
 	public static String getAddressXml() {
@@ -15,6 +16,12 @@ public class RequestHandler {
 	}
 	public static void setAddressXml(String addressXml) {
 		RequestHandler.addressXml = addressXml;
+	}
+	public static String getCustomer() {
+		return customer;
+	}
+	public static void setCustomer(String customer) {
+		RequestHandler.customer = customer;
 	}
 	public static String getCustomerXml() {
 		return customerXml;

@@ -32,6 +32,7 @@ import cs414.groupH.a5.manager.SystemManager;
 import cs414.groupH.a5.menu.MenuItem;
 import cs414.groupH.a5.order.Order;
 import cs414.groupH.a5.payment.Payment;
+import cs414.groupH.a5.rewards.RewardsSystem;
 
 public class OrderRequestHandler implements HttpHandler {
 
@@ -99,16 +100,14 @@ public class OrderRequestHandler implements HttpHandler {
 			Order o = orderXMLParser(reqBody);
 			
 			if (o != null) {
-				return "VALID";
+				if (RewardsSystem.isMember(o.getCustomer().getUsername())) {
+					RewardsSystem.addPoints(o.getCustomer().getUsername(), 1);
+				}
+				return "VALID,"+o.getOrderId();
 			}
 			else {
 				return "NOT VALID";
 			}
-			/*ArrayList<String> items = new ArrayList<String>();
-			for (MenuItem it : o.getItems()) {
-				items.add(it.getName());
-			}
-			return  getOrderXML(SystemManager.createOrder(o.getCustomer(), items, o.getPayments()));*/
 		}
 		else if (type[QUERY_KEY].equalsIgnoreCase("type") && type[QUERY_VAL].equalsIgnoreCase("markComplete")) {
 			String[] order = subs[QUERY_ORDER].split("=");
