@@ -7,7 +7,7 @@ public class RequestHandler {
 	private static String addressXml;
 	private static String paymentXml = "";
 	private static String customerXml;
-	private static ArrayList<String> itemXml;
+	private static ArrayList<String> itemXml = new ArrayList<String>();
 	//private static String addressXml;
 
 	public static String getAddressXml() {
