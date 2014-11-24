@@ -20,6 +20,7 @@ public class InStoreApp extends JApplet implements MouseListener {
 	JButton logout_btn;
 	JButton viewMenu_btn;
 	JButton viewOrders_btn;
+	JButton register_btn;
 	
 	JLabel loggedIn_lbl = new JLabel("Logged in as: ");
 	JLabel emp_lbl = new JLabel("NOT LOGGED IN");
@@ -43,6 +44,7 @@ public class InStoreApp extends JApplet implements MouseListener {
         editMenuItem_btn = new JButton("Edit Menu Item");
         viewMenu_btn = new JButton("View Menu");
         viewOrders_btn = new JButton("View Orders");
+        register_btn = new JButton("Register");
         
         login_btn.addMouseListener(this);
         logout_btn.addMouseListener(this);
@@ -51,6 +53,7 @@ public class InStoreApp extends JApplet implements MouseListener {
         editMenuItem_btn.addMouseListener(this);
         viewMenu_btn.addMouseListener(this);
         viewOrders_btn.addMouseListener(this);
+        register_btn.addMouseListener(this);
         
         renderView();
 	}
@@ -69,6 +72,7 @@ public class InStoreApp extends JApplet implements MouseListener {
         }
         this.add(viewMenu_btn,3);
         this.add(placeOrder_btn,4);
+        this.add(register_btn,5);
 
         if (empLoggedInID != null) {
         	this.add(viewOrders_btn);
@@ -126,6 +130,9 @@ public class InStoreApp extends JApplet implements MouseListener {
 		}
 		else if (me.getSource() == viewOrders_btn) {
 			new ViewOrders();
+		}
+		else if (me.getSource() == register_btn) {
+			new NewCustDialog();
 		}
 		else if (me.getSource() == login_btn) {
 			new LoginDialog();
